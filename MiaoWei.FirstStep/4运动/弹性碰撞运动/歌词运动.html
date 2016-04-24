@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        *{ margin: 0;padding: 0;}
+        #div1,#div2{ position: absolute;left: 0;top: 0;}
+        #div2{ color: red;width: 15px;height: 16px;overflow: hidden;}
+        #div2 span{ position: absolute;left: 0;top: 0;width: 2000px;}
+    </style>
+    <script>
+        window.onload= function() {
+            var oDiv2 = document.getElementById('div2');
+            var oSpan2 = oDiv2.getElementsByTagName('span')[0];
+            setInterval(function() {
+                oDiv2.style.left = oDiv2.offsetLeft + 1 + 'px';
+                oSpan2.style.left = -oDiv2.offsetLeft + 'px';
+            }, 10);
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <span>啊飒飒飒飒大大发生过的废话瑞特人格和一人突然</span>
+    </div>
+    <div id="div2">
+        <span>啊飒飒飒飒大大发生过的废话瑞特人格和一人突然</span>
+    </div>
+</body>
+</html>

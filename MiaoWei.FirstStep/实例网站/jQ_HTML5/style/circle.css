@@ -1,0 +1,80 @@
+#circle-box {
+	position: relative;
+	left: 70px;
+	width: 200px;
+	height: 200px;
+	margin: 150px auto;
+	background: transparent;
+	-webkit-transform: perspective(1000px) rotateX(-10deg) rotateY(0deg);
+	-moz-transform: perspective(1000px) rotateX(-10deg) rotateY(0deg);
+	-ms-transform: perspective(1000px) rotateX(-10deg) rotateY(0deg);
+	-o-transform: perspective(1000px) rotateX(-10deg) rotateY(0deg);
+	transform: perspective(1000px) rotateX(-10deg) rotateY(0deg);
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+#circle-bg {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 1200px;
+	height: 1200px;
+	background: -webkit-radial-gradient(center center, 600px 600px ,rgba(50,50,50,1), rgba(0,0,0,0));
+	background: -moz-radial-gradient(center center, 600px 600px ,rgba(50,50,50,1), rgba(0,0,0,0));
+	background: -ms-radial-gradient(center center, 600px 600px ,rgba(50,50,50,1), rgba(0,0,0,0));
+	background: -o-radial-gradient(center center, 600px 600px ,rgba(50,50,50,1), rgba(0,0,0,0));
+	background: radial-gradient(center center, 600px 600px ,rgba(50,50,50,1), rgba(0,0,0,0));
+	margin-left: -600px;
+	margin-top: -600px;
+	-webkit-transform: translateY(200px) rotateX(90deg);
+	-moz-transform: translateY(200px) rotateX(90deg);
+	-ms-transform: translateY(200px) rotateX(90deg);
+	-o-transform: translateY(200px) rotateX(90deg);
+	transform: translateY(200px) rotateX(90deg);
+}
+#circle-box .cont {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 153px;
+	height: 400px;
+	margin-left: -67px;
+	margin-top: -90px;
+	-webkit-transition: 1s all ease;
+	-moz-transition: 1s all ease;
+	transition: 1s all ease;
+	-webkit-transform: rotateY(0deg) translateZ(0px);
+	-moz-transform: rotateY(0deg) translateZ(0px);
+	transform: rotateY(0deg) translateZ(0px);
+}
+#circle-box .cont .img {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 133px;
+	height: 200px;
+	box-shadow: 0 0 10px #fff;
+	border-radius: 2px;
+	background-size: 100% 100%;
+}
+#circle-box .cont .over {
+	position: absolute;
+	left: 0;
+	top: 214px;
+	width: 133px;
+	height: 100px;
+	-webkit-transform: scale(1,-1);
+	-moz-transform: scale(1,-1);
+	transform: scale(1,-1);
+}
+#circle-box .cont .shadow {
+	position: absolute;
+	left: 0;
+	top: -102px;
+	width: 133px;
+	height: 200px;
+	opacity: 0.2;
+}

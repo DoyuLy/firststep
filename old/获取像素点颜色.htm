@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>获取像素点颜色</title>
+    <style type="text/css">
+        body{ background-color:black;}
+        #c1{ background-color:White; }
+        .center{margin:200px auto; width:400px; height:400px;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGc = oC.getContext('2d');
+
+            oGc.fillRect(0, 0, 100, 100);
+
+            var oImg = oGc.getImageData(0, 0, 100, 100);
+
+            //alert(getXY(oImg, 3, 5));
+
+            for(var i=0;i<oImg.width;i++){
+                setXY(oImg, i, 1, [255, 0, 0, 255]);//设置某行像素的值,
+            }
+            
+            oGc.putImageData(oImg, 100, 100);//显示到指定点
+
+            function getXY(obj, x, y) {
+                var w = obj.width;
+                var h = obj.height;
+                var d = obj.data;
+
+                var color = [];
+
+                color[0] = d[4 * (y * w + x)];
+                color[1] = d[4 * (y * w + x) + 1];
+                color[2] = d[4 * (y * w + x) + 2];
+                color[3] = d[4 * (y * w + x) + 3];
+
+                return color;
+            }
+
+            function setXY(obj, x, y, color) {//针对一行一列像素操作
+                var w = obj.width;
+                var h = obj.height;
+                var d = obj.data;
+
+                d[4 * (y * w + x)] = color[0];
+                d[4 * (y * w + x) + 1] = color[1];
+                d[4 * (y * w + x) + 2] = color[2];
+                d[4 * (y * w + x) + 3] = color[3];
+            }
+        }
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="800" height="800">
+            <span>不支持HTML5</span>
+    </canvas>
+</body>
+</html>

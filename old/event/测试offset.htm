@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>测试offset</title>
+    <style type="text/css">
+        #div1{ width:100px; height:100px; background:pink; position:absolute;top:10px;left:10px;}
+        #div2{ margin:5px; padding:5px; border:1px solid black; width:100px; height:100px; background:pink; position:absolute; top:10px; left:120px;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oDiv1 = document.getElementById('div1');
+            var oDiv2 = document.getElementById('div2');
+            var oBtn1 = document.getElementById('btn1');
+            var oBtn2 = document.getElementById('btn2');
+            var oTxt1 = document.getElementById('txt1');
+            var oTxt2 = document.getElementById('txt2');
+
+            oBtn1.onclick = function () {
+                var val = 'offsetLfet:' + oDiv1.offsetLeft + 'px \n';
+                val += 'offsetTop:' + oDiv1.offsetTop + 'px \n';
+                val += 'offsetWidth:' + oDiv1.offsetWidth + 'px \n';
+                val += 'offsetHeight:' + oDiv1.offsetHeight + 'px \n';
+                oTxt1.innerHTML = val;
+            }
+            oBtn2.onclick = function () {
+                var val = 'offsetLfet:' + oDiv2.offsetLeft + 'px \n';
+                val += 'offsetTop:' + oDiv2.offsetTop + 'px \n';
+                val += 'offsetWidth:' + oDiv2.offsetWidth + 'px \n';
+                val += 'offsetHeight:' + oDiv2.offsetHeight + 'px \n';
+                //val += 'padding:' + oDiv2.marginLeft + 'px \n';
+                oTxt2.innerHTML = val;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style=' text-align:center; width:500px; height:auto; margin:0 auto; '>
+        <input type="button" value='检测1' id='btn1' />
+        <input type="button" value='检测2' id='btn2' />
+    </div>
+    <div style=' width:400px; height:400px; position:relative; margin:auto auto; background:silver;'>
+        <div id='div1'>div1</div>
+        <div id='div2'>div2</br>padding:5px</br>margin:5px</div>
+        <textarea rows='10' cols='10' id='txt1' style=' width:180px; position:absolute; top:200px; left:10px;'></textarea>
+        <textarea rows='10' cols='10' id='txt2' style=' width:180px; position:absolute; top:200px; left:200px;'></textarea>
+    </div>
+
+</body>
+</html>

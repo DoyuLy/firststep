@@ -1,0 +1,6 @@
+c:\users\administrator\documents\visual studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\bin\MiaoWei.FirstStep.dll.config
+c:\users\administrator\documents\visual studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\bin\MiaoWei.FirstStep.dll
+c:\users\administrator\documents\visual studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\bin\MiaoWei.FirstStep.pdb
+c:\users\administrator\documents\visual studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\obj\Debug\MiaoWei.FirstStep.csprojResolveAssemblyReference.cache
+c:\users\administrator\documents\visual studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\obj\Debug\MiaoWei.FirstStep.dll
+c:\users\administrator\documents\visual studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\obj\Debug\MiaoWei.FirstStep.pdb

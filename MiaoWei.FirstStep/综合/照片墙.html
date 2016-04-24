@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        *{ margin: 0;padding: 0;}
+        #ul1{ width: 660px;position: relative;margin: 10px auto;}
+        #ul1 li{ width: 200px;height: 150px;margin: 10px;float: left;list-style: none;}
+    </style>
+    <script src="move.js"></script>
+    <script>
+
+        window.onload = function() {
+            //1.布局转换
+            var aLi = document.getElementsByTagName('li');
+            var oInput = document.getElementById('input1');
+
+            var arrLi = [];
+            var zIndex = 1;
+            //2.存li的位置
+            for (var i = 0; i < aLi.length; i++) {
+                arrLi.push({ left: aLi[i].offsetLeft, top: aLi[i].offsetTop });
+                aLi[i].index = i;//li添加索引
+            }
+
+            //3.li修改为定位
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].style.position = 'absolute';
+                aLi[i].style.left = arrLi[i].left + 'px';
+                aLi[i].style.top = arrLi[i].top + 'px';
+                //取消过渡属性margin
+                aLi[i].style.margin = 0;
+                //添加zIndex属性
+                aLi[i].style.zIndex = 0;
+            }
+            //4.所有li添加拖拽
+            for (var i = 0; i < aLi.length; i++) {
+                _drag(aLi[i]);
+            }
+
+            //5.随机运动
+            oInput.onclick = function () {
+                var randomArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+                randomArr.sort(function(n1, n2) {
+                    return Math.random() - 0.5;
+                });
+                
+                for (var i = 0; i < aLi.length; i++) {
+                    //startMove(aLi[i], {
+                    //    left: arrLi[randomArr[i]].left,
+                    //    top: arrLi[randomArr[i]].top
+                    //});
+                    //function startMoveT(obj, attrs, times, fx, fn)
+                    startMoveT(aLi[i],
+                        {
+                            left: arrLi[randomArr[i]].left,
+                            top: arrLi[randomArr[i]].top
+                        },
+                        2000,
+                        'easeBothStrong',
+                        function () { }
+                    );
+                }
+            };
+            bindEvent(oInput, 'click', function() {
+                var randomArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+                randomArr.sort(function(n1, n2) {
+                    return Math.random() - 0.5;
+                });
+                
+                for (var i = 0; i < aLi.length; i++) {
+                    //startMove(aLi[i], {
+                    //    left: arrLi[randomArr[i]].left,
+                    //    top: arrLi[randomArr[i]].top
+                    //});
+                    //function startMoveT(obj, attrs, times, fx, fn)
+                    startMoveT(aLi[i],
+                        {
+                            left: arrLi[randomArr[i]].left,
+                            top: arrLi[randomArr[i]].top
+                        },
+                        2000,
+                        'bounceBoth',
+                        function () { }
+                    );
+                }
+            });
+            setInterval(function() {
+                fireEvent(oInput, 'click');
+            },3500);
+
+            function _drag(obj) {
+                obj.onmousedown = function(ev) {
+                    obj.style.zIndex = zIndex++;
+                    //要移动必须在鼠标按下之后,采用回调方式同步
+                    var ev = ev || event;
+                    //alert(this.id);
+                    //找到鼠标按下点 到div的相对位置
+                    var disX = ev.clientX - this.offsetLeft;
+                    var disY = ev.clientY - this.offsetTop;
+
+                    //setCapture 拦截其他元素的事件
+                    if (this.setCapture)
+                        this.setCapture();
+
+                    //若一旦拖动过快,会移出oDiv,改为document
+                    document.onmousemove = function(ev) { //以时间间隔计算
+                        var ev = ev || event;
+                        console.log(this); //document
+                        obj.style.cursor = 'pointer';
+
+                        //限制拖动范围
+                        var L = ev.clientX - disX;
+                        var T = ev.clientY - disY;
+
+                        //九宫格碰撞检测
+                        //此处封装需要考虑碰撞检测的其他物体
+                        /*
+                        for (var i = 0; i < aLi.length; i++) {
+                            if (_colDetection(obj, aLi[i]) && obj != aLi[i]) {
+                                aLi[i].style.border = '1px solid red';
+                            } else {
+                                aLi[i].style.border = '';
+                            }
+                        }*/
+                        //去掉所有的li边框,只给最近的加
+                        for (var i = 0; i < aLi.length; i++) {
+                            aLi[i].style.border = '';
+                        }
+
+                        //找最近的obj
+                        var nObj = nearObj(obj);
+                        //万一谁都没碰着
+                        if(nObj)
+                            nObj.style.border = '1px solid red';
+
+                        /*
+                        //若要做磁性吸附,请更改L和Top的阀值 如 5
+                        if (L < 0) {//限制左边
+                            L = 0;
+                        } else if (L > document.documentElement.clientWidth - obj.offsetWidth) {//限制右边(可视宽-文档宽)
+                            L = document.documentElement.clientWidth - obj.offsetWidth;
+                        }
+        
+                        if (T < 0) {//限制上边
+                            T = 0;
+                        } else if (T > document.documentElement.clientHeight - obj.offsetHeight) {//限制下边(可视高-文档高)
+                            T = document.documentElement.clientHeight - obj.offsetHeight;
+                        }
+                        */
+
+                        obj.style.left = L + 'px';
+                        obj.style.top = T + 'px';
+
+                    };
+
+                    //若有其他元素层级覆盖住,则不会释放掉oDiv的up事件,因此改为document
+                    document.onmouseup = function() {
+                        //每次down重新生成move事件,抬起清空
+                        document.onmousemove = document.onmouseup = null;
+
+                        //释放全局拦截
+                        if (obj.releaseCapture)
+                            obj.releaseCapture();
+
+                        //交换位置
+                        var nObj = nearObj(obj);
+                        var temp = 0;
+                        if (nObj) {
+                            startMove(nObj,
+                            {
+                                left: arrLi[obj.index].left,
+                                top: arrLi[obj.index].top
+                            });
+                            startMove(obj,
+                            {
+                                left: arrLi[nObj.index].left,
+                                top: arrLi[nObj.index].top
+                            });
+
+                            nObj.style.border = '';
+                            //切换索引值
+                            temp = obj.index;
+                            obj.index = nObj.index;
+                            nObj.index = temp;
+                        } else {
+                            startMove(obj,
+                            {
+                                left: arrLi[obj.index].left,
+                                top: arrLi[obj.index].top
+                            });
+                        }
+                    };
+
+                    //阻止选中文字触发默认行为
+                    return false;
+                };
+            }
+
+            //碰撞检测：注意此处方法是有定位父级的情况下
+            function _colDetection(obj1, obj2) {
+                //九宫格碰撞检测
+                var L1 = obj1.offsetLeft;
+                var R1 = obj1.offsetLeft + obj1.offsetWidth;
+                var T1 = obj1.offsetTop;
+                var B1 = obj1.offsetTop + obj1.offsetHeight;
+
+                var L2 = obj2.offsetLeft;
+                var R2 = obj2.offsetLeft + obj2.offsetWidth;
+                var T2 = obj2.offsetTop;
+                var B2 = obj2.offsetTop + obj2.offsetHeight;
+
+                if (R1 < L2 || R2 < L1 || B1 < T2 || B2 < T1) {
+                    return false; //没碰上
+                } else {
+                    return true; //碰上了
+                }
+            };
+
+            function nearObj(obj) {
+                var value = 9999;
+                var index = -1;
+                for (var i = 0; i < aLi.length; i++) {
+                    if (_colDetection(obj, aLi[i]) && obj != aLi[i]) {
+                        //从所有碰着的集合筛选最近的
+                        var c = pythagorean(obj, aLi[i]);
+                        if (c < value) {
+                            value = c;
+                            index = i;
+                        }
+                    } 
+                }
+                if (index != -1) {
+                    return aLi[index];
+                } else {
+                    return false;
+                }
+            };
+
+            //勾股定理求斜边:此方法需有定位父级
+            function pythagorean(obj1,obj2) {
+                var a = obj1.offsetLeft - obj2.offsetLeft;
+                var b = obj1.offsetTop - obj2.offsetTop;
+                return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+            };
+
+        };
+    </script>
+</head>
+    <body>
+        <input type="button" value="随机" id="input1" />
+        <ul id="ul1">
+            <li><img src="photo/1.jpg" /></li>
+            <li><img src="photo/2.jpg" /></li>
+            <li><img src="photo/3.jpg" /></li>
+            <li><img src="photo/4.jpg" /></li>
+            <li><img src="photo/5.jpg" /></li>
+            <li><img src="photo/1.jpg" /></li>
+            <li><img src="photo/2.jpg" /></li>
+            <li><img src="photo/3.jpg" /></li>
+            <li><img src="photo/4.jpg" /></li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>canvas</title>
+    <style type="text/css">
+        body{ background-color:Black;}
+        #c1{ background-color:White;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGc = oC.getContext('2d');
+
+
+            oGc.fillStyle = 'red'; //方块背景色
+            oGc.strokeStyle = 'pink'; //边框色
+            oGc.lineWidth = 10;
+            oGc.lineJoin = "round"//bevel斜角
+            oGc.fillRect(50, 50, 100, 100); //填充(注意填充和边框绘制顺序不一致的话会造成效果不同)
+            oGc.strokeRect(50.5, 50.5, 100, 100);
+
+            oGc.beginPath(); //开始绘制线条(注意开始结束一定要标记)
+            oGc.moveTo(200, 200); //新绘制目标起点
+            oGc.lineTo(300, 300); //终点
+            oGc.lineTo(400, 300);
+            oGc.closePath(); //闭合
+            //oGc.stroke();//执行划线
+            oGc.fill(); //执行填充
+
+            oGc.moveTo(150, 200);
+            oGc.arc(150, 150, 150, 0, 360 * Math.PI / 180, true); //true是逆时针(x,y,r,起始弧度,终止弧度,顺逆时针)
+            oGc.stroke();
+
+            //-----------弧线------------
+            oGc.moveTo(100, 200);
+            oGc.arcTo(100, 100, 200, 100, 50); //前两个第1个点,后两个第2个点，最后一个是半径
+            oGc.stroke();
+
+            //-------贝塞尔曲线--------
+            oGc.moveTo(150, 150);
+            oGc.quadraticCurveTo(100, 100, 600, 50); //起点：150,150  终点：600,50  控制点：100,100(使之偏向)
+            oGc.stroke();
+            //-------贝塞尔曲线2-----
+            oGc.moveTo(300, 400);
+            oGc.bezierCurveTo(300, 300, 400, 400, 400, 300);//2组控制点,形成tanx函数
+            oGc.stroke();
+
+        }
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="800" height="800">
+        <span>不支持HTML5</span>
+    </canvas>
+</body>
+</html>
+
+
+<!--
+  canvas 目前只支持2D绘图  getContext('2d'); webgl支持3D绘图(有兼容问题)
+  绘图方法：
+  1.document.getElementById('c1').getContext('2d').fillRect(L,T,W,H)  //默认是黑色背景(填充)
+  2.document.getElementById('c1').getContext('2d').strokeRect(L,T,W,H) //默认黑色边框,默认1px,但浏览器问题会成为2px(绘制方框)
+  3.边框宽度：oGc.lineWidth = 10;
+  4.边界绘制：oGc.lineJoin="round"//bevel斜角
+    端点样式：lineCap='butt'  'round'(圆角) 'sequence'(高度多出宽的一半)
+  5.绘制路径(线)：beginPath/closePath/moveTo(移动到新绘制的目标点)/lineTo(新的目标点)
+  6.绘制圆：oGc.arc(x,y,半径,起始弧度,结束弧度,旋转方向)
+-->

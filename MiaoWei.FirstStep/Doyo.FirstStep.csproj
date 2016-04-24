@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5AB6B842-C945-4A68-89AF-BB1EBA2C7FEB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MiaoWei.FirstStep</RootNamespace>
+    <AssemblyName>MiaoWei.FirstStep</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BackBone\requier使用\app\main.js" />
+    <Content Include="BackBone\js\Require.js" />
+    <Content Include="BackBone\requier使用\Require使用.html" />
+    <Content Include="BackBone\underscore使用\操作简介.html" />
+    <Content Include="BackBone\事件管理\BackBone-事件.html" />
+    <Content Include="BackBone\数据模型\数据模型.html" />
+    <Content Include="BackBone\数据模型\集合.html" />
+    <Content Include="实例网站\B2C\B2C.html" />
+    <Content Include="实例网站\B2C\css\Style.css" />
+    <Content Include="实例网站\B2C\img\100du.ico" />
+    <Content Include="实例网站\B2C\img\activity_bg.gif" />
+    <Content Include="实例网站\B2C\img\adorn.gif" />
+    <Content Include="实例网站\B2C\img\ad\ad1.jpg" />
+    <Content Include="实例网站\B2C\img\ad\ad2.jpg" />
+    <Content Include="实例网站\B2C\img\ad\ad3.jpg" />
+    <Content Include="实例网站\B2C\img\btn.gif" />
+    <Content Include="实例网站\B2C\img\content\123.gif" />
+    <Content Include="实例网站\B2C\img\content\360.gif" />
+    <Content Include="实例网站\B2C\img\content\456.jpg" />
+    <Content Include="实例网站\B2C\img\content\bbs_img1.gif" />
+    <Content Include="实例网站\B2C\img\content\hot1.gif" />
+    <Content Include="实例网站\B2C\img\content\hot10.gif" />
+    <Content Include="实例网站\B2C\img\content\hot11.gif" />
+    <Content Include="实例网站\B2C\img\content\hot2.gif" />
+    <Content Include="实例网站\B2C\img\content\hot3.gif" />
+    <Content Include="实例网站\B2C\img\content\hot4.gif" />
+    <Content Include="实例网站\B2C\img\content\hot5.gif" />
+    <Content Include="实例网站\B2C\img\content\hot6.gif" />
+    <Content Include="实例网站\B2C\img\content\hot7.gif" />
+    <Content Include="实例网站\B2C\img\content\hot8.gif" />
+    <Content Include="实例网站\B2C\img\content\hot9.gif" />
+    <Content Include="实例网站\B2C\img\content\hot_list_pic1.gif" />
+    <Content Include="实例网站\B2C\img\content\hot_list_pic2.gif" />
+    <Content Include="实例网站\B2C\img\content\img1.gif" />
+    <Content Include="实例网站\B2C\img\content\img2.gif" />
+    <Content Include="实例网站\B2C\img\content\img3.gif" />
+    <Content Include="实例网站\B2C\img\content\media1.gif" />
+    <Content Include="实例网站\B2C\img\content\media2.gif" />
+    <Content Include="实例网站\B2C\img\content\media3.gif" />
+    <Content Include="实例网站\B2C\img\content\media4.gif" />
+    <Content Include="实例网站\B2C\img\content\pic1.gif" />
+    <Content Include="实例网站\B2C\img\content\recommend_list_ico1.gif" />
+    <Content Include="实例网站\B2C\img\content\recommend_list_ico2.gif" />
+    <Content Include="实例网站\B2C\img\content\today1.gif" />
+    <Content Include="实例网站\B2C\img\content\today2.gif" />
+    <Content Include="实例网站\B2C\img\dot.gif" />
+    <Content Include="实例网站\B2C\img\header_link_bg.gif" />
+    <Content Include="实例网站\B2C\img\help.gif" />
+    <Content Include="实例网站\B2C\img\hot_list_li_bg.gif" />
+    <Content Include="实例网站\B2C\img\ico1.gif" />
+    <Content Include="实例网站\B2C\img\ico2.gif" />
+    <Content Include="实例网站\B2C\img\logo.png" />
+    <Content Include="实例网站\B2C\img\more.gif" />
+    <Content Include="实例网站\B2C\img\nav_bg.png" />
+    <Content Include="实例网站\B2C\img\new_title_bg.gif" />
+    <Content Include="实例网站\B2C\img\play_bg.gif" />
+    <Content Include="实例网站\B2C\img\search_img.png" />
+    <Content Include="实例网站\B2C\img\video_bg.gif" />
+    <Content Include="实例网站\B2C\js\100du.js" />
+    <Content Include="实例网站\B2C\js\DD_belatedPNG_0.0.8a.js" />
+    <Content Include="实例网站\B2C\js\jquery-1.11.0.min.js" />
+    <Content Include="实例网站\B2C\js\tween.js" />
+    <Content Include="实例网站\BackBone\bootstrap\css\bootstrap-responsive.css" />
+    <Content Include="实例网站\BackBone\bootstrap\css\bootstrap-responsive.min.css" />
+    <Content Include="实例网站\BackBone\bootstrap\css\bootstrap.css" />
+    <Content Include="实例网站\BackBone\bootstrap\css\bootstrap.min.css" />
+    <Content Include="实例网站\BackBone\bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="实例网站\BackBone\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="实例网站\BackBone\bootstrap\js\bootstrap.js" />
+    <Content Include="实例网站\BackBone\bootstrap\js\bootstrap.min.js" />
+    <Content Include="实例网站\BackBone\css\styles.css" />
+    <Content Include="实例网站\BackBone\img\blog.jpg" />
+    <Content Include="实例网站\BackBone\img\github.jpg" />
+    <Content Include="实例网站\BackBone\img\logo.png" />
+    <Content Include="实例网站\BackBone\img\twitter.jpg" />
+    <Content Include="实例网站\BackBone\index.html" />
+    <Content Include="实例网站\BackBone\js\app.js" />
+    <Content Include="实例网站\BackBone\js\app\models\jsonp\employee.js" />
+    <Content Include="实例网站\BackBone\js\app\models\json\employee.js" />
+    <Content Include="实例网站\BackBone\js\app\models\memory\employee.js" />
+    <Content Include="实例网站\BackBone\js\app\router.js" />
+    <Content Include="实例网站\BackBone\js\app\views\contact.js" />
+    <Content Include="实例网站\BackBone\js\app\views\Employee.js" />
+    <Content Include="实例网站\BackBone\js\app\views\employeelist.js" />
+    <Content Include="实例网站\BackBone\js\app\views\EmployeeListItem.js" />
+    <Content Include="实例网站\BackBone\js\app\views\home.js" />
+    <Content Include="实例网站\BackBone\js\app\views\shell.js" />
+    <Content Include="实例网站\BackBone\js\lib\backbone.js" />
+    <Content Include="实例网站\BackBone\js\lib\jquery.js" />
+    <Content Include="实例网站\BackBone\js\lib\text.js" />
+    <Content Include="实例网站\BackBone\js\lib\underscore.js" />
+    <Content Include="实例网站\BackBone\js\require.js" />
+    <Content Include="实例网站\BackBone\js\source-sans-pro.js" />
+    <Content Include="实例网站\BackBone\js\tpl\Contact.html" />
+    <Content Include="实例网站\BackBone\js\tpl\Employee.html" />
+    <Content Include="实例网站\BackBone\js\tpl\EmployeeListItem.html" />
+    <Content Include="实例网站\BackBone\js\tpl\Home.html" />
+    <Content Include="实例网站\BackBone\js\tpl\Shell.html" />
+    <Content Include="实例网站\BackBone\pics\Amy_Jones.jpg" />
+    <Content Include="实例网站\BackBone\pics\Amy_Jones50.jpg" />
+    <Content Include="实例网站\BackBone\pics\Eugene_Lee.jpg" />
+    <Content Include="实例网站\BackBone\pics\Eugene_Lee50.jpg" />
+    <Content Include="实例网站\BackBone\pics\Gary_Donovan.jpg" />
+    <Content Include="实例网站\BackBone\pics\Gary_Donovan50.jpg" />
+    <Content Include="实例网站\BackBone\pics\James_King.jpg" />
+    <Content Include="实例网站\BackBone\pics\James_King50.jpg" />
+    <Content Include="实例网站\BackBone\pics\John_Williams.jpg" />
+    <Content Include="实例网站\BackBone\pics\John_Williams50.jpg" />
+    <Content Include="实例网站\BackBone\pics\Julie_Taylor.jpg" />
+    <Content Include="实例网站\BackBone\pics\Julie_Taylor50.jpg" />
+    <Content Include="实例网站\BackBone\pics\Kathleen_Byrne.jpg" />
+    <Content Include="实例网站\BackBone\pics\Kathleen_Byrne50.jpg" />
+    <Content Include="实例网站\BackBone\pics\Lisa_Wong.jpg" />
+    <Content Include="实例网站\BackBone\pics\Lisa_Wong50.jpg" />
+    <Content Include="实例网站\BackBone\pics\Paula_Gates.jpg" />
+    <Content Include="实例网站\BackBone\pics\Paula_Gates50.jpg" />
+    <Content Include="实例网站\BackBone\pics\Paul_Jones.jpg" />
+    <Content Include="实例网站\BackBone\pics\Paul_Jones50.jpg" />
+    <Content Include="实例网站\BackBone\pics\Ray_Moore.jpg" />
+    <Content Include="实例网站\BackBone\pics\Ray_Moore50.jpg" />
+    <Content Include="实例网站\BackBone\pics\Steven_Wells.jpg" />
+    <Content Include="实例网站\BackBone\pics\Steven_Wells50.jpg" />
+    <Content Include="实例网站\HTML5网站\①直很安静.mp3" />
+    <Content Include="实例网站\jQ_HTML5\images\3D.png" />
+    <Content Include="实例网站\jQ_HTML5\images\bg_01.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\bg_02.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\close.png" />
+    <Content Include="实例网站\jQ_HTML5\images\full.png" />
+    <Content Include="实例网站\jQ_HTML5\images\home.png" />
+    <Content Include="实例网站\jQ_HTML5\images\icon.png" />
+    <Content Include="实例网站\jQ_HTML5\images\logo_1.png" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\1.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\10.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\11.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\12.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\2.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\3.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\4.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\5.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\6.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\7.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\8.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\opus\9.jpg" />
+    <Content Include="实例网站\jQ_HTML5\images\pop_layer.png" />
+    <Content Include="实例网站\jQ_HTML5\images\prev.png" />
+    <Content Include="实例网站\jQ_HTML5\images\refresh.png" />
+    <Content Include="实例网站\jQ_HTML5\images\search_btn.png" />
+    <Content Include="实例网站\jQ_HTML5\images\skin.png" />
+    <Content Include="实例网站\jQ_HTML5\images\wheel_icon.png" />
+    <Content Include="实例网站\jQ_HTML5\index.html" />
+    <Content Include="实例网站\jQ_HTML5\js\circleModel.js" />
+    <Content Include="实例网站\jQ_HTML5\js\common.js" />
+    <Content Include="实例网站\jQ_HTML5\js\fullscreen.js" />
+    <Content Include="实例网站\jQ_HTML5\js\index.js" />
+    <Content Include="实例网站\jQ_HTML5\js\loading.js" />
+    <Content Include="实例网站\jQ_HTML5\style\circle.css" />
+    <Content Include="实例网站\jQ_HTML5\style\fullscreen.css" />
+    <Content Include="实例网站\jQ_HTML5\style\index.css" />
+    <Content Include="实例网站\jQ_HTML5\Summer.mp3" />
+    <Content Include="实例网站\jQ_HTML5\①直很安静.mp3" />
+    <Content Include="杂乱Demo\类型判断测试.html" />
+    <Content Include="综合\image\b1.jpg" />
+    <Content Include="综合\image\b2.jpg" />
+    <Content Include="综合\move.js" />
+    <Content Include="综合\photo\1.jpg" />
+    <Content Include="综合\photo\2.jpg" />
+    <Content Include="综合\photo\3.jpg" />
+    <Content Include="综合\photo\4.jpg" />
+    <Content Include="综合\photo\5.jpg" />
+    <Content Include="综合\放大镜.html" />
+    <Content Include="综合\照片墙.html" />
+    <Content Include="自定义事件\自定义事件.html" />
+    <Content Include="自定义事件\自定义事件拖拽.html" />
+    <Content Include="面向对象\包装对象-原型链.html" />
+    <Content Include="面向对象\原型_继承.html" />
+    <Content Include="面向对象\应用\弹窗组件.html" />
+    <Content Include="面向对象\类式_继承.html" />
+    <Content Include="面向对象\面向对象-拖拽.html" />
+    <Content Include="面向对象\面向对象-拖拽2.html" />
+    <Content Include="面向对象\拷贝-继承.html" />
+    <Content Include="面向对象\面向对象-选项卡.html" />
+    <Content Include="BackBone\js\underscore.doc.js" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="4运动\jquery-1.8.3.min.js" />
+    <Content Include="4运动\时间版运动\jQuery扩展运动算法.html" />
+    <Content Include="4运动\时间版运动\时间版运动.html" />
+    <Content Include="杂乱Demo\images\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="2简易轮播器\img\1.jpg" />
+    <Content Include="2简易轮播器\img\2.jpg" />
+    <Content Include="2简易轮播器\img\3.jpg" />
+    <Content Include="2简易轮播器\img\4.jpg" />
+    <Content Include="2简易轮播器\img\5.jpg" />
+    <Content Include="2简易轮播器\img\6.jpg" />
+    <Content Include="2简易轮播器\img\7.jpg" />
+    <Content Include="2简易轮播器\轮播器.html" />
+    <Content Include="3DOM\DOM.html" />
+    <Content Include="3DOM\Event.html" />
+    <Content Include="3DOM\事件-拖拽碰撞\1.jpg" />
+    <Content Include="3DOM\事件-拖拽碰撞\鼠标滚轮.html" />
+    <Content Include="3DOM\事件-拖拽碰撞\2.jpg" />
+    <Content Include="3DOM\事件-拖拽碰撞\拖拽碰撞.html" />
+    <Content Include="3DOM\事件-拖拽碰撞\模拟滚动条.html" />
+    <Content Include="3DOM\事件-自定义右键菜单.html" />
+    <Content Include="3DOM\事件例子--跟随鼠标.html" />
+    <Content Include="3DOM\事件冒泡.html" />
+    <Content Include="3DOM\事件捕获%28重要%29.html" />
+    <Content Include="3DOM\元素操作%28重要%29.html" />
+    <Content Include="3DOM\冒泡-分享到.html" />
+    <Content Include="3DOM\冒泡-显示Div.html" />
+    <Content Include="3DOM\键盘事件-div移动.html" />
+    <Content Include="3DOM\键盘事件-QQ留言.html" />
+    <Content Include="4运动\1.jpg" />
+    <Content Include="4运动\move.js" />
+    <Content Include="4运动\tween.js" />
+    <Content Include="4运动\弹性碰撞运动\弹性碰撞.html" />
+    <Content Include="4运动\弹性碰撞运动\弹性菜单.html" />
+    <Content Include="4运动\弹性碰撞运动\弹性运动.html" />
+    <Content Include="4运动\弹性碰撞运动\扔窗碰撞.html" />
+    <Content Include="4运动\弹性碰撞运动\歌词运动.html" />
+    <Content Include="4运动\弹性碰撞运动\自由落体.html" />
+    <Content Include="4运动\运动-完美.html" />
+    <Content Include="4运动\运动实例\images\1.png" />
+    <Content Include="4运动\运动实例\images\2.jpg" />
+    <Content Include="4运动\运动实例\images\3.jpg" />
+    <Content Include="4运动\运动实例\images\4.jpg" />
+    <Content Include="4运动\运动实例\images\5.jpg" />
+    <Content Include="4运动\运动实例\images\6.jpg" />
+    <Content Include="4运动\运动实例\img\1.jpg" />
+    <Content Include="4运动\运动实例\img\2.jpg" />
+    <Content Include="4运动\运动实例\img\3.jpg" />
+    <Content Include="4运动\运动实例\img\4.jpg" />
+    <Content Include="4运动\运动实例\img\5.jpg" />
+    <Content Include="4运动\运动实例\img\6.jpg" />
+    <Content Include="4运动\运动实例\img\7.jpg" />
+    <Content Include="4运动\运动实例\img\white.JPG" />
+    <Content Include="4运动\运动实例\图片-延迟加载.html" />
+    <Content Include="4运动\运动实例\图片-预先加载.html" />
+    <Content Include="4运动\运动实例\图片中心放大.html" />
+    <Content Include="4运动\运动实例\幻灯片.html" />
+    <Content Include="4运动\运动实例\运动回到顶部.html" />
+    <Content Include="4运动\运动实例\运动留言本.html" />
+    <Content Include="4运动\运动简介.html" />
+    <Content Include="BackBone\js\backbone-min.js" />
+    <Content Include="BackBone\HelloWorld.html" />
+    <Content Include="BackBone\js\jquery-2.0.3.min.js" />
+    <Content Include="BackBone\model.html" />
+    <Content Include="BackBone\js\underscore-min.js" />
+    <Content Include="Web.config" />
+    <Content Include="1热身\2014-2-25设置DIV.html" />
+    <Content Include="1热身\遮罩.html" />
+    <Content Include="实例网站\HTML5网站\images\3D.png" />
+    <Content Include="实例网站\HTML5网站\images\bg_01.jpg" />
+    <Content Include="实例网站\HTML5网站\images\bg_02.jpg" />
+    <Content Include="实例网站\HTML5网站\images\close.png" />
+    <Content Include="实例网站\HTML5网站\images\full.png" />
+    <Content Include="实例网站\HTML5网站\images\home.png" />
+    <Content Include="实例网站\HTML5网站\images\icon.png" />
+    <Content Include="实例网站\HTML5网站\images\logo_1.png" />
+    <Content Include="实例网站\HTML5网站\images\opus\1.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\10.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\11.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\12.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\2.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\3.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\4.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\5.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\6.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\7.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\8.jpg" />
+    <Content Include="实例网站\HTML5网站\images\opus\9.jpg" />
+    <Content Include="实例网站\HTML5网站\images\pop_layer.png" />
+    <Content Include="实例网站\HTML5网站\images\prev.png" />
+    <Content Include="实例网站\HTML5网站\images\refresh.png" />
+    <Content Include="实例网站\HTML5网站\images\search_btn.png" />
+    <Content Include="实例网站\HTML5网站\images\skin.png" />
+    <Content Include="实例网站\HTML5网站\images\wheel_icon.png" />
+    <Content Include="实例网站\HTML5网站\index.html" />
+    <Content Include="实例网站\HTML5网站\js\circleModel.js" />
+    <Content Include="实例网站\HTML5网站\js\common.js" />
+    <Content Include="实例网站\HTML5网站\js\fullscreen.js" />
+    <Content Include="实例网站\HTML5网站\js\index.js" />
+    <Content Include="实例网站\HTML5网站\js\loading.js" />
+    <Content Include="实例网站\QQ+\images\avatar.png" />
+    <Content Include="实例网站\QQ+\images\bg1.jpg" />
+    <Content Include="实例网站\QQ+\images\bg2.jpg" />
+    <Content Include="实例网站\QQ+\images\bg3.jpg" />
+    <Content Include="实例网站\QQ+\images\bg4.jpg" />
+    <Content Include="实例网站\QQ+\images\bg5.jpg" />
+    <Content Include="实例网站\QQ+\images\bg6.jpg" />
+    <Content Include="实例网站\QQ+\images\big0.png" />
+    <Content Include="实例网站\QQ+\images\big01.png" />
+    <Content Include="实例网站\QQ+\images\big02.png" />
+    <Content Include="实例网站\QQ+\images\big03.png" />
+    <Content Include="实例网站\QQ+\images\big04.png" />
+    <Content Include="实例网站\QQ+\images\big05.png" />
+    <Content Include="实例网站\QQ+\images\big06.png" />
+    <Content Include="实例网站\QQ+\images\big1.png" />
+    <Content Include="实例网站\QQ+\images\big2.png" />
+    <Content Include="实例网站\QQ+\images\big3.png" />
+    <Content Include="实例网站\QQ+\images\big4.png" />
+    <Content Include="实例网站\QQ+\images\big5.png" />
+    <Content Include="实例网站\QQ+\images\close.png" />
+    <Content Include="实例网站\QQ+\images\c_webqq_bg.png" />
+    <Content Include="实例网站\QQ+\images\c_webqq_x.png" />
+    <Content Include="实例网站\QQ+\images\dock_l.png" />
+    <Content Include="实例网站\QQ+\images\d_big_11.png" />
+    <Content Include="实例网站\QQ+\images\d_big_12.png" />
+    <Content Include="实例网站\QQ+\images\d_big_13.png" />
+    <Content Include="实例网站\QQ+\images\d_big_21.png" />
+    <Content Include="实例网站\QQ+\images\d_big_22.png" />
+    <Content Include="实例网站\QQ+\images\d_big_23.png" />
+    <Content Include="实例网站\QQ+\images\d_big_24.png" />
+    <Content Include="实例网站\QQ+\images\d_big_25.png" />
+    <Content Include="实例网站\QQ+\images\d_big_41.png" />
+    <Content Include="实例网站\QQ+\images\d_big_42.png" />
+    <Content Include="实例网站\QQ+\images\d_big_43.png" />
+    <Content Include="实例网站\QQ+\images\d_big_44.png" />
+    <Content Include="实例网站\QQ+\images\d_big_45.png" />
+    <Content Include="实例网站\QQ+\images\d_big_51.png" />
+    <Content Include="实例网站\QQ+\images\d_big_52.png" />
+    <Content Include="实例网站\QQ+\images\d_big_53.png" />
+    <Content Include="实例网站\QQ+\images\d_big_54.png" />
+    <Content Include="实例网站\QQ+\images\d_big_55.png" />
+    <Content Include="实例网站\QQ+\images\fast_nav.png" />
+    <Content Include="实例网站\QQ+\images\fast_nav_open.png" />
+    <Content Include="实例网站\QQ+\images\favicon.ico" />
+    <Content Include="实例网站\QQ+\images\login_layerBg.png" />
+    <Content Include="实例网站\QQ+\images\timer_bg.png" />
+    <Content Include="实例网站\QQ+\images\weather.png" />
+    <Content Include="实例网站\QQ+\images\weather2.png" />
+    <Content Include="实例网站\QQ+\images\weather_btn.png" />
+    <Content Include="实例网站\QQ+\images\x.png" />
+    <Content Include="实例网站\QQ+\images\zx.png" />
+    <Content Include="实例网站\QQ+\js\citymap.js" />
+    <Content Include="实例网站\QQ+\js\jquery-1.10.2.min.js" />
+    <Content Include="实例网站\QQ+\js\mark.js" />
+    <Content Include="实例网站\QQ+\js\move.js" />
+    <Content Include="实例网站\QQ+\QQ+.htm" />
+    <Content Include="实例网站\QQ+\style\indexcss.css" />
+    <Content Include="实例网站\HTML5网站\style\circle.css" />
+    <Content Include="实例网站\HTML5网站\style\fullscreen.css" />
+    <Content Include="实例网站\HTML5网站\style\index.css" />
+    <Content Include="实例网站\HTML5网站\Summer.mp3" />
+    <Content Include="杂乱Demo\canvas.htm" />
+    <Content Include="杂乱Demo\Demo.htm" />
+    <Content Include="杂乱Demo\event\smartBlog.html" />
+    <Content Include="杂乱Demo\event\this句柄.htm" />
+    <Content Include="杂乱Demo\event\事件冒泡.htm" />
+    <Content Include="杂乱Demo\event\事件委托.htm" />
+    <Content Include="杂乱Demo\event\回车留言.htm" />
+    <Content Include="杂乱Demo\event\坦克.htm" />
+    <Content Include="杂乱Demo\event\弹出层改变大小.htm" />
+    <Content Include="杂乱Demo\event\微博.html" />
+    <Content Include="杂乱Demo\event\微博2.html" />
+    <Content Include="杂乱Demo\event\拖拽%28面向对象%29.htm" />
+    <Content Include="杂乱Demo\event\测试offset.htm" />
+    <Content Include="杂乱Demo\event\瀑布.html" />
+    <Content Include="杂乱Demo\event\点击计数.htm" />
+    <Content Include="杂乱Demo\event\碰撞检测.htm" />
+    <Content Include="杂乱Demo\event\自定义滚动条.htm" />
+    <Content Include="杂乱Demo\event\计数异样写法1.htm" />
+    <Content Include="杂乱Demo\event\跟随鼠标%28兼容chrome%29.htm" />
+    <Content Include="杂乱Demo\event\阻止默认事件.htm" />
+    <Content Include="杂乱Demo\event\附加事件.htm" />
+    <Content Include="杂乱Demo\event\鼠标滚动事件.htm" />
+    <Content Include="杂乱Demo\iframe.htm" />
+    <Content Include="杂乱Demo\iframe2.htm" />
+    <Content Include="杂乱Demo\iframeDemo.htm" />
+    <Content Include="杂乱Demo\images\11.JPG" />
+    <Content Include="杂乱Demo\images\Apple\1.png" />
+    <Content Include="杂乱Demo\images\Apple\2.png" />
+    <Content Include="杂乱Demo\images\Apple\3.png" />
+    <Content Include="杂乱Demo\images\Apple\4.png" />
+    <Content Include="杂乱Demo\images\Apple\5.png" />
+    <Content Include="杂乱Demo\images\bg_html.jpg" />
+    <Content Include="杂乱Demo\images\bg_line_t.jpg" />
+    <Content Include="杂乱Demo\images\blog-image1.jpg" />
+    <Content Include="杂乱Demo\images\drag_ico.gif" />
+    <Content Include="杂乱Demo\images\eg_tulip.jpg" />
+    <Content Include="杂乱Demo\images\icon_type_list.png" />
+    <Content Include="杂乱Demo\images\loader.gif" />
+    <Content Include="杂乱Demo\images\navA_hover.png" />
+    <Content Include="杂乱Demo\images\photoWall\1.jpg" />
+    <Content Include="杂乱Demo\images\photoWall\2.jpg" />
+    <Content Include="杂乱Demo\images\photoWall\3.jpg" />
+    <Content Include="杂乱Demo\images\photoWall\4.jpg" />
+    <Content Include="杂乱Demo\images\photoWall\5.jpg" />
+    <Content Include="杂乱Demo\images\player\1.jpg" />
+    <Content Include="杂乱Demo\images\player\2.jpg" />
+    <Content Include="杂乱Demo\images\player\3.jpg" />
+    <Content Include="杂乱Demo\images\player\4.jpg" />
+    <Content Include="杂乱Demo\images\player\5.jpg" />
+    <Content Include="杂乱Demo\images\player\6.jpg" />
+    <Content Include="杂乱Demo\images\player\btn.gif" />
+    <Content Include="杂乱Demo\images\player\loading.gif" />
+    <Content Include="杂乱Demo\images\public.jpg" />
+    <Content Include="杂乱Demo\images\T1sigqXgFbXXbMbfEI-194-279.png" />
+    <Content Include="杂乱Demo\images\temp\kt_000001.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000002.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000003.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000005.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000006.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000008.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000009.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000010.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000012.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000013.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000014.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000015.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000016.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000017.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000018.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000019.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000020.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000021.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000022.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000023.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000024.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000025.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000026.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000027.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000028.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000029.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000030.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000033.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000034.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000035.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000036.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000039.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000040.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000041.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000044.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000045.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000046.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000047.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000048.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000049.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000051.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000052.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000053.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000054.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000055.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000058.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000059.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000060.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000061.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000063.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000064.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000065.jpg" />
+    <Content Include="杂乱Demo\images\temp\kt_000066.jpg" />
+    <Content Include="杂乱Demo\loader2.html" />
+    <Content Include="杂乱Demo\Pager.htm" />
+    <Content Include="杂乱Demo\rotate.htm" />
+    <Content Include="杂乱Demo\Scripts\core.js" />
+    <Content Include="杂乱Demo\Scripts\Doyo.js" />
+    <Content Include="杂乱Demo\Scripts\jquery-1.5.1.min.js" />
+    <Content Include="杂乱Demo\Scripts\jquery-1.7.1.js" />
+    <Content Include="实例网站\BackBone\README.md" />
+    <None Include="杂乱Demo\Scripts\jquery-1.9.1-vsdoc.js" />
+    <Content Include="杂乱Demo\Scripts\jquery-1.9.1.min.js" />
+    <Content Include="杂乱Demo\Scripts\js\common.js" />
+    <Content Include="杂乱Demo\Scripts\js\DD_belatedPNG.js" />
+    <Content Include="杂乱Demo\Scripts\js\jquery.tmailsider.js" />
+    <Content Include="杂乱Demo\Scripts\js\miaoV.js" />
+    <Content Include="杂乱Demo\Scripts\js\move.js" />
+    <Content Include="杂乱Demo\Scripts\js\myMove.js" />
+    <Content Include="杂乱Demo\Scripts\js\text.js" />
+    <Content Include="杂乱Demo\Scripts\Move2.js" />
+    <Content Include="杂乱Demo\Scripts\OOAMove.js" />
+    <Content Include="杂乱Demo\Scripts\Pager.js" />
+    <Content Include="杂乱Demo\Scripts\TimeLine.js" />
+    <Content Include="杂乱Demo\Scripts\Timer.js" />
+    <Content Include="杂乱Demo\Scripts\TMAIL.js" />
+    <Content Include="杂乱Demo\Scripts\VQ.js" />
+    <Content Include="杂乱Demo\Styles\css.css" />
+    <Content Include="杂乱Demo\Styles\maoV.js" />
+    <Content Include="杂乱Demo\Styles\miaoV.css" />
+    <Content Include="杂乱Demo\TimeLine.html" />
+    <Content Include="杂乱Demo\Timer.html" />
+    <Content Include="杂乱Demo\Tmao.htm" />
+    <Content Include="杂乱Demo\waterFlow\home.css" />
+    <Content Include="杂乱Demo\waterFlow\HtmlPage1.html" />
+    <Content Include="杂乱Demo\waterFlow\info.txt" />
+    <Content Include="杂乱Demo\waterFlow\script\common\DateExt.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\hex_md5.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\jquery-1.9.1.min.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\jquery-2.0.0.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\jquery-2.0.0.min.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\jquery.cookie.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\jquery.plug.comm.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\jquery.tmpl.min.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\json2.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\require.js" />
+    <Content Include="杂乱Demo\waterFlow\script\common\VQ.js" />
+    <Content Include="杂乱Demo\waterFlow\script\jquery.wookmark.js" />
+    <Content Include="杂乱Demo\waterFlow\script\mainView.js" />
+    <Content Include="杂乱Demo\waterFlow\style.css" />
+    <Content Include="杂乱Demo\waterFlow\Style1.css" />
+    <Content Include="杂乱Demo\waterFlow\style2.css" />
+    <Content Include="杂乱Demo\waterFlow\test.html" />
+    <Content Include="杂乱Demo\像素.htm" />
+    <Content Include="杂乱Demo\像素特效.htm" />
+    <Content Include="杂乱Demo\固定侧边栏.htm" />
+    <Content Include="杂乱Demo\图片倒影.htm" />
+    <Content Include="杂乱Demo\图片反色.htm" />
+    <Content Include="杂乱Demo\图片播放器\播放器.htm" />
+    <Content Include="杂乱Demo\图片播放器\菜单%28选不中弹出div%29.htm" />
+    <Content Include="杂乱Demo\图片播放器\链式运动.htm" />
+    <Content Include="杂乱Demo\多物体运动.htm" />
+    <Content Include="杂乱Demo\多物体运动随意值.htm" />
+    <Content Include="杂乱Demo\多运动进化版%28opacity%29.htm" />
+    <Content Include="杂乱Demo\封装库\点击计数.htm" />
+    <Content Include="杂乱Demo\布局转换\布局转换.htm" />
+    <Content Include="杂乱Demo\布局转换\布局转换2.htm" />
+    <Content Include="杂乱Demo\布局转换\求模.htm" />
+    <Content Include="杂乱Demo\平铺.htm" />
+    <Content Include="杂乱Demo\插入图片.htm" />
+    <Content Include="杂乱Demo\时钟.html" />
+    <Content Include="杂乱Demo\淡入淡出.htm" />
+    <Content Include="杂乱Demo\渐变.htm" />
+    <Content Include="杂乱Demo\画布事件.htm" />
+    <Content Include="杂乱Demo\继承.htm" />
+    <Content Include="杂乱Demo\获取像素点颜色.htm" />
+    <Content Include="杂乱Demo\运动特效.htm" />
+    <Content Include="杂乱Demo\运动缓冲处理.htm" />
+    <Content Include="杂乱Demo\闭包.htm" />
+    <Content Include="杂乱Demo\马赛克.htm" />
+    <Content Include="杂乱Demo\高级应用\AppleMenu.htm" />
+    <Content Include="杂乱Demo\高级应用\图片预加载.htm" />
+    <Content Include="杂乱Demo\高级应用\照片墙%28bug%29.htm" />
+    <Content Include="杂乱Demo\高级应用\照片墙%28最终%29.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BackBone\requier使用\script\" />
+    <Folder Include="杂乱Demo\waterFlow\images\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>7455</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:7455/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

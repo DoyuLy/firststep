@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script src="../underscore.doc.js"></script>
+    <script>
+        
+        //-------------------集合--------------------
+        //_.each(list,iterator,[context]) 只遍历
+        _.each([1, 2, 3, 4, 5, 6], function(n) {
+            //指定迭代，n为list中每个元素
+            if (!(n % 2))console.log(n);
+        });
+        
+        //_.map(list,iterator,[context]) 遍历并返回新数组
+        //若list 为js对象,如json --> function(v,k,obj){}
+
+        //_.find(list,iterator,[context])  查找符合条件的第一个元素,没找到返回 undefined
+
+        //_.filter(list,iterator,[context]) 返回指定条件的新数组,没有则返回空数组
+
+        //_.max() /_.min() 返回最大最小值函数
+
+        //_.sortBy() /_.groupBy() 返回升序副本/分割为子列表  obj{ true : {obj1,obj2..}, false : {obj3,obj4}}
+
+        //-------------------数组--------------------
+        function fn(attr) {
+            alert(attr);
+        };
+
+        _.first([1,2,3],2);//[1,2]  第二个参数可选
+        _.last([1, 2, 3], 2);//[2,3]
+
+        _.indexOf([1, 2, 3], 2);//返回首次遇到的索引值1
+        _.lastIndexOf([1, 1, 2, 2, 3], 2);//返回最后遇到的索引值3
+
+        _.without([1, 2, 3, 4, 5], 4, 5);//返回排除4,5的新数组
+        _.union([1, 2, 3], [4, 5, 6], [5, 6, 7]);//[1,2,3,4,5,6,7]
+
+        //-------------------函数--------------------
+        _.delay(fn,1000,'形参');//类似setTimeOut
+        _.once(function () { });//只执行一次,用于初始化值
+        _.wrap(fn, function(fn) {
+            //这里可以使用fn
+        });
+        _.compose(fn1, fn2, fn3);//fn1(fn2(fn3)) 顺序执行,类似回调函数功能
+
+        //-------------------对象--------------------
+        _.keys({ name: 'leo', age: 20, email: 'duyud@qq.com' });//返回数组格式 ['name','age','email']
+        _.values({ name: 'leo', age: 20, email: 'duyud@qq.com' });//返回数组格式['leo','20','duyud@qq.com']
+
+        _.pick({ A: 1, B: 2, C: 3 }, 'A', 'B');//挑选某几个属性 返回对象{B:2,C:3}
+        _.omit({ A: 1, B: 2, C: 3 }, 'A', 'B');//排除某几个属性 返回对象{C:3}
+
+        var info = {};
+        info = _.defaults(info, { name: '', age: 0 });//返回设置了默认值的对象,若对象值重置,则默认值立刻无效
+        _.has(info, 'email');//检测对象里是否具有某个属性,避免报错,返回boolean
+
+        //-------------------功能--------------------
+
+        _.random(10);//等价  _.random(0, 10); 默认min=0,min可自定义(注意是整数)
+        _.unescape(_.escape('asffsddsgtgerygg***())'));//转义编码
+
+        var t1 = _.template('<% console.log(str) %>');  t1({ str: 'hello world!' });
+        
+        var t2 = _.template('<%=str %>'); console.log(t2({ str: 'hello world!' }));
+
+        var t3 = _.template('<%-str%>'); console.log(t3({ str: '<% & / ^*((&*(%>' }));//转义为html,避免跨站攻击
+
+        var find = _.chain([1, 2, 3, 4]).filter().without().last().value();//_.chain(data) data:对象/数组/集合 ;返回一个包装对象
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

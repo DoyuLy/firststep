@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>阻止默认事件</title>
+    <style type="text/css">
+        *{ margin:0; padding:0;}
+        #ul1{ width:100px;  background:gray; display:none; position:absolute; border:1px solid black;}
+        #ul1 li{ list-style-type:none;}
+    </style>
+    <script type="text/javascript">
+        //右键菜单事件
+        document.oncontextmenu = function (ev) {
+            var oEvent = ev || event;
+            var oUl = document.getElementById('ul1');
+
+            oUl.style.display = 'block';
+            oUl.style.left = oEvent.clientX + 'px';
+            oUl.style.top = oEvent.clientY + 'px';
+
+            return false;
+        }
+        document.onclick = function () {
+            var oUl = document.getElementById('ul1');
+            oUl.style.display = 'none';
+        }
+        
+    </script>
+</head>
+<body>
+    <ul id='ul1'>
+        <li>登陆</li>
+        <li>回到首页</li>
+        <li>注销</li>
+        <li>VIP</li>
+    </ul>
+</body>
+</html>

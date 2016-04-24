@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>apple menu</title>
+    <style type="text/css">
+        body{ margin:0;}
+        #div1{ background:silver; width:100%; position:absolute; bottom:0; text-align:center;}
+    </style>
+
+    <script type="text/javascript">
+        document.onmousemove = function (ev) {
+            var oEvent = ev || event;
+            var oDiv = document.getElementById('div1');
+            var oImg = document.getElementsByTagName('img');
+            var i = 0;
+            for (var i = 0; i < oImg.length; i++) {
+                var x = oImg[i].offsetLeft + oImg[i].offsetWidth / 2; //图片中心点可视区坐标
+                var y = oImg[i].offsetTop + oDiv.offsetTop + oImg[i].offsetHeight / 2;
+
+                //求鼠标距离图片中心距离
+                var a = x - oEvent.clientX;
+                var b = y - oEvent.clientY;
+                var dis = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+
+                //比例
+                var scale = 1 - dis / 300; //需要凸 300是根据实际估算的比例分母
+                if (scale < 0.5) {
+                    scale = 0.5;//避免距离越远直至图片消失，0.5意为最小保持原样
+                }
+                oImg[i].width = scale * 128; //128为图片原始宽
+
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id='div1'>
+        <img src="../images/Apple/1.png" alt='' width='64' />
+        <img src="../images/Apple/2.png" alt='' width='64' />
+        <img src="../images/Apple/3.png" alt='' width='64' />
+        <img src="../images/Apple/4.png" alt='' width='64' />
+    </div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\bin\MiaoWei.FirstStep.dll.config
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\bin\MiaoWei.FirstStep.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\bin\MiaoWei.FirstStep.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\obj\Debug\MiaoWei.FirstStep.dll
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\obj\Debug\MiaoWei.FirstStep.pdb
+C:\Users\Administrator\Documents\Visual Studio 2013\Projects\MiaoWei.FirstStep\MiaoWei.FirstStep\obj\Debug\Doyo.FirstStep.csprojResolveAssemblyReference.cache
+I:\OwnProject\私人工作间\MiaoWei.FirstStep\MiaoWei.FirstStep\bin\MiaoWei.FirstStep.dll.config
+I:\OwnProject\私人工作间\MiaoWei.FirstStep\MiaoWei.FirstStep\bin\MiaoWei.FirstStep.dll
+I:\OwnProject\私人工作间\MiaoWei.FirstStep\MiaoWei.FirstStep\bin\MiaoWei.FirstStep.pdb
+I:\OwnProject\私人工作间\MiaoWei.FirstStep\MiaoWei.FirstStep\obj\Debug\Doyo.FirstStep.csprojResolveAssemblyReference.cache
+I:\OwnProject\私人工作间\MiaoWei.FirstStep\MiaoWei.FirstStep\obj\Debug\MiaoWei.FirstStep.dll
+I:\OwnProject\私人工作间\MiaoWei.FirstStep\MiaoWei.FirstStep\obj\Debug\MiaoWei.FirstStep.pdb

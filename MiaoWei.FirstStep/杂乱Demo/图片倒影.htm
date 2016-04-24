@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>图片反色</title>
+    <style type="text/css">
+        body{ background-color:black;}
+        #c1{ background-color:White; }
+        .center{margin:200px auto; width:400px; height:400px;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGc = oC.getContext('2d');
+            var yImg = new Image();
+            yImg.src = 'images/eg_tulip.jpg';
+            yImg.onload = function () {//图片加载完毕才执行
+                draw(this);
+            }
+
+            function draw(obj) {
+                //oC.width = obj.width;
+                //oGc.drawImage(obj, 0, 0); //后面不填表带自适应  drawImage(image, x, y, width, height)
+                oGc.drawImage(obj, 0, 0, obj.width, obj.height); //把图片绘制到画布
+
+                //-------------------------------------
+                var oImg = oGc.getImageData(0, 0, obj.width, obj.height);
+                var w = oImg.width; //row
+                var h = oImg.height; //colunm
+
+                //解决
+                var newImg = oGc.createImageData(obj.width, obj.height);
+
+                //反色：255-自身
+                for (var i = 0; i < h; i++) {//y
+                    for (var j = 0; j < w; j++) {//x
+                        var result = [];
+                        var color = getXY(oImg, j, i);
+                        result[0] = 255 - color[0];
+                        result[1] = 255 - color[1];
+                        result[2] = 255 - color[2];
+                        result[3] = 255 * i / h; //避免透明
+
+                        setXY(newImg, j, h - i, result); //把第一行设置为最后一行，形成倒影
+                    }
+                }
+                oGc.putImageData(newImg, 0, obj.height); //贴到下面
+            }
+
+            function getXY(obj, x, y) {
+                var w = obj.width;
+                var h = obj.height;
+                var d = obj.data;
+
+                var color = [];
+
+                color[0] = d[4 * (y * w + x)];
+                color[1] = d[4 * (y * w + x) + 1];
+                color[2] = d[4 * (y * w + x) + 2];
+                color[3] = d[4 * (y * w + x) + 3];
+
+                return color;
+            }
+
+            function setXY(obj, x, y, color) {//针对一行一列像素操作
+                var w = obj.width;
+                var h = obj.height;
+                var d = obj.data;
+
+                d[4 * (y * w + x)] = color[0];
+                d[4 * (y * w + x) + 1] = color[1];
+                d[4 * (y * w + x) + 2] = color[2];
+                d[4 * (y * w + x) + 3] = color[3];
+            }
+        }
+    </script>
+     
+</head>
+<body>
+    <canvas id="c1" width="600" height="600">
+            <span>不支持HTML5</span>
+        </canvas>
+</body>
+</html>

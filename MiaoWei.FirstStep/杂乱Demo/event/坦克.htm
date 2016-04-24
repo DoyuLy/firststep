@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>坦克</title>
+    <style type="text/css">
+        *{padding:0; margin:0; border:0;}
+        body{  background:black;}
+        #div1{ height:100px; width:100px; position:absolute; background:gray;}
+    </style>
+    <script type="text/javascript">
+
+        //obj.offsetWidth:指的是obj自身宽 (width + border + padding)
+        //obj.offsetLeft:指的是obj距离父级的border距离(注意：包含了obj的margin)
+        document.onkeydown = function (ev) {
+            var oEvent = ev || event;
+            //alert(oEvent.keyCode);
+            if (parseFloat(oDiv.style.left) < 0) {
+                alert('到左边缘了！');
+                oDiv.style.left = 0 + 'px';
+                return;
+            }
+            if (parseFloat(oDiv.style.top) < 0) {
+                alert('到顶了！');
+                oDiv.style.top = 0 + 'px';
+                return;
+            }
+            if (parseFloat(oDiv.style.left) > (document.documentElement.clientWidth - oDiv.offsetWidth)) {
+                alert('到右边缘了！');
+                oDiv.style.left = (document.documentElement.clientWidth - oDiv.offsetWidth) + 'px';
+                return;
+            }
+            if (parseFloat(oDiv.style.top) > (document.documentElement.clientHeight - oDiv.offsetHeight)) {
+                alert('到底部了！');
+                oDiv.style.top = (document.documentElement.clientHeight - oDiv.offsetHeight) + 'px';
+                return;
+            }
+
+            switch (oEvent.keyCode) {
+                case 37: //left
+                    oDiv.style.left = oDiv.offsetLeft - 10 + 'px';
+                    break;
+                case 38: //up
+                    oDiv.style.top = oDiv.offsetTop - 10 + 'px';
+                    break;
+                case 39: //right
+                    oDiv.style.left = oDiv.offsetLeft + 10 + 'px';
+                    break;
+                case 40: //down
+                    oDiv.style.top = oDiv.offsetTop + 10 + 'px';
+                    break;
+                default:
+                    break;
+
+            }
+        }
+        var oDiv = null;
+        window.onload = function () {
+            oDiv = document.getElementById('div1');
+
+            oDiv.style.left = parseInt((document.documentElement.clientWidth - oDiv.offsetWidth) / 2) + 'px';
+            oDiv.style.top = document.documentElement.clientHeight - oDiv.offsetHeight + 'px';
+        }
+    </script>
+</head>
+<body>
+    <div id='div1'></div>
+</body>
+</html>

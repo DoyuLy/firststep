@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>轮播器</title>
+    <style>
+        #player {position: relative; width: 400px;height: 400px;background: #f1f1f1; border: 10px solid #ccc; margin:40px auto 0}
+        #player a{ width: 40px;height: 40px;background-color: #000;border: 5px solid #fff;position: absolute;top: 175px;
+            text-align: center;text-decoration: none;line-height: 40px;color: #fff;font-size: 30px;font-weight: bold;
+            filter: alpha(opacity:40);opacity: 0.4;
+        }
+        #player a:hover {filter: alpha(opacity:90);opacity: 0.9;}
+        #prev{ left: 10px;}
+        #next{ right: 10px;}
+        #content, #count {
+            position: absolute;left: 0;width: 400px;height: 30px;
+            line-height: 30px;text-align: center;
+            color: #fff;background: #000;filter: alpha(opacity:60);opacity: 0.6; }
+        #content { bottom: 0; margin: 0;/*p有margin*/}
+        #count{ top: 0;}
+        #img{ width: 400px;height: 400px;}
+    </style>
+    <script>
+        window.onload= function() {
+            var oPrev = document.getElementById('prev');
+            var oNext = document.getElementById('next');
+            var oText = document.getElementById('content');
+            var oSpan = document.getElementById('count');
+            var oImg = document.getElementById('img');
+            var arrUrl = [
+                { url: 'img/1.jpg', description: "美女1" },
+                { url: 'img/2.jpg', description: "美女2" },
+                { url: 'img/3.jpg', description: "美女3" },
+                { url: 'img/4.jpg', description: "美女4" },
+                { url: 'img/5.jpg', description: "美女5" },
+                { url: 'img/6.jpg', description: "美女6" },
+                { url: 'img/7.jpg', description: "美女7" }
+            ];
+
+            //初始化
+            var num = 0;
+            //行为
+            oNext.onclick = function() {
+                num++;
+                if (num == 7)
+                    num = 0;
+                fnTab();
+            };
+            oPrev.onclick = function () {
+                num--;
+                if (num == -1)
+                    num = arrUrl.length - 1;
+                fnTab();
+            };
+
+            function fnTab() {
+                oSpan.innerHTML = num + 1 + ' / ' + arrUrl.length;
+                oImg.src = arrUrl[num].url;
+                oText.innerHTML = arrUrl[num].description;
+            }
+
+            fnTab();
+        }
+    </script>
+</head>
+<body>
+    <div id="player">
+        <a id="prev" href="javascript:;"><</a>
+        <a id="next" href="javascript:;">></a>
+        <p id="content">图片文字加载中...</p>
+        <span id="count">数量正计算中...</span>
+        <img id="img" alt="" />
+    </div>
+</body>
+</html>

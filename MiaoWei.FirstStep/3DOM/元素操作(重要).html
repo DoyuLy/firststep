@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>DOM</title>
+    <script>
+        /*
+        一.
+            1.DOM.childNodes:只读子节点集合(获取第一级子节点)
+            附注：节点12种/常用3种
+            标准下： 元素节点+文本节点,也会包含非法嵌套的子节点 （11个）
+            非标准下：元素节点,IE7及以下不会包含非法子节点 （4个）
+                               IE8也为非标准,但不会认非法标签,但不包含文本节点
+            2.nodeType:1 元素类型 2 attribute类型 3 文本类型
+
+            3.DOM.attributes 元素属性集合
+
+            4.DOM.children :和childNodes类似,但不会包含文本节点(推荐)
+                            非标准：IE7及以下,非法标签不会包含,会解析到子级的孙节点
+
+
+        二.
+            1.firstChild;第一个字节点(都有此属性)
+                        标准： 会包含文本节点
+                        非标准：不包含文本节点
+              推荐：firstElementChild:IE7及以下没有此属性(标准下的获取元素节点属性)
+            
+            2.lastElementChild||lastChild 同理上
+
+            3.nextSibling  \ previousSibling    下\上一个兄弟节点
+
+         三.
+            1.parentNode :基本没有兼容问题
+
+            2.offsetParent:离当前元素最近的一个定位父级
+              ①如果没有定位父级,默认是body
+              ②IE7及以下:若自身有定位,默认是到HTML
+              ③IE下 Zoom独有属性 触发当前元素layout特性,处理浮动问题
+                 dom.currentStyle.hasLayout (bool返回)
+
+         四.
+            1.offsetTop\offsetLeft : 当前元素到定位父级的距离
+              ①若无定位父级：
+                      offsetParent -> body(IE7及以下是html)
+                      offsetLeft   -> html
+                若有定位父级：
+                      ie7级以下：自己没有定位 -->body
+                                 自己有定位   -->定位父级(正常)
+                其他： -->到定位父级距离
+              ②...
+           
+          五. width \ clientWidth \ offsetWidth
+              ①width(样式宽)：是多少就是多少(px单位)
+                eg: oDiv.style.width
+              ②clientWidth(可视宽) ：width + padding (无单位)
+                eg: oDiv.clientWidth
+              ③offsetWidth(占位宽)：width + padding + border (无单位)
+                eg: oDiv.offsetWidth
+           
+           
+          六. document.creatElement(标签名)
+              
+              oUl.appendChild(oLi);
+              //ie下若第二个参数不存在,会报错,其他浏览器则默认为appendChild
+              oUl.insertBefore(oLi,oUl.chilren[0]);
+              
+              oUl.removeChild(this.parentNode)
+              oUl.replaceChild(新节点,被替换的节点)
+           
+           
+           总结：
+            1.childNodes\children 获取第一级子节点（空白节点兼容问题,推荐使用children）
+            2.
+        */
+
+        var oUl = document.getElementById('ul1');
+        alert(oUl.childNodes.length);
+        alert(oUl.attributes[0].name);//value
+        for (var i = 0; i < oUl.childNodes.length; i++) {
+            if (oUl.childNodes[i].nodeType == 1) //兼容空白节点类型
+                oUl.childNodes[i].style.background = 'red';
+        }
+
+
+        var oFirst = oUl.firstElementChild || oUl.firstChild;//兼容IE7
+        //隐性问题：若没有子节点 oFirst为 oUl.firstChild 并返回文本节点,文本节点不可以设置背景
+        if (oFirst)
+            oFirst.style.background = 'red';
+        else
+            alert('没有子节点！');
+
+
+        //兼容元素获取到页面的距离
+        var oDiv3 = document.getElementById('div3');
+        var iTop = 0;
+        var obj = oDiv3;
+        while (obj) {
+            iTop += obj.offsetTop;
+            obj = obj.offsetParent;
+        }
+        alert(iTop);
+
+        //兼容封装(注意清掉body margin值)
+        function gtPos(obj) {
+            var pos = { left: 0, top: 0 };
+            while (obj) {
+                pos.left += obj.offsetLeft;
+                pos.top += obj.offsetTop;
+                obj = obj.offsetParent;
+            }
+            return pos;
+        }
+    </script>
+</head>
+<body>
+    <ul id="ul1"><!--有文本节点-->
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+        <p>非法标签</p>
+    </ul>
+</body>
+</html>

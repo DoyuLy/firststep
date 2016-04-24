@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>多物体运动</title>
+    <style type="text/css">
+        div{ height:100px; width:100px; margin-top:50px; border:4px solid black; background:red; opacity:0.3;filter:alpha(opacity:30);}
+    </style>
+    <script type="text/javascript">
+
+        //注意：用到定时器的所有都不能公用,否则一定出错
+
+
+        //var timer = null;//定时器不能公用,否则争用
+        //var alpha =30;  //变量不能公用,否则'打架' 互相推攘
+        var oDiv = null;
+        var iSpeed = 0;
+
+        window.onload = function () {
+            oDiv = document.getElementsByTagName('div');
+            for (var i = 0; i < oDiv.length; i++) {
+                oDiv[i].timer = null;
+                //oDiv[i].alpha = 30;
+                oDiv[i].onmouseover = function () {
+                    stratMove(this, 200, 100);
+                }
+                oDiv[i].onmouseout = function () {
+                    stratMove(this, 100, 30);
+                }
+            }
+        }
+
+        function stratMove(obj, iTarget) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                var iCur = parseInt(getStyle(obj, 'width')); //用getStyle替换offsetWidth
+                var iSpeed = (iTarget - iCur) / 8; //obj.offsetWidth
+                iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+
+
+                if (obj.offsetWidth == iTarget) {
+                    clearInterval(obj.timer);
+                }
+                else {
+                    obj.style.width = iCur + iSpeed + 'px'; //obj.offsetWidth
+
+                    //例子2  淡入淡出变量不能共用
+                    //obj.alpha += iSpeed;
+                    //obj.style.filter = 'alpha(opacity:' + alpha + ')';
+                    //obj.style.opacity = alpha / 100;
+                }
+            }, 10);
+        }
+
+        function getStyle(obj, attr) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[attr];
+            }
+            else {
+                return getComputedStyle(obj, false)[attr];
+            }
+        }
+    </script>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</body>
+</html>

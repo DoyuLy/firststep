@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>捕获</title>
+    <script>
+        
+        /*
+        1.绑定事件处理函数
+          ①方式1：
+            oDiv.onclick=fn1;
+            oDov.onclick=fn2;//由于是赋值形式绑定事件,因此会覆盖事件函数fn1
+          ②方式2：
+            ie：obj.attachEvent(事件名,事件函数) //注意事件名有前缀 on
+            标准：obj.addEventListener(事件名,事件函数,是否捕获);//无前缀 on
+                  是否捕获：   false:冒泡\ true：捕获
+
+           区别：attachEvent
+                     ①没有捕获
+                     ②事件名前缀 on
+                     ③事件执行顺序：标准ie -->正序  \ ie9及以下 --> 反序
+                     ④事件函数里面的this指向window;而标准下this指向触发事件的对象document
+                  addEventListener
+                     ①最后一个参数 false：冒泡(从里面出去) \ true：通道(从外面进来)
+           
+           2.事件取消
+                ①document.onclick = null;
+                ② ie : obj.detachEvent(事件名, 事件函数);
+                   标准：obj.removeEventListener(事件名, 事件函数, 是否捕获);//最后一个参数也代表事件取消是独立的
+           3.键盘事件
+               onkeydowm ：键盘按下(得到是之前的值)\注意：连续输入的第一个是有间隔时间的(用户体验)
+               onkeyup： 键盘抬起
+               event.keyCode：数字类型 键值ASCII
+               ctrlKey,shiftKey,altKey 布尔值(功能键)
+
+
+           解决：call \ apply
+                 ①call是函数下的内置方法
+                   第一个函数内部this的指向obj ,后面的参数是方法的参数列表（即改变执行中内部this的指向）
+                 ②apply和call性质一样;但第二个参数形式是数组,效率更高
+        */
+
+        function fn1() { alert(this); }
+
+        function fn2() { alert(this); }
+
+        function fn3(a, b) { alert(a + b); }
+
+        //封装绑定事件函数
+        function bind(obj,evname,fn) {
+            if (obj.addEventListener)
+                obj.addEventListener(evname, fn, false);
+            else
+                obj.attachEvent('on' + evname, function() {
+                    fn.call(obj);//将事件函数内部this指向 obj(ie7下默认指向window,标准下指向触发该事件的对象)
+                });
+        }
+
+        window.onload = function() {
+            //标准
+            //document.addEventListener('click', fn1, false);
+            //document.addEventListener('click', fn2, false);
+
+            //ie7 
+            //document.attachEvent('onclick', fn1);
+            //document.attachEvent('onclick', fn2);
+
+            //解决
+            //fn3.call(window,1,2);   // fn3(null,1,2)==fn3.call(1,2);
+
+            function bind(obj, evname, fn) {
+                if (obj.addEventListener)
+                    obj.addEventListener(evname, fn, false);
+                else
+                    obj.attachEvent('on' + evname, function () {
+                        //fn.call(obj);//将事件函数内部this指向 obj(ie7下默认指向window,标准下指向触发该事件的对象)
+                        fn.apply(obj);
+                    });
+            }
+
+            bind(document, 'click', fn1);
+
+
+            document.onkeydown = function(ev) {
+                var ev = event || ev;
+                alert(ev.keyCode);
+            };
+        };
+
+        
+    </script>
+</head>
+<body>
+
+</body>
+</html>

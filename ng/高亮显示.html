@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Learning AngularJS</title>
+    <script src="jasmine.js" type="text/javascript"></script>
+    <script src="angular.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        angular.module('app', []).controller('myController', ['$scope', function ($scope) {
+            $scope.directory =
+            [
+                { name: 'jack', cuisine: 'BBQ' },
+                { name: 'jack', cuisine: 'BBQ' },
+                { name: 'jack', cuisine: 'BBQ' }
+            ];
+            $scope.selected = function(rowIndex) {
+                $scope.selectedRow = rowIndex;
+            };
+        }]);
+    </script>
+    <style type="">
+        .selected{ background-color:lightgreen;}
+    </style>
+</head>
+<body>
+    <table ng-controller="myController">
+        <tr ng-repeat="row in directory" ng-click="selected($index)" ng-class="{selected: $index==selectedRow}">
+            <td>{{row.name}}</td>
+            <td>{{row.cuisine}}</td>
+        </tr>
+    </table>
+</body>
+</html>

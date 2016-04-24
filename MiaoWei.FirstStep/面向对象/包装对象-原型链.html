@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <script>
+        /*
+            原生类型：string Date Array null undefined number boolean
+        */
+        var str = new String('hello');
+        alert(typeof str);//Object
+        var arr0 = [1, 2, 3];
+        alert(typeof arr0.toString());//string
+        //-------------------------------------
+        function A() {
+            this.num = 10;
+        }
+
+        A.prototype.num = 20;
+
+        var a = new A();
+        alert(a.num);//弹出10,优先级关系,首先找A下是否有num属性,然后通过_pro_原型链找A.prototype ,最后找Object.prototype
+        //-------------------------------------
+
+        /*
+            1.hasOwnProperty : 是否对象自身下的属性,而非共有属性
+            
+            2.constructor ：查看对象构造函数
+                 每个原型都会自动添加constructor属性
+                 For in 的时候有些属性找不到(如系统自带的不允许访问,constructor也不允许访问)
+                 避免修改constructor属性
+            
+            3.instanceof ：运算符,对象与构造函数在原型链上是否有关系
+                            alert(a1 instanceof Aaa/Array/Object) true/false 是否在同一原型链
+            
+            5.typeof : 运算符(有局限性)
+                       ①只能返回字符串：number,boolean,string,function,object,undefined   
+                       ②对于 String,Array,Null 等特殊对象使用 typeof 一律返回 object
+                 (重要)③**使用 typeof 来获取一个变量是否存在,如 if(typeof a!="undefined"){alert("ok")}，而不要去使用 if(a) 因为如果 a 不存在（未声明）则会出错
+            
+            6.toString ：alert(a1.toString);对象转字符串
+                         系统原生对象自带toString; 而自定义对象是通过原型链找Object.prototype.toString
+               (最完美)**做精确类型判断：alert(Object.prototype.toString.call(要判断的对象)=='[object Array]');
+
+
+
+            总结：①先找自身
+                  ②再找包装对象(原生)的prototype  (Aaa.prototype.constructor = Aaa 此类代码系统会自动添加)
+                  ③找最外层 Object.prototype
+
+                  ④prototype可以写为json格式:
+                        问题：Aaa.prototype={} 会覆盖系统的Aaa.prototype.constructor
+                        解决：Aaa.prototype={constructor=this,...},如此会修正constructor的指向为Aaa(包装对象),而非顶层Object
+        
+                  ⑤判断类型四种方式：
+                        typeof arr == array (字符串形式,局限性很大)
+                        arr.constructor == Array (iframe下有问题)
+                        arr instanceof Array     (iframe下有问题)
+                        Object.prototype.toString.call(arr)=='[object Array]')(完美)
+        
+        */
+        var arr = [];
+        arr.num = 10;
+        Array.prototype.num = 20;
+        alert(arr.hasOwnProperty('num2'));//num2共有属性,而非arr自身属性(false)
+
+        function Aaa() { };
+        var a1 = new Aaa();
+        alert(a1.constructor == Aaa);
+        //程序自动添加如下代码
+        //Aaa.prototype.constructor = Aaa;
+        //注意：找的是最外层：Object.prototype
+        alert(a1.hasOwnProperty);
+        alert(a1.hasOwnProperty==Object.prototype.hasOwnProperty);//true
+
+
+        Aaa.prototype = {
+            constructor: this,//修正constructor指向为Aaa
+            name: 'jack',
+            age: 20
+        };
+        var a2 = new Aaa();
+        alert(a2.constructor);//
+        //--------------------------
+        var arr2 = [];
+        alert(arr2.toString == Array.prototype.toString);//true
+
+        var a3 = new Aaa();
+        alert(a3.toString == Object.prototype.toString);//true
+
+    </script>
+</body>
+</html>

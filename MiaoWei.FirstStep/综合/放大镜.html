@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        #div1{ width: 180px;height: 180px;overflow: hidden;position: relative;}
+        #div1 span{ width: 100px;height: 100px;background: yellow;filter: alpha(opacity=50);opacity: 0.5;position: absolute;left: 0;top: 0;display: none;}
+        #div1 #mark{ width: 180px;height: 180px;position: absolute;background: red;filter: alpha(opacity=0);opacity: 0;top: 0;left: 0;}
+        #div2{z-index: 5; width: 500px;height: 500px;position: absolute;left: 250px;top: 50px;overflow: hidden;display: none;}
+        #div2 img{ position: absolute;left: 0;top: 0;}
+    </style>
+    <script>
+        
+        /*
+            子级影响父级：
+                1.js解决： onmouseenter onmouseleave (不影响父级)
+                3.hack写法：
+                3.css   :  加一个隔离层
+        */
+        window.onload = function() {
+            var oDiv = document.getElementById('div1');
+            var oSpan = oDiv.getElementsByTagName('span')[0];
+            var oDiv2 = document.getElementById('div2');
+            var oImg2 = oDiv2.getElementsByTagName('img')[0];
+
+            /*解决方案1
+            oDiv.onmouseenter = function() {
+                oSpan.style.display = 'block';
+            };
+            oDiv.onmouseleave = function() {
+                oSpan.style.display = 'none';
+            };
+            */
+
+            /*解决方案2
+            oDiv.onmouseover = function (ev) {
+                var ev = ev || event;
+                var a = this, b = ev.relatedTarget;//相对目标(之前的)
+                if (!e1Contains(a, b) && a != b) {
+                    oSpan.style.display = 'block';
+                }
+            };
+            oDiv.onmouseout = function (ev) {
+                var ev = ev || event;
+                var a = this, b = ev.relatedTarget;
+                if (!e1Contains(a, b) && a != b) {
+                    oSpan.style.display = 'none';
+                }
+            };
+            */
+
+            /*解决方案3*/
+            oDiv.onmouseover = function () {
+                oSpan.style.display = 'block';
+                oDiv2.style.display = 'block';
+            };
+            oDiv.onmouseout = function () {
+                oSpan.style.display = 'none';
+                oDiv2.style.display = 'none';
+            };
+
+            oDiv.onmousemove = function(ev) {
+                var ev = ev || event;
+
+                var L = ev.clientX - oDiv.offsetLeft - oSpan.offsetWidth / 2;
+                var T = ev.clientY - oDiv.offsetTop - oSpan.offsetWidth / 2;
+
+                if (L < 0) L = 0;
+                else if (L > oDiv.offsetWidth - oSpan.offsetWidth)
+                    L = oDiv.offsetWidth - oSpan.offsetWidth;
+
+                if (T < 0) T = 0;
+                else if (T > oDiv.offsetHeight - oSpan.offsetHeight)
+                    T = oDiv.offsetHeight - oSpan.offsetHeight;
+
+                oSpan.style.left = L + 'px';
+                oSpan.style.top = T + 'px';
+
+                var scaleX = L / (oDiv.offsetWidth - oSpan.offsetWidth);
+                var scaleY = T = T / (oDiv.offsetHeight - oSpan.offsetHeight);
+
+                oImg2.style.left = -scaleX * (oImg2.offsetWidth - oDiv2.offsetWidth) + 'px';
+                oImg2.style.top = -scaleY * (oImg2.offsetHeight - oDiv2.offsetHeight) + 'px';
+            };
+        };
+
+        //判断两个元素是否嵌套
+        function e1Contains(a, b) {
+            return a.contains ? a != b && a.contains(b) : !!(a.compareDocumentPosition(b) & 16);
+        };
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <img src="image/b2.jpg"  alt=""/>
+        <span></span>
+        <div id="mark"></div>
+    </div>
+    <div id="div2">
+        <img src="image/b1.jpg"/>
+    </div>
+</body>
+</html>

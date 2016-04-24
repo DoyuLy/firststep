@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>拖拽碰撞</title>
+    <style>
+        #div1{ width: 100px;height: 100px;position: absolute;background: red; cursor: pointer;}
+        #img1{ position: absolute;left: 500px;top: 200px;}
+    </style>
+    <script>
+        /*
+        1.onmousedown : 选择元素
+        2.onmousemove : 移动元素
+        3.onmouseup   : 释放元素
+
+        实现原理：
+                ①计算鼠标可视区的left top距离
+                ②重新计算div新的left top距离
+                ③鼠标按下瞬间初始化 鼠标和div的距离,并移动中重新计算
+        
+        BUG修复
+               ①选中文字再拖拽,原因：鼠标按下时若有文字被选中,则会触发浏览器默认行为
+                 解决：
+                     标准：阻止默认事件行为 return false;
+                     IE8及以下：oDiv.setCapture //全局监听拦截(会劫持此后所有事件并拉到当前对象,)
+                                (setCapture：ie：有,并有效果
+                                            ff：有,但没效果
+                                            chrome：没有此事件)
+               ②拖拽图片：原理同上
+               ③限制范围：不能拖出可视区(或某个范围)
+               ④磁性吸附(用户体验)
+        
+        */
+        window.onload = function() {
+
+            var oDiv = document.getElementById('div1');
+            var oImg = document.getElementById('img1');
+
+            drag(oDiv);
+
+            function drag(obj) {
+                obj.onmousedown = function (ev) {
+                    //要移动必须在鼠标按下之后,采用回调方式同步
+                    var ev = ev || event;
+                    //alert(this.id);
+                    //找到鼠标按下点 到div的相对位置
+                    var disX = ev.clientX - this.offsetLeft;
+                    var disY = ev.clientY - this.offsetTop;
+
+                    //setCapture 拦截其他元素的事件
+                    if (this.setCapture)
+                        this.setCapture();
+
+                    //若一旦拖动过快,会移出oDiv,改为document
+                    document.onmousemove = function (ev) {//以时间间隔计算
+                        var ev = ev || event;
+                        console.log(this);//document
+                        obj.style.cursor = 'pointer';
+                        
+                        //限制拖动范围
+                        var L = ev.clientX - disX;
+                        var T = ev.clientY - disY;
+
+                        //九宫格碰撞检测
+                        var L1 = L;
+                        var R1 = L + obj.offsetWidth;
+                        var T1 = T;
+                        var B1 = T + obj.offsetHeight;
+
+                        var L2 = oImg.offsetLeft;
+                        var R2 = L2 + oImg.offsetWidth;
+                        var T2 = oImg.offsetTop;
+                        var B2 = T2 + oImg.offsetHeight;
+                        if (R1 < L2 || R2 < L1 || B1 < T2 || B2 < T1) {
+                            oImg.src = '1.jpg';//没碰上
+                            oImg.style.border = '';
+                        } else {
+                            oImg.src = '2.jpg';//碰上了
+                            oImg.style.border = '1px dashed red';
+                        }
+
+
+                        //若要做磁性吸附,请更改L和Top的阀值 如 5
+                        if (L < 0) {//限制左边
+                            L = 0;
+                        } else if (L > document.documentElement.clientWidth - obj.offsetWidth) {//限制右边(可视宽-文档宽)
+                            L = document.documentElement.clientWidth - obj.offsetWidth;
+                        }
+
+                        if (T < 0) {//限制上边
+                            T = 0;
+                        } else if (T > document.documentElement.clientHeight - obj.offsetHeight) {//限制下边(可视高-文档高)
+                            T = document.documentElement.clientHeight - obj.offsetHeight;
+                        }
+
+                        obj.style.left = L + 'px';
+                        obj.style.top = T + 'px';
+
+                    };
+
+                    //若有其他元素层级覆盖住,则不会释放掉oDiv的up事件,因此改为document
+                    document.onmouseup = function () {
+                        //每次down重新生成move事件,抬起清空
+                        document.onmousemove = document.onmouseup = null;
+
+                        //释放全局拦截
+                        if (obj.releaseCapture)
+                            obj.releaseCapture();
+                    };
+
+                    //阻止选中文字触发默认行为
+                    return false;
+                };
+            }
+        }
+    </script>
+</head>
+    <body>
+        sdadasdads
+        <div id="div1"></div>
+        <!--<div style="width:100px;height:100px; position:absolute;left:400px;top:400px;background:green;"></div>-->
+        <img id="img1" src="1.jpg" alt="" />
+    </body>
+</html>

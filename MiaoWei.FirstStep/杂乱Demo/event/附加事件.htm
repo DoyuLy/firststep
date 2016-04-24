@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>附加事件</title>
+    <script type="text/javascript">
+        function a() {
+            alert('a');
+        }
+        function b() {
+            alert('b');
+        }
+
+        //obj.attachEvent(事件名,函数) //事件前on开头   反序执行
+        //obj.addEventListener(事件名,函数,是否捕获) //事件前不以on开头  顺序执行
+        window.onload = function () {
+            var oBtn = document.getElementById('btn1');
+
+            if (oBtn.attachEvent) {
+                //IE  反序执行
+                oBtn.attachEvent('onclick', a);
+                oBtn.attachEvent('onclick', b);
+            } 
+            else {
+                //DOM
+                oBtn.addEventListener('click', a, false);
+                oBtn.addEventListener('click', b, false);
+            }
+        }
+
+        function myAddEvent(obj, sEv, fn) {  //jQuery为事件队列
+            if (obj.attachEvent) {//IE,会将函数绑定至window  this出错
+                obj.attachEvent('on' + sEv, function () {  //js默认事件规范为on开头
+                    fn.call(obj); //or fn.apply(obj);
+                });
+            }
+            else {  //DOM
+                obj.addEventListenser(sEv, fn, false); //一般不需捕获
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="button"  id='btn1' value='弹出'/>
+</body>
+</html>

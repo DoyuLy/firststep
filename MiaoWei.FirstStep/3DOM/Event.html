@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>事件</title>
+    <script>
+        /*
+        1.焦点事件：onfocus
+        2.失焦事件：onblur
+        3.event :①ie/chrome  内置对象全局对象(ie初始值为null,chrome没有初始值 undefine)
+                 ②ff 没有内置event全局对象 ,通过事件函数传入第一个参数
+                 标准下应该为ff的方式
+          clientX \ clientY 事件对象的变量 鼠标到页面可视区的距离
+        
+        
+        
+        */
+
+        window.onload = function() {
+            var oT = document.getElementById('text1');
+            oT.onfocus = function () {
+                if (this.value == '请输入内容')
+                    this.value = '';
+            };
+            oT.onblur = function () {
+
+                if (this.value == '')
+                    this.value = '请输入内容';
+            };
+
+            oT.focus();//进入则聚焦
+            oT.select();//全选(可交互元素)
+
+
+            function fn(ev) {
+                var event1 = ev || event;
+                alert(event);
+                console.log();
+            }
+
+        };
+        
+    </script>
+</head>
+<body>
+    <input type="text" id="text1" value="请输入内容"/>
+</body>
+</html>

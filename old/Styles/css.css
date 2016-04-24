@@ -1,0 +1,20 @@
+﻿
+/* reset css sheet*/
+
+
+li{ list-style:none;}
+a{ text-decoration:none;}
+a:hover{ text-decoration:underline; }
+body{ background:#fff url() repeat-x;}
+
+#top{ width:960px; height:30px; margin:0 auto;}
+.top_menu{ float:left; }
+.top_menu li{ float:left; background:url() no-repeat; left:14px; font-size:14px;}
+.top_menu a{ color:#c0c0c0;}
+.top_menu a:hover{ color:#fff}
+.top_menu .no_dot{ background:none;}
+
+.top_bar{ float:right; }
+.top_bar li{ float:left; height:30px; color:#fff; font-size:14px; font-weight:bold; background:url() no-repeat 0 -16px; line-height:30px; padding-left:38px;}
+.top_bar .phone{ background:url() no-repeat 4px -16px;}
+.top_bar .help{background:url() no-repeat 4px -16px;}

@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        #div1{ width: 100px;height: 100px;background: red;position: absolute;}
+    </style>
+    <script>
+        window.onload= function() {
+            var oDiv1 = document.getElementById('div1');
+            var timer = null;
+            var iSpeed = 0;
+            oDiv1.onmouseover = function() {
+                startMove(300);
+            };
+            oDiv1.onmouseout = function () {
+                startMove(30);
+            };
+
+            function startMove(iTarget) {
+                clearInterval(timer);
+                timer = setInterval(function() {
+                    iSpeed += (iTarget - oDiv1.offsetHeight) / 6;
+                    iSpeed *= 0.75;
+                    if (Math.abs(iSpeed) <= 1 && Math.abs(iTarget - oDiv1.offsetHeight) <= 1) {
+                        clearInterval(timer);
+                        iSpeed = 0;
+                        oDiv1.style.height = iTarget + 'px';
+                    } else {
+                        //IE8下 width/height 不能出现负值(运动过界)
+                        var H = oDiv1.offsetHeight + iSpeed;
+                        if (H < 0)H = 0;
+                        oDiv1.style.height = H + 'px';
+                    }
+                }, 30);
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>淡入淡出</title>
+    <style type="text/css">
+        img{ opacity:0.3; filter:alpha(opacity:30)}
+    </style>
+    <script type="text/javascript">
+        var timer = null;
+        var oImg = null;
+        var alpha = 30;
+        var iSpeed = 0;
+        
+        window.onload = function () {
+            oImg = document.getElementById('img1');
+            oImg.onmouseover = function () {
+                startMove(100)
+            }
+            oImg.onmouseout = function () {
+                startMove(30)
+            }
+        }
+
+        function startMove(iTarget) {
+            clearInterval(timer);
+
+            timer = setInterval(function () {
+                if (alpha > iTarget) {
+                    iSpeed = -1;
+                }
+                else {
+                    iSpeed = 1;
+                }
+
+                if (alpha == iTarget) { clearInterval(timer); }
+                else {
+                    alpha += iSpeed;
+
+                    oImg.style.opacity = alpha / 100;
+                    oImg.style.filter = 'alpha(opacity:' + alpha + ')';
+
+                    document.title = alpha;
+                }
+            }, 30);
+        }
+    </script>
+</head>
+<body>
+    <img src="images/eg_tulip.jpg" id="img1" alt='' />
+</body>
+</html>

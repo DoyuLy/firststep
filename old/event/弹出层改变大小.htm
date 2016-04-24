@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>拖拽</title>
+    <style type="text/css">
+        #div1{ width:11px; height:11px; position:absolute; background:url(../images/drag_ico.gif); right:0;  bottom:0;cursor: se-resize; }
+        #div2{  width:200px; height:150px; background:gray; position:relative; }
+    </style>
+    <script type="text/javascript">
+        var oDiv = null;
+        var oDiv2 = null;
+        var disX = 0;
+        var disY = 0;
+        window.onload = function () {
+            oDiv = document.getElementById('div1');
+            oDiv2 = document.getElementById('div2');
+            oDiv.onmousedown = fnDown;
+        }
+
+
+        function fnDown(ev) {
+            var oEvent = ev || event;
+            disX = oEvent.clientX - oDiv.offsetLeft;
+            disY = oEvent.clientY - oDiv.offsetTop;
+
+            if (oDiv.setCapture) {   //IE
+                oDiv.onmousemove = fnMove;
+                oDiv.onmouseup = fnUp;
+
+                oDiv.setCapture();
+            }
+            else {                   //FF, Chrome
+                document.onmousemove = fnMove;
+                document.onmouseup = fnUp;
+            }
+        }
+
+        function fnUp() {
+            this.onmousemove = null;
+            this.onmouseup = null;
+
+            if (this.setCapture) {
+                this.releaseCapture();
+            }
+        }
+
+        function fnMove(ev) {
+            var oEvent = ev || event;
+
+            //oDiv.style.left = oEvent.clientX - disX + 'px';
+            //oDiv.style.top = oEvent.clientY - disY + 'px';
+
+            //改变父级div大小
+            oDiv2.style.width = oEvent.clientX - disX + oDiv.offsetWidth + 'px';
+            oDiv2.style.height = oEvent.clientY - disY + oDiv.offsetHeight + 'px';
+        }
+    </script>
+</head>
+<body>
+    <div id='div2'>
+        <div id='div1'></div>
+    </div>
+</body>
+</html>

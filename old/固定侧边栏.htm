@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>侧边栏</title>
+    <style type="text/css">
+        #div1{ width:100px; height:100px; background:silver; position:absolute; right:0;}
+    </style>
+    <script type ="text/javascript">
+
+        var timer = null;
+        var iSpeed = 0;
+        var oDiv = null;
+        var timer = null;
+        var oInput = null;
+        window.onscroll = function () {
+            oInput = document.getElementById('input1');
+            oDiv = document.getElementById('div1');
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+            //记住：top是相对于文档高度(出现滚动条时),而非clientHeight(可视高度)
+            //oDiv.style.top = scrollTop + (document.documentElement.clientHeight - oDiv.offsetHeight) / 2 + 'px';
+            var t = scrollTop + (document.documentElement.clientHeight - oDiv.offsetHeight) / 2;
+            startMove(parseInt(t));//由于会有抖动,目标点取整
+        }
+
+        
+        
+
+        function startMove(iTarget) {
+
+            clearInterval(timer);
+            timer = setInterval(function () {
+                iSpeed = (iTarget - oDiv.offsetTop) / 8;
+                iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);//由于速度在减小,会慢慢蹭到目标点重合,但匀速就不会
+
+                //取整后条件改为==
+                //offset是到body的父级的 间距
+                if (oDiv.offsetTop == iTarget) {
+                    clearInterval(timer);
+                }
+                else {
+                    oDiv.style.top = oDiv.offsetTop + iSpeed + 'px';
+                    oInput.value = oDiv.offsetTop + '目标点:' + iTarget + 'px';
+                }
+
+            }, 30);
+        }
+    </script>
+</head>
+<body style=' height:1000px;'>
+    <div id='div1'></div>
+    <input type="text" value='' id='input1' style=' position:fixed; top:50px;' />
+</body>
+</html>

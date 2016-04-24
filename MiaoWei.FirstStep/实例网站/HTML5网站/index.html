@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html>
+	<head lang="ch">
+		<meta charset="utf-8"/>
+		<meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<title>test</title>
+		<link rel="stylesheet" type="text/css" href="style/index.css">
+		<link rel="stylesheet" type="text/css" href="style/circle.css">
+		<link rel="stylesheet" type="text/css" href="style/fullscreen.css">
+		<!--[if IE 6]>
+			<script type="text/javascript">
+			    alert('IE6 没救了');
+			    setInterval(function(){
+			    alert('还在用IE6啊！');
+			   }, 10000);
+			</script>
+		<![endif]-->
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+		    function getWords(data) {
+		        var oSearchResult = document.getElementById('search-result');
+		        var oSearchResultUl = oSearchResult.getElementsByTagName('ul')[0];
+		        if (data.s.length) {
+		            oSearchResult.style.display = 'block';
+
+		            var sHtml = '';
+		            var Length = data.s.length > 5 ? 5 : data.s.length;
+		            for (var i = 0; i < Length; i++) {
+		                sHtml += '<li><a href="http://www.baidu.com/s?wd=' + data.s[i] + '" target="_blank">' + data.s[i] + '</a></li>';
+		            };
+
+		            oSearchResultUl.innerHTML = sHtml;
+		        }
+		        else {
+		            oSearchResult.style.display = 'none';
+		        }
+		    }
+		</script>
+	</head>
+	<body>
+		<div id="loading-box">
+			<div class="loading">
+				<div class="circle-wrap"></div>
+				<div class="circle-inner"></div>
+				<span id="num">0%</span>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/loading.js"></script>
+
+		<div id="wrap" class="wrap">
+			<div id="header">
+				<div class="logo"></div>
+				<div class="nav">
+					<ul class="nav-list">
+						<li><a href="javascript:;">Works</a></li>
+						<li><a href="javascript:;">XX</a></li>
+						<li><a href="javascript:;">Contact</a></li>
+						<li><a href="javascript:;">About</a></li>
+					</ul>
+					<div class="nav-bg-box">
+						<ul class="nav-bg">
+							<li><a href="javascript:;">Works</a></li>
+							<li><a href="javascript:;">XX</a></li>
+							<li><a href="javascript:;">Contact</a></li>
+							<li><a href="javascript:;">About</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="search-box">
+					<div class="search-cont">
+						<label id="lab" for="ipt">pls enter a keyword</label>
+						<input id="ipt" type="input" />
+						<a id="search-btn" class="search-btn" href="javascrpt:;" target="_blank"></a>
+					</div>
+					<div class="search-bg" title="Want to search on, come on ~ ~"></div>
+				</div>
+				<div id="search-result" class="search-result"><ul></ul></div>
+			</div>
+			<div id="login-box">
+				<a href="javascript:;">Regist</a>
+				<a href="javascript:;">Login</a>
+				<div class="welcome">Hello，<span>XX</span><a href="javascript:;">Logout</a></div>
+			</div>
+			<div id="main">
+				<div class="nav-box">
+					<ul class="nav-list">
+						<li><a href="javascript:;">All</a></li>
+						<li><a href="javascript:;">The whole</a></li>
+						<li><a href="javascript:;">CSS</a></li>
+						<li><a href="javascript:;">Game</a></li>
+						<li><a href="javascript:;">Practice</a></li>
+					</ul>
+					<div class="nav-bg-box">
+						<ul class="nav-bg">
+							<li><a href="javascript:;">All</a></li>
+							<li><a href="javascript:;">The whole</a></li>
+							<li><a href="javascript:;">CSS</a></li>
+							<li><a href="javascript:;">Game</a></li>
+							<li><a href="javascript:;">Practice</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="cont-box">
+					<ul class="cont-list">
+						<li hash="webQQ" type="complete">
+							<a href="Works/complete_page/webQQ/index.html" target="_blank">
+								<img src="images/opus/1.jpg" alt="" />
+								<div class="opus-text">
+									<h2 class="title">Web-QQ</h2>
+									<p class="text">ECMAjavascript, DOM compatibility, BOM operation, Ajax front desk interactive data, JSONP cross-domain requests solutions, as well as a variety of object-oriented animation and interactivity ...</p>
+								</div>
+							</a>
+						</li>
+						<li hash="tmail" type="css">
+							<a href="Works/complete_page/tmall/index.html" target="_blank">
+								<img src="images/opus/2.jpg" alt="" />
+								<div class="opus-text">
+									<h2 class="title">Lynx Home</h2>
+									<p class="text">HTML code is semantic, in line with W3C specifications. Style compatible IE6/7/8/9/10/11, Chrome, Firefox and other major browsers kernel. Application of CSS-sprite, semantic structure, the image file management, style reuse ...</p>
+								</div>
+							</a>
+						</li>
+						<li hash="pubuliu" type="complete">
+							<a href="Works/complete_page/waterfall/index.html" target="_blank">
+								<img src="images/opus/3.jpg" alt="" />
+								<div class="opus-text">
+									<h2 class="title">Waterfalls flow</h2>
+									<p class="text">JSONP cross-domain requests and buffer movement. Adaptive image columns, changing the size of the browser window automatically adjust the number of columns and sort with a cushion movement transitions ...</p>
+								</div>
+							</a>
+						</li>
+						<li hash="sinaweibo" type="css">
+							<a href="Works/complete_page/xina_weibo/index.html" target="_blank">
+								<img src="images/opus/4.jpg" alt="" />
+								<div class="opus-text">
+									<h2 class="title">Sina Weibo</h2>
+									<p class="text">Page styles compatible IE6/7/8/9/10/11, Firefox, Chrome, Safari, Opera and other major browser kernel. Application of high-layout, CSS-sprite, style reusing.</p>
+								</div>
+							</a>
+						</li>
+						<li hash="word" type="game">
+							<a href="Works/game/word/index.html" target="_blank">
+								<img src="images/opus/5.jpg" alt="" />
+								<div class="opus-text">
+									<h2 class="title">Typing game</h2>
+									<p class="text">DOM operations (letters to create and delete), random function (from the thesaurus corresponding points taken at random word), the detection of keyboard events to achieve, upgrade the level of the calculated data and scores record.</p>
+								</div>
+							</a>
+						</li>
+						<li hash="xiangqi" type="game">
+							<a href="Works/game/chess/index.html" target="_blank">
+								<img src="images/opus/6.jpg" alt="" />
+								<div class="opus-text">
+									<h2 class="title">Chinese chess.</h2>
+									<p class="text">The main test of a number of related knowledge and DOM operations, the minimum distance detection, context menu events, collision detection, various pieces of the rules of the game (single way of writing).</p>
+								</div>
+							</a>
+						</li>
+						<li hash="plane" type="game">
+							<a href="Works/game/plane/index.html" target="_blank">
+								<img src="images/opus/7.jpg" alt="" />
+								<div class="opus-text">
+									<h2 class="title">Micro-channel aircraft game</h2>
+									<p class="text">Using wording monomer realize the value of life of the aircraft, scoring record, level upgrades, energy supplement, randomly generated enemy, the enemy explosion animation functions. Application of the DOM operation, motion effects, many-body collision detection, and random effects of various data recording.</p>
+								</div>
+							</a>
+						</li>
+						<li hash="enemy" type="practice">
+							<a href="Works/game/enemy/index.html" target="_blank">
+								<img src="images/opus/8.jpg" alt="" />
+								<div class="opus-text">
+									<h2 class="title">Bee</h2>
+									<p class="text">A simple little bee game。</p>
+								</div>
+							</a>
+						</li>
+						<li hash="home-page" type="practice">
+							<a href="Works/complete_page/homepage/index.html" target="_blank">
+								<img src="images/opus/3.jpg" alt="" />
+								<div class="opus-text">
+									<h2 class="title">Homepage</h2>
+									<p class="text">A simple personal homepage</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="roll-bar-box">
+					<div class="roll-bar"></div>
+				</div>
+			</div>
+			<div id="footer">
+				<ul class="concact">
+					<li><a class="sina-weibo" target="_blank" href="http://weibo.com/sqrtthree" title="My Sina Weibo"></a></li>
+					<li><a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=461883197&site=qq&menu=yes" title="Click to contact me"></a></li>
+				</ul>
+				<div class="text">
+					<!--<p><a href="javascrpt:;">HTML5</a><a href="javascrpt:;">CSS3</a><span class="wheel-icon"></span></p>-->
+				</div>
+			</div>
+			<div id="menu-box">
+				<ul class="menu-list">
+					<li><a href="javascript:;" title="Quit"></a></li>
+					<li><a href="javascript:;" title="Skin"></a></li>
+					<li class="mode"><a href="javascript:;" title="Full Screen Mode"></a></li>
+					<li class="mode"><a href="javascript:;" title="3D"></a></li>
+					<li><a href="javascript:;" title="Refresh"></a></li>
+				</ul>
+				<div id="menu-btn" class="menu-btn"><a href="javascript:;" title="Set"></a></div>
+			</div>
+		</div>
+		<div id="pop-layer"></div>
+		<div id="ly-wrap">
+			<div class="close"><a href="javascript:;"></a></div>
+			<div class="about-me-box">
+				<div class="pic"></div>
+				<p class="text">Programmers, eighteen, from the beginning of the text, even without the test. Then martial arts, martial arts made ​​a vector field, Drum officials, by the out. Switched to IT, essays a function, use it, stack overflow.</p>
+				<p class="text">Well, serious little friends ~ ~ ^ _ ^</p>
+				<p class="text">My front yard farming a small, professional web front end siege lion, under the tutelage of wonderful taste classroom, hobby computer programming. Javascript language mainly based on a variety of interactive effects of the page. I really like to study the complex animation, exquisite visual and user-friendly interaction design. If you are interested, welcome to study together ^ _ ^. Now also taking the time to learn some knowledge of the design, and I hope in the future be able to do a design and procedures are proficient professional web front-end development engineer.</p>
+				<a href="javascript:void(0)" target="_blank">Download</a><a href="my_resume.html" target="_blank">Preview</a>
+			</div>
+			<div class="contact-box">
+				<div class="pic"></div>
+				<div class="card"></div>
+				<p>Tel：5211314 </p>
+				<p>MSN：<a href="http://wpa.qq.com/msgrd?v=3&uin=461883197&site=qq&menu=yes" title="contact us">5211314</a></p>
+				<p>E-mail：xxxxxxx.com<a style="font-size: 14px;padding-left: 12px;" href="mailto:sqrtthree@foxmail.com" title="email us">send e-mail</a></p>
+			</div>
+			<div class="about-box">
+				<h2>about</h2>
+				<p>This site is my personal home page, is mainly used to show some of my personal projects. The main use of the technology are:</p>
+				<ul>
+					<li> 0, image pre-loading technology </ li> 
+                    <li> 1, custom scroll bar </ li> 
+                    <li> 2, cookie operations (add and read) </ li> 
+                    <li> 3, the effect of elastic motion navigation bar </ li> 
+                    <li> 4, the browser kernel judge </ li> 
+                    <li> 5, to determine loading custom animations and page loading progress </ li> 
+                    <li> 6, JSONP cross-domain requests technology </ li> 
+                    <li> 7, HTML5 audio playback </ li> 
+                    <li> 8, HTML5 local storage technology </ li> 
+                    <li> 9, powerful CSS3 shadows, gradients, animations and 3D effects ... </ li>
+				</ul>
+				<a href="javascritp:;">Please Mengchuo exhaustive version here ^ _ ^</a>
+			</div>
+			<div class="browser-box">
+				<h2>Browser version detection results：</h2>
+				<p>Your browser kernel and version<span>Low-level browser</span></p>
+				<p class="text">Sorry, to promote the W3C standard browser and a better user experience, and you are using older browsers do not support a good site to use HTML5 and CSS3 3D technology, so you can not experience the site will result in the full effect, in order to better your browsing experience, this site is strongly recommended that you use
+                    <a href="https://www.google.com/intl/zh-CN/chrome/browser/?hl=zh-CN" title="Google Chrome Browser In simple appearance, contains a cutting-edge technology that allows web browsing become more efficient, safer and easier. Click to download" target="_blank">Google Chrome</a>Browser, the site in this very grateful for the contributions that you made ​​to promote the development of the Internet.</p>
+				<span class="browser-href">Portal：<a href="https://www.google.com/intl/zh-CN/chrome/browser/?hl=zh-CN" target="_blank">Google Chrome</a></span>
+			</div>
+		</div>
+		<div id="login-layer-bg"></div>
+		<div id="login-layer">
+			<div class="login-box">
+				<div class="dialog-hd">
+					<a id="login-dialog-close" href="javascript:;" class="dialog-close">×</a>
+					<h3>Login</h3>
+				</div>
+				<div class="dialog-bd">
+					<div class="form-item">
+						<label for="username">User：</label><input id="login-username" type="text" />
+					</div>
+					<div class="form-item">
+						<label for="password">Code：</label><input id="login-password" type="password" />
+					</div>
+				</div>
+				<div class="dialog-ft">
+					<a id="login-btn-ok" href="javascript:;" class="btn btn-ok">Sure</a><a id="login-btn-cancel" href="javascript:;" class="btn btn-cancel">Cancel</a>
+				</div>
+			</div>
+			<div class="reg-box">
+				<div class="dialog-hd">
+					<a id="reg-dialog-close" href="javascript:;" class="dialog-close">×</a>
+					<h3>Register</h3>
+				</div>
+				<div class="dialog-bd">
+					<div class="form-item">
+						<label for="username">User：</label><input id="reg-username" type="text" />
+					</div>
+					<div class="form-item">
+						<label for="password">Code：</label><input id="reg-password" type="password" />
+					</div>
+				</div>
+				<div class="dialog-ft">
+					<a id="reg-btn-ok" href="javascript:;" class="btn btn-ok">Sure</a><a id="reg-btn-cancel" href="javascript:;" class="btn btn-cancel">Cancel</a>
+				</div>
+			</div>
+		</div>
+		<div id="effect-layer">
+			<div class="effect-close"><a href="javascript:;"></a></div>
+		</div>
+		<script type="text/javascript" src="js/circleModel.js"></script>
+		<script type="text/javascript" src="js/fullscreen.js"></script>
+        <audio controls="controls" style="display:none;" autoplay loop>
+            <source src="%e2%91%a0%e7%9b%b4%e5%be%88%e5%ae%89%e9%9d%99.mp3" type="audio/mpeg" />
+        </audio>
+	</body>
+</html>

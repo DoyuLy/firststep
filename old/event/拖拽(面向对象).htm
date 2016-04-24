@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>拖拽</title>
+    <script type="text/javascript">
+        
+        //用instanceof  ,不要用typeof 因为很多都是object
+        
+        //Json面向对象/空间命名法
+        var Doyo = {};
+        Doyo.common = {
+            GetByClass: function () { },
+            AddEvent: function () { }
+        };
+
+        Doyo.fx = {
+            StartMove: function () { },
+            Drag: function () { }
+        };
+        //调用
+        Doyo.fx.StartMove();
+
+        //面向过程
+    /*
+        window.onload = function () {
+            var oDiv = document.getElementById('div1');
+
+            oDiv.onmousedown = function (ev) {
+                var oEvent = ev || event;
+                var disX = oEvent.clientX - oDiv.offsetLeft;
+                var disY = oEvent.clientY - oDiv.offsetTop;
+                if(oDiv.setCapture){
+                    //将onmousemove置于onmousedown中
+                    //使用document捕获move事件
+                    document.onmousemove = function (ev) {
+                        var oEvent = ev || event;
+
+                        oDiv.style.left = oEvent.clientX - disX + 'px';
+                        oDiv.style.top = oEvent.clientY - disY + 'px';
+                    }
+
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    }
+
+                    return false;//chrome ,FF 解决拖拽文字选中
+                }
+
+                else{ //IE
+
+                    oDiv.onmousemove=function(ev){
+                        var oEvent = ev || event;
+                        oDiv.style.left = oEvent.clientX - disX + 'px';
+                        oDiv.style.top = oEvent.clientY - disY + 'px';
+                    }
+
+
+                    oDiv.onmouseup = function () {
+                        oDiv.onmousemove = null;
+                        oDiv.onmouseup = null;
+
+                        //如果是oDiv进行事件onmousemove
+                        //添加如下一行代码
+                        oDiv.releaseCapture();//鼠标抬起,释放move
+                    }
+
+                    //鼠标按下
+                    oDiv.setCapture();//IE独有 事件捕获(所有事件让oDiv来响应)
+                }
+            }
+        }*/
+
+        //面向过程1
+        /*
+        var oDiv = null;
+        var disX = 0;
+        var disY = 0;
+        window.onload = function () {
+            oDiv = document.getElementById('div1');
+            oDiv.onmousedown = fnDown;
+        }
+
+
+        function fnDown(ev) {
+            var oEvent = ev || event;
+            disX = oEvent.clientX - oDiv.offsetLeft;
+            disY = oEvent.clientY - oDiv.offsetTop;
+
+            
+            if(oDiv.setCapture){   //IE
+                oDiv.onmousemove = fnMove;
+                oDiv.onmouseup = fnUp;
+
+                oDiv.setCapture();
+            }
+            else{                   //FF, Chrome
+                document.onmousemove = fnMove;
+                document.onmouseup = fnUp;
+            }
+        }
+
+        function fnUp() {
+            this.onmousemove = null;
+            this.onmouseup = null;
+
+            if(this.setCapture){
+                this.releaseCapture();
+            }
+        }
+
+        function fnMove(ev) {
+            var oEvent = ev || event;
+
+            oDiv.style.left = oEvent.clientX - disX + 'px';
+            oDiv.style.top = oEvent.clientY - disY + 'px';
+        }
+        */
+
+        //面向对象1
+        /*
+        window.onload = function () {
+            new Drag('div1');
+            new Drag('div2');
+        };
+
+        function Drag(id) {
+            var _this = this;
+            this.disX = 0;
+            this.disY = 0;
+            this.oDiv = document.getElementById(id);
+            this.oDiv.onmousedown = function(){ //事件/定时函数 会导致this改变
+                _this.fnDown();
+            };
+        }
+
+
+        Drag.prototype.fnDown = function (ev) {
+            var _this=this;
+            var oEvent = ev || event;
+            this.disX = oEvent.clientX - this.oDiv.offsetLeft;
+            this.disY = oEvent.clientY - this.oDiv.offsetTop;
+
+            document.onmousemove =function(){ 
+                _this.fnMove();
+            };
+            document.onmouseup =function(){
+                _this.fnUp();
+            };
+        };
+
+        Drag.prototype.fnUp = function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+
+        Drag.prototype.fnMove = function (ev) {
+            var oEvent = ev || event;
+
+            this.oDiv.style.left = oEvent.clientX - this.disX + 'px';
+            this.oDiv.style.top = oEvent.clientY - this.disY + 'px';
+        };
+        */
+
+        //拖拽时不能添加move事件
+
+        //继承
+        window.onload = function () {
+            Drager('div1');
+            LimitDrager('div2');
+        };
+
+        function Drager(id) {
+            return new Drag(id);
+        }
+
+        function Drag(id) {
+            var _this = this;
+            this.disX = 0;
+            this.disY = 0;
+            this.oDiv = document.getElementById(id);
+            this.oDiv.onmousedown = function () { //事件/定时函数 会导致this改变
+                _this.fnDown();
+                return false;// 处理： div为空时 会出现‘禁止’图标
+            };
+        }
+
+
+        Drag.prototype.fnDown = function (ev) {
+            var _this = this;
+            var oEvent = ev || event;
+            this.disX = oEvent.clientX - this.oDiv.offsetLeft;
+            this.disY = oEvent.clientY - this.oDiv.offsetTop;
+
+            document.onmousemove = function () {//拖动事件不能加在空div上,否则速度过快会发生移出div,导致div的move事件失效
+                _this.fnMove();
+                return false; //阻止移动默认样式
+            };
+            document.onmouseup = function () {
+                _this.fnUp(); //mouseup时消除mousemove
+            };
+
+            return false;  //阻止文字选中 ，但IE不兼容(见上)
+        };
+
+        Drag.prototype.fnUp = function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+
+        Drag.prototype.fnMove = function (ev) {
+            var oEvent = ev || event;
+
+            this.oDiv.style.left = oEvent.clientX - this.disX + 'px';
+            this.oDiv.style.top = oEvent.clientY - this.disY + 'px';
+        };
+        //-------------继承 LimitDrag--------------------
+        function LimitDrager(id) {
+            return new LimitDrag(id);
+        }
+
+        function LimitDrag(id) {
+            //继承构造函数(类)  this：new 出来的worker对象
+            //调用构造函数是this进行了传递,构造函数伪装
+            Drag.call(this, id);
+        }
+
+        for (var i in Drag.prototype) { //避免引用造成增加了父类方法
+            LimitDrag.prototype[i] = Drag.prototype[i];
+        }
+        //增加方法
+        LimitDrag.prototype.fnMove = function (ev) { //同名方法 覆盖掉move方法
+            var oEvent = ev || event;
+
+            var l = oEvent.clientX - this.disX;
+            var t = oEvent.clientY - this.disY;
+
+            //限制左右溢出
+            //if (l < 0) { l = 0; } //限左
+            if (l < 50) { l = 0; }//磁性吸附
+            else if (l > document.documentElement.clientWidth - this.oDiv.offsetWidth - 50) {
+                l = document.documentElement.clientWidth - this.oDiv.offsetWidth; //限右
+            }
+
+            //限制上下溢出
+            //if (t < 0) { t = 0; }
+            if (t < 50) { t = 0; }
+            else if (t > document.documentElement.clientHeight - this.oDiv.clientHeight - 50) {
+                t = document.documentElement.clientHeight - this.oDiv.clientHeight
+            }
+
+            this.oDiv.style.left = l + 'px';
+            this.oDiv.style.top = t + 'px';
+        }
+    </script>
+</head>
+<body>
+
+    <div id='div1' style=' cursor:pointer; width: 100px; height: 100px; background: red; position: absolute;'>
+    </div>
+    <div id='div2' style=' cursor:pointer; width: 100px; height: 100px; background: blue; position: absolute;'>
+        磁性吸附
+    </div>
+</body>
+</html>

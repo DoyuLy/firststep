@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>iframe</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oInput = document.getElementsByTagName('input');
+            var oIframe = document.getElementById('ifram1');
+
+            function ChangeHeight() {
+                //避免改变高度的时候有延迟冲突,给一个反应时间间隔
+                setInterval(function () {
+                    oIframe.height = oIframe.contentWindow.document.body.offsetHeight;
+                },100)
+            }
+            ChangeHeight();
+
+
+            
+            oInput[0].onclick = function () {
+                oIframe.contentWindow.document.body.style.background = 'pink';
+                oIframe.contentWindow.document.getElementById('div1').style.height = 200;
+                ChangeHeight();
+            }
+            oInput[1].onclick = function () {
+                oIframe.contentWindow.document.getElementById('div1').style.height = 400;
+                oIframe.contentWindow.document.body.style.background = 'white';
+                ChangeHeight();
+            }
+        }
+    </script>
+</head>
+<body>
+    <input id='btn1' type="button"  value="切换1"/>
+    <input id='btn2' type="button"  value="切换2"/>
+    <iframe id="ifram1" src="iframeDemo.htm" scrolling="no" frameborder="1" title="iframeDemo"></iframe>
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oInput = document.getElementById('btn1');
+            oInput.onclick = function () {
+                window.parent.document.getElementById('btn1').style.color = 'red';
+                //window.top.document 顶层
+            }
+        }
+    </script>
+</head>
+<body>
+    <p id='p1'>aaaa</p>
+    <input type="button" id="btn1" value="改变父级window元素" />
+    <div id='div1' style=" width:200px; height:200px; background:red"></div>
+</body>
+</html>

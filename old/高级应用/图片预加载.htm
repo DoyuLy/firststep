@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>图片预加载</title>
+    <script type="text/javascript">
+
+        //预判加载 设计上:如当前浏览图片1, 我们预先加载图片2
+        //延迟加载 节省带宽,滚轮滚到了可视区才加载图片
+        window.onload = function () {
+            var oImg = new Image();
+            oImg.onload = function () {
+                alert('预加载图片2完成');
+            }
+            oImg.onerror = function () {
+                alert('失败');
+            }
+            oImg.src = '../images/navA_hover.png';
+
+            var oImg1 = document.getElementById('img1');
+            oImg1.onmouseover = function () {
+                this.src = '../images/navA_hover.png';
+            }
+            oImg1.onmouseout = function () {
+                this.src = '../images/eg_tulip.jpg';
+            }
+        }
+    </script>
+</head>
+<body>
+    <img id='img1' width='300' height='300' src="../images/eg_tulip.jpg" alt='' />
+</body>
+</html>

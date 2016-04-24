@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>model</title>
+    <script src="jquery-2.0.3.min.js"></script>
+    <script src="underscore-min.js"></script>
+    <script src="backbone-min.js"></script>
+    <script>
+        (function($) {
+
+            var Man = Backbone.Model.extend({
+                initialize: function () {
+                    //初始化时绑定监听
+                    this.bind('change:name', function() {
+                        alert('you have change name propery ' + this.get('name'));
+                    });
+                    this.bind('error', function(model,error) {
+                        alert(error);
+                    });
+                },
+                defaults: {
+                    name: 'duyu',
+                    age:'25'
+                },
+                validate: function (attributes) {
+                    if (attributes.name == '') {
+                        return ' name must not be null!';
+                    }
+                    
+                },
+                aboutMe: function() {
+                    return 'my name is ' + this.get('name') + ', and i am ' + this.get('age') + ' years old.';
+                }
+            });
+            var man = new Man;
+            //alert(man.aboutMe());
+            //man.set({ name: 'jack' });
+            man.set({ name: '' });
+
+
+
+            var Book = Backbone.Model.extend({
+                default: { title: 'default' },
+                initialize: function() {
+                    
+                }
+            });
+
+            var BookShelf = Backbone.Collection.extend({
+                model:Book
+            });
+            var bookShelf = new BookShelf([
+                new Book({ title: 'book1' }),
+                new Book({ title: 'book2' }),
+                new Book({ title: 'book3' }),
+                new Book({ title: 'book4' })
+            ]);
+            //bookShelf.remove(book2);
+
+
+            bookShelf.each(function(book) {
+                alert(book.get('title'));
+            });
+
+            bookShelf.bind('reset', showAllBooks);
+            bookShelf.fetch({
+                url: '/getbooks/',
+                success: function(collection, response) {
+                    collection.each(function(book) {
+                        alert(book.get('title'));
+                    });
+                },
+                error: function(e) {
+                    alert(e);
+                }
+            });
+            var showAllBooks = function() {
+                bookShelf.each(function(book) {
+                    //渲染到view
+                });
+            };
+
+
+            var AppRouter = Backbone.Router.extend({
+                routes: {
+                    '*action':'defaultRoute'
+                },
+                defaultRoute: function(actions) {
+                    alert(actions);
+                }
+            });
+            var appRouter = new AppRouter;
+            Backbone.history.start();
+        })(jQuery)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

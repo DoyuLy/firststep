@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>照片墙</title>
+    <style type="text/css">
+        *{ margin:0; padding:0;}
+        #ul1{ width:700px; position:relative;/*相对定位,为转换做准备*/ margin:0 auto;}
+        #ul1 li{ width:120px; height:120px; float:left; list-style:none; margin:10px; }
+        #ul1 .active{ border:1px dashed red;}
+    </style>
+    <script src="../Scripts/js/myMove.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //float脱离文档流 无法拖动,需转换为绝对定位
+
+        window.onload = function () {
+            var oUl = document.getElementById('ul1');
+            var oLi = oUl.getElementsByTagName('li');
+            var oPos = []; //存当前位置
+            var iMinZindex = 2;
+            //var i = 0;
+           
+            ///-----------布局转换-------------
+
+            for (var i = 0; i < oLi.length; i++) {
+                oPos[i] = { left: oLi[i].offsetLeft, top: oLi[i].offsetTop };
+                //oLi[i].style.position = 'absolute';//缩到一坨(注意：不能写到和定位‘位移’left,top同一个循环中)
+            }
+
+            //先加绝对定位的 top,left 目前没起作用
+            for (var i = 0; i < oLi.length; i++) {
+                oLi[i].style.left = oPos[i].left + 'px';
+                oLi[i].style.top = oPos[i].top + 'px';
+                oLi[i].style.position = 'absolute';
+                //干掉margin
+                oLi[i].style.margin = '0'; //否则margin使用了2次
+                oLi[i].index = i; //放起鼠标,若无碰撞,则回原地
+            }
+
+            ///---------------拖拽--------------
+            for (var i = 0; i < oLi.length; i++) {
+                setDrag(oLi[i]);
+            }
+
+
+            function setDrag(obj) {
+                obj.onmousedown = function (ev) {
+                    var oEvent = ev || event;
+
+                    obj.style.zIndex = iMinZindex++; //当前li层级累加
+
+                    var disX = oEvent.clientX - obj.offsetLeft; //鼠标距离obj左上角距离
+                    var disY = oEvent.clientY - obj.offsetTop;
+
+                    if (obj.setCapture) {//IE
+                        obj.onmousemove = function () {
+                            var oEvent = ev || event;
+                            obj.style.left = oEvent.clientX - disX + 'px';
+                            obj.style.top = oEvent.clientY - disY + 'px';
+
+                            for (var i = 0; i < oLi.length; i++) {
+                                oLi[i].className = '';
+                            }
+                            var oNear = findNearest(obj);
+                            if (oNear) {
+                                oNear.className = 'active';
+                            } else { }
+                        }
+                        obj.onmouseup = function () {
+                            obj.onmousemove = null;
+                            obj.onmouseup = null;
+
+                            var oNear = findNearest(obj);
+                            if (oNear) {
+                                //oNear->obj obj->oNear
+                                oNear.className = '';
+                                oNear.style.zIndex = iMinZindex++; //避免层后面交换
+                                obj.style.zIndex = iMinZindex++;
+                                startMove(oNear, oPos[obj.index]);
+                                startMove(obj, oPos[oNear.index]);
+                                //交换index
+                                //exchange(obj.index, oNear.index);
+                                var temp = 0; temp = obj.index; obj.index = oNear.index; oNear.index = temp;
+                            }
+                            else { startMove(obj, oPos[obj.index]) }; //{ left: oPos[obj.index].left, top: oPos[obj.index].top }
+
+                            obj.releaseCapture(); //鼠标抬起,释放move
+                        }
+                        clearInterval(obj.timer); //解决运动没停止再拖时造成晃动
+                        obj.setCapture();
+                    }
+                    else { //chrome FF
+                        document.onmousemove = function (ev) {
+                            var oEvent = ev || event;
+
+                            obj.style.left = oEvent.clientX - disX + 'px';
+                            obj.style.top = oEvent.clientY - disY + 'px';
+                            //跟所有li检测碰撞
+                            for (var i = 0; i < oLi.length; i++) {
+                                oLi[i].className = '';
+                            }
+                            var oNear = findNearest(obj);
+                            if (oNear) {
+                                oNear.className = 'active';
+                            } else { }
+                        }
+                        document.onmouseup = function () {
+                            document.onmousemove = null;
+                            document.onmouseup = null;
+
+                            var oNear = findNearest(obj);
+                            if (oNear) {//有碰撞
+                                //oNear->obj
+                                //obj->oNear
+                                oNear.className = '';
+                                oNear.style.zIndex = iMinZindex++;
+                                obj.style.zIndex = iMinZindex++;
+                                startMove(oNear, oPos[obj.index]);
+                                startMove(obj, oPos[oNear.index]);
+                                //交换index
+                                //exchange(obj.index, oNear.index);
+                                var temp = 0; temp = obj.index; obj.index = oNear.index; oNear.index = temp;
+                            }
+                            else { startMove(obj, oPos[obj.index]) }; //无碰撞回原地
+                        }
+                        clearInterval(obj.timer);
+                        return false; //chrome ,FF 解决拖拽文字选中
+                    }
+                }
+            }
+
+            ///---------------碰撞-----------------
+            function cdTest(obj1, obj2) {
+                var l1 = obj1.offsetLeft; //左边线
+                var r1 = obj1.offsetLeft + obj1.offsetWidth; //右边线
+                var t1 = obj1.offsetTop; //上边线
+                var b1 = obj1.offsetTop + obj1.offsetHeight; //下边线
+
+                var l2 = obj2.offsetLeft; //左边线
+                var r2 = obj2.offsetLeft + obj2.offsetWidth; //右边线
+                var t2 = obj2.offsetTop; //上边线
+                var b2 = obj2.offsetTop + obj2.offsetHeight; //下边线
+
+                //4种情况碰不上
+                if (r1 < l2 || l1 > r2 || b1 < t2 || t1 > b2) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+
+            ///------------------找最近的--------------
+            function getDisance(obj1, obj2) {
+                var a = obj1.offsetLeft - obj2.offsetLeft;
+                var b = obj1.offsetTop - obj2.offsetTop;
+                return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+            }
+
+            function findNearest(obj) {
+                var iMin = 999999999;
+                var iMinIndex = -1;
+                for (var i = 0; i < oLi.length; i++) {
+                    if (obj == oLi[i]) continue;
+                    if (cdTest(obj, oLi[i])) {
+                        var dis = getDisance(obj, oLi[i]);
+                        if (iMin > dis) {
+                            iMin = dis;
+                            iMinIndex = i;
+                        }
+                    }
+                }
+
+                if (iMinIndex == -1) {
+                    return null;
+                } else {
+                    return oLi[iMinIndex];
+                }
+            }
+
+            //交换
+            function exchange(a, b) {
+                if (typeof (a) == 'number' && typeof (b) == 'number') {
+                    a += b; b = a - b; a -= b;
+                }
+                else {
+                    var temp = 0;
+                    temp = a;
+                    a = b;
+                    b = temp;
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <ul id='ul1'>
+        <li><img src="../images/temp/kt_000001.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000002.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000003.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000016.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000005.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000006.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000017.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000008.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000009.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000010.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000018.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000012.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000013.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000014.jpg" alt='' /></li>
+        <li><img src="../images/temp/kt_000015.jpg" alt='' /></li>
+    </ul>
+</body>
+</html>

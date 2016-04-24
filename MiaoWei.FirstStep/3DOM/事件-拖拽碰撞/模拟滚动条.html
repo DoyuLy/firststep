@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>滚动条</title>
+    <style>
+        #div1{ width: 30px;height: 500px;background: black;position: absolute;left: 10px;top: 10px;}
+        #div2{ width: 30px;height: 30px;background:red; position: absolute;left: 0px;top: 0px;}
+        #div3{ width: 498px;height: 498px;border:1px solid green;position: absolute;left: 50px;top: 10px;overflow: hidden;}
+        #div4{ position: relative;top: 0;left: 0;}
+    </style>
+    <script>
+        /*
+         1.限制滚动范围
+         2.可以滚动
+         3.鼠标滚轮
+                  ie/chrome：onmousewheel  | event.wheelDeltad (上：120 ; 下：-120)  | event.detail(都是0;且非标准ie8及以下undefine)
+                  ff：DOMMouseScroll 必须用addEventListener | event.detail (上：-3; 下：3)
+        */
+        window.onload = function() {
+            var oDiv1 = document.getElementById('div1');
+            var oDiv2 = document.getElementById('div2');
+            var oDiv3 = document.getElementById('div3');
+            var oDiv4 = document.getElementById('div4');
+
+            var iMaxTop = oDiv1.offsetHeight - oDiv2.offsetHeight;
+            var iMinTop = 0;
+
+            oDiv2.onmousedown = function(ev) {
+                var ev = ev || event;
+
+                //鼠标相对div2距离
+                var disY = ev.clientY - this.offsetTop;
+
+                document.onmousemove = function(ev) {
+                    var ev = ev || event;
+                    var T = ev.clientY - disY; //当前Top值
+                    if (T < iMinTop)
+                        T = iMinTop;
+                    if (T > iMaxTop)
+                        T = iMaxTop;
+                    oDiv2.style.top = T + 'px';
+                    oDiv2.style.cursor = 'pointer';
+
+                    var iScale = T / iMaxTop;
+                    document.title = iScale;
+
+                    oDiv4.style.top = (oDiv3.clientHeight - oDiv4.offsetHeight) * iScale + 'px';
+                };
+                document.onmouseup = function() {
+                    document.onmousemove = document.onmouseup = null;
+                };
+                return false;
+            };
+        };
+
+        function wheel() {
+            var tag = true;
+            
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <div id="div2"></div>
+    </div>
+    <div id="div3">
+        <div id="div4">
+            戈多的期待|消息|搜索设置|百度首页
+            到百度首页新闻　网页　贴吧　知道　音乐　图片　视频　地图　文库　更多»
+            推荐 :  用手机随时随地上百度
+            展开WEB技术
+
+            javascript
+
+            php
+
+            html5
+
+            jquery
+            相关人物
+
+            马士兵
+
+            张孝祥
+
+            网页设计师
+            相关平台
+
+            百度云
+
+            微信公众平台
+
+            node.js
+            妙味课堂 - 首页 javascript培训|前端开发|javascript教程|...
+            妙味课堂是一支独具特色的IT培训团队,妙味反对传统IT教育枯燥乏味的教学模式,妙味提供一种全新的快乐学习方法!目前主要针对的是javascript培训,同时还提供了css教程、...
+            www.miaov.com/ 2014-05-05  - 百度快照 - 评价
+            妙味茶馆 - Powered by Discuz!
+            妙味课堂是一支独具特色的IT培训团队,妙味反对传统IT教育枯燥乏味的教学模式,妙味提供一种全新的快乐学习方法!目前主要针对的是javascript培训,同时还提供了css教程、...
+            bbs.miaov.com/for...php 2014-04-25  - 百度快照 - 评价
+            妙味教程网|课堂分享
+            妙味教程网为广大网站爱好者提供一站式教程下载服务。经典教程包括JAVA 、PHP、.net、CSS、jquery、flash、AS3、Ps、HTML等。另外还提供高清妙味视频、众多企业站...
+            www.178code.com/ 2014-04-27  - 百度快照 - 评价
+            在成都市搜索妙味_百度地图
+
+            A 妙味砂锅
+            地址：花邻街43
+            B 妙味面庄
+            地址：成都市武侯区晋阳路300号附34
+            电话：13028114412
+            C 妙味一坊
+            地址：南兴巷29
+            电话：13408608944
+            D 妙味天香
+            ￥80起  8条评论
+            地址：广场路北一段311
+            电话：(028)87985999
+            查看全部8条结果>>
+            map.baidu.com
+            妙味课堂视频的相关视频 在线观看_百度视频
+            妙味课堂-视频问题解答-快速排序 搜狐10:32
+            妙味课堂-视频问题解答-快速...
+            妙味课堂-视频问题解答-快速排序 搜狐10:31
+            妙味课堂-视频问题解答-快速...
+            妙味课堂-JavaScript视频教程——苹果官 搜狐16:39
+            妙味课堂-JavaScript视频教程...
+            妙味课堂-视频问题解答-闭包 酷629:06
+            妙味课堂-视频问题解答-闭包
+            查看全部785个相关视频>>
+            v.baidu.com/ 2014-5-11
+            妙味课堂-2013年官方网站-测试版
+            0%...
+            www.miaov.com/2013/ 2013-09-02  - 百度快照 - 评价
+            妙味_百度百科
+            妙味 拼音：miào wèi 注音：ㄇㄧㄠˋ ㄨㄟˋ美好的品质。《晋书·王接传》：“窃见处士 王接 ，岐嶷儁异，十三而孤，居丧尽礼，学过目而知，义触类而长，斯玉...
+            读音 词语解释
+            baike.baidu.com/ 2014-04-10
+            妙味_妙味价格_优质妙味批发/采购 - 阿里巴巴
+
+            阿里巴巴为您找到157条妙味产品的详细参数,实时报价,价格行情,优质批发/供应等信息。您还可以找河南郑州妙味味业,湖南省妙味轩食品有限公司,妙味食品有限责任公司,...
+            www.1688.com/chanpin/... 2009-04-01  - 百度快照
+            妙味来电话,地址,价格,营业时间(图)-西安-大众点评网
+            妙味来添加分店 评分:该商户暂无星级 | 口味- 环境- 服务- 口味: 0% - 环境: 0% - 服务: 0% - 妙味来的图片 我来上传 ...
+            www.dianping.com/shop... 2013-06-02  - 百度快照 - 评价
+            郑州妙味餐饮管理咨询有限公司——巨有味土豆粉加盟官网|土豆粉|...
+
+            版权所有:郑州妙味餐饮管理咨询有限公司 技术支持:新誉网络 ICP备案号:豫ICP备12021159号 ...
+            www.91miaowei.com/ 2014-04-23  - 百度快照
+            1
+            2
+            3
+            4
+            5
+            6
+            7
+            8
+            9
+            10
+            下一页>百度为您找到相关结果约2,510,000个
+            相关搜索	妙味课堂		妙味课堂javascript		妙味茶馆		绝味		韩雪冬
+            味妙烤鱼吧		妙味云课堂		妙味酸奶		味妙烤鱼吧 团购		妙味课堂 百度云
+            结果中找   帮助   反馈意见   举报   高级搜索
+            ©2014 Baidu 此内容系百度根据您的指令自动搜索的结果，不代表百度赞成被搜索网站的内容或立场
+        </div>
+    </div>
+</body>
+</html>

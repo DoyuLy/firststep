@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Learning AngularJS</title>
+    <script src="angular.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        
+        /*控制器不应被赋予太多的责任和义务，它只需要负责一个单一视图所需的业务逻辑
+          最常见的保持控制器“纯度”的方法是将那些不属于控制器的逻辑都封装到服务（services）中，然后在控制器中通过依赖注入调用相关服务
+        
+        下面的场合千万不要用控制器：
+        1.任何形式的DOM操作：控制器只应该包含业务逻辑。DOM操作则属于应用程序的表现层逻辑操作，向来以测试难度之高闻名于业界。
+            把任何表现层的逻辑放到控制器中将会大大增加业务逻辑的测试难度。ng 提供数据绑定 （数据绑定） 来实现自动化的DOM操作。
+            如果需要手动进行DOM操作，那么最好将表现层的逻辑封装在 指令 中
+        2.格式化输入：使用 angular表单控件 代替
+        3.过滤输出：使用 angular过滤器 代替
+        4.在控制器间复用有状态或无状态的代码：使用angular服务 代替
+        5.管理其它部件的生命周期（如手动创建 service 实例）
+        */
+        var app = angular.module('app', []);
+
+        app.controller('DoubleCtrl', ['$scope',function ($scope) {
+            $scope.num3 = 0;
+            $scope.double = function () {
+                if ($scope.num != null && $scope.num != "")
+                    return $scope.num * 2;
+                return "";
+            };
+
+            $scope.double2 = function(val) {
+                return val * 2;
+            };
+
+            $scope.double3 = function () {
+                return $scope.num3 += 2;
+            };
+
+
+            $scope.customSpice = "wasabi";
+            $scope.spice = 'very';
+            $scope.spicy = function (spice) {
+                $scope.spice = spice;
+            };
+        }]);
+    </script>
+</head>
+<body>
+    <!--<div ng-controller="DoubleCtrl" ng-app="app">
+        <input  ng-model="num" type="text" />
+        计算后等于：{{double(num)}}
+    </div>-->
+    <div ng-controller="DoubleCtrl" ng-app="app">
+        <input ng-model="num" type="text"> 翻倍后等于 {{ double2(num) }}
+        <input type="button" ng-click="double3()" value="Click" /> 值为：{{num3}}
+        <div>
+         <input ng-model="customSpice">
+         <button ng-click="spicy('chili')">Chili</button> <!--传入字符串常量-->
+         <button ng-click="spicy(customSpice)">Custom spice</button> <!--双向绑定-->
+         <p>The food is {{spice}} spicy!</p>
+    </div>
+    </div>
+    
+</body>
+</html>

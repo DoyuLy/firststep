@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>计数异样写法1</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oBtn = document.getElementsByTagName('input');
+            var i = 0;
+
+            for (i = 0; i < oBtn.length; i++) {
+                (function (obj) {
+                    var count = 0;
+                    obj.onclick = function () {
+                        alert(count++);
+                    }
+                })(oBtn[i]);
+            }
+
+            //即  (fn)(oBtn[i])  又把重构踢掉出去的合并进来了 0 0
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value='aaa' />
+    <input type="button" value='bbb' />
+    <input type="button" value='ccc' />
+    <input type="button" value='ddd' />
+</body>
+</html>

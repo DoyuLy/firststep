@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>插入图片</title>
+    <style type="text/css">
+        body{ background-color:black;}
+        #c1{ background-color:White; }
+        .center{margin:200px auto; width:400px; height:400px;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            //drawImage(obj,x,y,w,h);插入图,需在onload中调用
+            //createPattern(obj,'')//  2参数为：repeat/repeat-x,repeat-y,no-repeat 设置背景
+
+            /*
+            var oC = document.getElementById('c1');
+            var oGc = oC.getContext('2d');
+            var oImg = new Image();
+            oImg.src = 'images/T1sigqXgFbXXbMbfEI-194-279.png';
+            oImg.onload = function () {//图片加载完毕才执行
+            draw(this);
+            }
+
+            function draw(obj) {
+                oGc.drawImage(obj, 0, 0, 400, 400);
+            }
+            */
+
+            //--------------------------------------------------------
+            var aInput = document.getElementsByTagName('input');
+            var oImg = document.getElementById('img1');
+
+            var iNow = 1;
+            var yImg = new Image();
+            yImg.src = oImg.src;
+            yImg.onload = function () {
+                drawImg(oImg);
+            }
+
+            function drawImg(obj) {
+                var oC = document.createElement('canvas');
+                var oGc = oC.getContext('2d');
+                oC.width = obj.width;
+                oC.height = obj.height;
+
+                obj.parentNode.replaceChild(oC, obj); //canvas替换img
+                oGc.drawImage(obj, 0, 0);
+
+                for (var i = 1; i < aInput.length; i++) {
+                    if (i % 2 == 1) {
+                        aInput[i].onclick = function () {
+
+                            iNow = iNow % 4;
+                            toChange(oC, oGc);
+                            iNow++;
+                        }
+                    }
+                    else if (i % 2 == 0) {
+                        aInput[i].onclick = function () {
+                            if (iNow == 1) {
+                                iNow = 3;
+                                toChange(oC, cGc);
+                            }
+                            else iNow--;
+                        }
+                    }
+                }
+            }
+
+            function toChange(oC, oGc) {
+                switch (iNow) {
+                    case 1:
+                        oC.width = oImg.height;
+                        oC.height = oImg.width;
+                        oGc.rotate(90 * Math.PI / 180); //第一次旋转90°
+                        oGc.drawImage(oImg, 0, -oImg.height); //移动还是图片的Y轴(高)
+                        break;
+                    case 2:
+                        oC.width = oImg.width;
+                        oC.height = oImg.height;
+                        oGc.rotate(180 * Math.PI / 180);
+                        oGc.drawImage(oImg, -oImg.width, -oImg.height);
+                        break;
+                    case 3:
+                        oC.width = oImg.height;
+                        oC.height = oImg.width;
+                        oGc.rotate(-90 * Math.PI / 180);
+                        oGc.drawImage(oImg, -oImg.width, 0);
+                        break;
+                    case 0:
+                        oC.width = oImg.width;
+                        oC.height = oImg.height;
+                        //oGc.rotate(0 * Math.PI / 180);
+                        oGc.drawImage(oImg, 0, 0);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="">
+        <!--<canvas id="c1" width="400" height="400">
+            <span>不支持HTML5</span>
+        </canvas>-->
+    </div>
+    <div>
+        <div>
+            <input type="button" value="<-" />
+            <input type="button" value="->" />
+        </div>
+        <div>
+            <img src="/images/blog-image1.jpg" id="img1" alt="" />
+        </div>
+    </div>
+    
+</body>
+</html>

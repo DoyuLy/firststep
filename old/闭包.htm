@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>闭包</title>
+    <script type="text/javascript">
+        //局部变量与全局变量的关系
+        //好处：1.避免全局变量的污染 2.长期驻内存 3.方法私有化(私有成员)  4.模块化代码 5.直接在循环中找到元素索引
+
+        var aaa = (function () {
+            var a = 1;
+            return function () { a++; alert(a); }//(function(){})()立刻执行
+        })();
+        aaa();//2
+        aaa();//3   a 为非全局变量,但是也起到全局变量类似的累加效果,避免全局变量的污染,且a由于内部function的引用,所以不会被回收
+
+
+        //---------------------------
+        var a = (function () {
+            var a = 1;
+            function aaa() { a++; alert(a); }
+            function bbb() { a++; alert(a); }
+            return {
+                a: aaa,
+                b: bbb
+            }
+        })();
+        a.a();//2  即相对于内部来说, aaa()，bbb() 是私有
+        a.b(); //3
+
+        //--------------------------
+        /*
+        window.onload = function () {
+            var aLi = document.getElementsByTagName('li');
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].onclick = function () {
+                    alert(i);  //弹出都是3，原因：onload时已经执行完毕i的累加  在执行click时就是3了
+                }
+            }
+        }*/
+
+        //改写
+        window.onload = function () {
+            var aLi = document.getElementsByTagName('li');
+            for (var i = 0; i < aLi.length; i++) {
+                /*
+                (function (i) {
+                aLi[i].onclick = function () {
+                alert(i);
+                }
+                })(i);//立即执行
+                */
+                aLi[i].onclick = (function (i) {
+                    return function () {
+                        alert(i);
+                    }
+                })(i);
+            }
+        }
+
+        //----------------------------
+        //IE闭包内存泄露
+        /*
+        window.onload = function () {
+            var oUl = document.getElementById('ul');
+            oUl.onclick = function () {
+                alert(oUl.id);  //内部函数引用外部变量,造成IE不释放
+            }
+
+            window.onunload = function () {
+                oUl.onclick = null;
+            }
+        }*/
+        //还可以在外部建立变量,最后清空
+        window.onload = function () {
+            var oUl = document.getElementById('ul');
+            var uid = oUl.id;
+            oUl.onclick = function () {
+                alert(uid);  //内部函数引用外部变量,造成IE不释放
+            }
+            uid = null;
+        }
+    </script>
+</head>
+<body>
+    <ul id="ul">
+        <li>1111</li>
+        <li>1111</li>
+        <li>1111</li>
+    </ul>
+</body>
+</html>

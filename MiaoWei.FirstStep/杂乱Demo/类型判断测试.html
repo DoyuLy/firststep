@@ -1,0 +1,44 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title></title>
+        <script>
+            var arr = [];
+            alert(typeof arr == 'object');
+            alert(typeof i == 'undefined');
+
+            alert(arr instanceof Array);
+
+            alert(arr.constructor == Array);
+
+            alert(Object.prototype.toString.call(arr) == '[object Array]');
+
+
+            function A() { };
+            var a = new A();
+            alert(Object.prototype.toString.call(a) == '[object A]');
+            alert(a instanceof A);
+            /*
+                总结：
+                1.typeof：
+                    ①只能返回字符串：number,boolean,string,function,object,undefined 
+                    ②对于 String,Array,Null 等特殊对象使用 typeof 一律返回 object
+                    ③可以用于判断是否定义了当前属性if(typeof a!="undefined"){alert("ok")}
+                
+                2.instanceof 
+            
+                3.constructor：
+                    ①每个原型都会自动添加constructor属性,注意prototype写为json格式时需要手动更正this指向
+            
+                4.toString：
+                    ①系统原生对象自带toString; 而自定义对象是通过原型链找Object.prototype.toString
+                    ②在iframe下无bug
+            */
+        </script>
+    </head>
+<body>
+
+</body>
+</html>

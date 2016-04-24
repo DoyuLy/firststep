@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        body{ background-color:black;}
+        #c2{ background-color:White; }
+        .center{margin:200px auto; width:400px; height:400px;}
+    </style>
+     <script type="text/javascript">
+         window.onload = function () {
+             var oC2 = document.getElementById('c2');
+             var oGc2 = oC2.getContext('2d');
+             var oImg2 = new Image();
+             oImg2.src = 'images/blog-image1.jpg';
+             oImg2.onload = function () {//图片加载完毕才执行
+                 draw2(this);
+             }
+             function draw2(obj) {
+                 var bg = oGc2.createPattern(obj, 'repeat');
+                 oGc2.fillStyle = bg; //'red'
+                 oGc2.fillRect(0, 0, 300, 300);
+             }
+        }
+     </script>
+</head>
+<body>
+    <div style="">
+         <canvas id="c2" width="400" height="400">
+            <span>不支持HTML5</span>
+        </canvas>
+    </div>
+</body>
+</html>

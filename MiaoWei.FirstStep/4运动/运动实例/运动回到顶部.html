@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>回到顶部</title>
+    <style>
+        #div1{display: none; width: 40px;height: 40px;background: gray;position:fixed;right: 0;bottom: 0;text-align: center;cursor: pointer;}
+        #div1 a {
+            width: 40px;height: 40px; position: relative;top: 0;right: 0; text-align: center;
+            text-decoration: none;line-height: 40px;color: #fff;font-size: 20px;font-weight: bold;filter: alpha(opacity:40);opacity: 0.4;
+        }
+        #div1 a:hover {filter: alpha(opacity:70);opacity: 0.7;}
+    </style>
+    <script>
+        window.onload= function() {
+            var oDiv = document.getElementById('div1');
+            var oDiv2 = document.getElementById('div2');
+            var iTimer = null;
+            var flag = 0;
+
+            var iClientH = document.documentElement.clientHeight;
+            
+
+            window.onscroll = function() {
+                console.log(2);
+                if (flag != 1) {//如果b=1那么，当前的scroll事件是被定时器所触发，如果不等于1，那么就是非定时器的其他任何一个操作触发该事件
+                    clearInterval(oDiv.iTimer);
+                }
+                flag = 2;
+
+                var iScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                if (iScrollTop > iClientH / 2) {
+                    //startMove(oDiv2, { opacity: 40 });
+                    oDiv.style.display = 'block';
+                } else {
+                    //startMove(oDiv2, { opacity: 0 });
+                    oDiv.style.display = 'none';
+                }
+                //滚动时 重置top值
+                //也可以使用position:fixed 就不需要动态计算top值  
+                //setTop(oDiv);//设置obj的top到可视区底部
+            };
+
+            oDiv.onclick = function() {
+                clearInterval(oDiv.iTimer);
+                var iCur = 0;
+                var iSpeed = 0;
+
+                this.iTimer = setInterval(function() {
+                    iCur = document.documentElement.scrollTop || document.body.scrollTop;;
+                    iSpeed = Math.floor((0 - iCur) / 8);
+
+                    if (iCur == 0) {
+                        clearInterval(iTimer);
+                    } else {
+                        document.documentElement.scrollTop = document.body.scrollTop = iCur + iSpeed;
+                    }
+
+                    console.log(1);
+                    flag = 1;
+                },30);
+            };
+        }
+    </script>
+    <script src="../move.js"></script>
+</head>
+<body style="height:20000px;">
+    <div id="div1">
+        <a>▲</a>
+    </div>
+</body>
+</html>

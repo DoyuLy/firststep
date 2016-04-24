@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>继承</title>
+    <script type="text/javascript">
+        function Person(name, sex) {
+            this.name = name;
+            this.sex = sex;
+        }
+
+        Person.prototype = {
+            showName: function () {
+                alert(this.name);
+            },
+
+            showSex: function () {
+                alert(this.sex);
+            }
+        }
+        //-------------------继承 --------------------
+        function Worker(name, sex, job) {
+            //继承构造函数(类)  this：new 出来的worker对象
+            //调用构造函数是this进行了传递,构造函数伪装
+            Person.call(this, name, sex);
+            this.job = job;
+        }
+
+        //Worker.prototype = Person.prototype; //通过原型链继承方法(引用出现:子类的方法父类居然也有了)
+        //修改
+        for (var i in Person.prototype) {
+            Worker.prototype[i] = Person.prototype[i];
+        }
+
+        Worker.prototype.showJob = function () {
+            alert(this.job);
+        }
+
+        //var worker = new Worker('duyu', 25, '程序员');
+        //worker.showJob(); 
+
+        //----------------原型链---------------------
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>DOM</title>
+    <script>
+        /* 
+         注意：以下均相对于文档
+               若是Element则没有body兼容问题
+
+         1.可视区尺寸
+            document.documentElement.clientWidth
+            document.documentElement.clientHeight
+         2.滚动距离
+            document.body.scrollTop/scrollLeft   (谷歌)
+            document.documentElement.scrollTop/srollLeft
+         3.内容高度
+            document.body.scrollHeight
+         4.文档高度
+            document.documentElement.offsetHeight //IE下会认为是可视区的高
+            document.body.offsetHeight //推荐
+
+         5. onScroll \ onResize
+        */
+
+        window.onload= function() {
+            //滚动距离兼容google
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var oDiv1 = document.getElementById('div1');
+            alert(oDiv1.scrollHeight);
+
+            //窗口事件
+            window.onscroll = function() {
+                //按时间计算
+            };
+            window.onresize = function() {};
+        }
+    </script>
+</head>
+    <body style="height:2000px">
+        <div id="div1" style="width: 100px; height: 100px; border: 1px solid red; padding: 10px; margin: 10px;">
+            <div id="div2" style="width:100px; height:200px;background: blue;"></div> 
+        </div>
+    
+    </body>
+</html>

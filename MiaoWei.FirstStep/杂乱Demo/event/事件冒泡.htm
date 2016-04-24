@@ -1,0 +1,44 @@
+﻿<!--<document>-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>事件</title>
+    <style type='text/css' >
+        #div1{ width:100px; height:200px; background:gray; display:none;}
+    </style>
+    <script type="text/javascript">
+        /*
+        //document是最顶层虚拟节点，不需要window.onload
+        document.onclick = function (ev) {
+            alert(event.clientX + ',' + event.clientY);
+        }
+
+        //兼容性：
+        //IE:event(全局)  火狐:ev.clientX (即传参)
+        */
+
+        window.onload = function () {
+            oDiv = document.getElementById('div1');
+            oBtn = document.getElementById('btn1');
+
+            oBtn.onclick = function (ev) {
+                var oEvent = ev || event;
+                oDiv.style.display = 'block';
+                oEvent.cancelBubble = true; //阻止自身冒泡
+            }
+
+            document.onclick = function () {
+                oDiv.style.display = 'none';
+            }
+
+            //------------可视区----------------
+        }
+
+    </script>
+</head>
+<body>
+    <input id='btn1' type='button' value='按钮被点击了' />
+    <div id='div1'></div>
+</body>
+</html>
+<!--</document>-->

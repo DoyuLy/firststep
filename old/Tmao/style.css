@@ -1,0 +1,23 @@
+@import url('reset.css');
+@import url('global.css');
+
+html, body {
+	font-family: '宋体';
+	font-size: 13px;
+	background:url('../images/bg_html.jpg') top center repeat #140a04;
+}
+
+.yourweb_main {
+	min-width: 960px;
+	margin: 0 auto;
+}
+
+.yourweb_container {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1156px;
+}
+
+.yourweb_top {
+	height: 40px;
+}

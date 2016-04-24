@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>偏移</title>
+    <style type="text/css">
+        body{ background-color:Black;}
+        #c1{ background-color:White;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGc = oC.getContext('2d');
+            var num = 0;
+            var scale = 0;
+            var value = 1;
+            /*
+            oGc.translate(100, 100); //平移：以0点为基点,平移到指定点
+            oGc.rotate(30 * Math.PI / 180); //以左上角为基点旋转
+            oGc.scale(2, 2); //缩放倍数
+
+            oGc.fillRect(0, 0, 100, 100);
+            */
+            oGc.fillStyle = 'red';
+            oGc.translate(300, 300);
+            setInterval(function () {
+                num++;
+                var s = Math.floor(Math.random() * 10 + 1) / 10; 
+                oGc.save(); //保存路径
+                oGc.clearRect(-300, -300, oC.width, oC.height); //清除画布(注意目前以300,300 为原点)
+
+                if (scale == 100) {
+                    value = -1;//标志位
+                }
+                else if (scale == 0) {
+                    value = 1;
+                }
+                scale += value;
+                oGc.scale(scale * 1 / 50, scale * 1 / 50);//----->放大再缩小
+                //oGc.scale(s, s);//------------->随机放缩(喇叭型)
+                oGc.rotate(num * Math.PI / 180);
+                oGc.translate(-100, -100);
+                oGc.fillRect(0, 0, 200, 200);
+                oGc.restore(); //恢复路径(封闭)
+            }, 30);
+        }
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="700" height="700">
+        <span>不支持HTML5</span>
+    </canvas>
+</body>
+</html>

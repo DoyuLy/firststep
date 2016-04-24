@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>回车留言</title>
+    <style type="text/css">
+        
+    </style>
+    <script type="text/javascript">
+
+        //shiftKey 系统键 (避免使用)
+        //altKey
+        window.onload = function () {
+            var oBtn = document.getElementById('btn1');
+            var oTxt1 = document.getElementById('txt1');
+            var oTxt2 = document.getElementById('txt2');
+
+            oTxt2.onkeydown = function (ev) {
+                var oEvent = ev || event;
+                if ((oEvent.keyCode < 48 || oEvent.keyCode > 57) && oEvent.keyCode != 8) {
+                    return false; //只能数字输入
+                } else {
+                    if (oTxt2.value == '') return;
+                    if (oEvent.keyCode == 13 && oEvent.ctrlKey) {
+                        oTxt1.value += oTxt2.value + '\n';
+                        oTxt2.value = '';
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <textarea id='txt1' rows='10' cols='40'></textarea></br>
+    <input type="text" id='txt2' />
+    <input type="button" id='btn1' value='留言' />
+</body>
+</html>
+
+
+<!--<style type="text/css">
+        
+    </style>
+    <script type="text/javascript">
+        
+    </script>-->

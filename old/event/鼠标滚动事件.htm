@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>鼠标滚动事件</title>
+    <style type="text/css">
+        #div1{ width:100px; height:100px; background:red; position:relative;}
+    </style>
+    <script type="text/javascript">
+
+        //DOM事件  DOMMouseScroll只能通过事件绑定--火狐下
+
+        var oDiv = null;
+        window.onload = function () {
+            oDiv = document.getElementById('div1');
+
+            /*
+            //IE,Chrome
+            oDiv.onmousewheel = function () {
+            alert('你滚动了!');
+            }
+            //FF
+            oDiv.addEventListener('DOMMouseScroll', function () {
+            alert('你滚动了！');
+            }, false);*/
+
+            myAddEvent(oDiv, 'mousewheel', onMouseWheel);
+            myAddEvent(oDiv, 'DOMMouseScroll', onMouseWheel); //兼容FF
+
+            function onMouseWheel(ev) {
+                var oEvent = ev || event;
+                var bDown = true;
+                //wheelDelta IE独有
+                bDown = oEvent.wheelDelta ? oEvent.wheelDelta < 0 : oEvent.detail > 0;
+                if (bDown) {
+                    oDiv.style.height = oDiv.offsetHeight + 10 + 'px';
+                }
+                else {
+                    oDiv.style.height = oDiv.offsetHeight - 10 + 'px';
+                }
+
+                //阻止默认事件
+                if (oEvent.preventDefault) {//FF(绑定的事件必须如此做)
+                    oEvent.preventDefault();
+                }
+                return false;//IE chrome
+            }
+        }
+
+        function myAddEvent(obj, sEv, fn) {  //jQuery为事件队列
+            if (obj.attachEvent) {//IE,会将函数绑定至window  this=window
+                obj.attachEvent('on' + sEv, function () {  //js默认事件规范为on开头
+                    fn.call(obj); //or fn.apply(obj);
+                });
+            }
+            else {  //DOM
+                obj.addEventListener(sEv, fn, false); //一般不需捕获
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id='div1'></div>
+</body>
+</html>

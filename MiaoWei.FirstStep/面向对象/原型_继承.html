@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <script>
+        var a = { name: 'jack' };
+
+        var b = cloneObj(a);
+        b.name = 'lily';
+        alert(b.name);//lily  注意：首先找b.name，若没有则原型链 上找 a.name
+        alert(a.name);//jack  只会找a.name
+        function cloneObj(obj) {
+            //三句话
+            var F = function () { };
+            F.prototype = obj;
+            return new F();
+        }
+    </script>
+</body>
+</html>

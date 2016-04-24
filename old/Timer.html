@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Timer</title>
+    <style type="text/css">
+        body{ background-color:black;}
+        #c1{ background-color:White; }
+        .center{margin:200px auto; width:400px; height:400px;}
+    </style>
+    
+    <script type="text/javascript">
+
+        
+        window.onload = function () {
+
+            function toDraw() {
+                var oC = document.getElementById('c1');
+                var oGc = oC.getContext('2d');
+                var x = 200;
+                var y = 200;
+                var r = 200;
+
+                //清空画布
+                oGc.clearRect(0, 0, oC.width, oC.height);
+
+                var oDate = new Date();
+                var oHours = oDate.getHours();
+                var oMin = oDate.getMinutes();
+                var oSec = oDate.getSeconds();
+
+                var oHoursValue = (-90 + oHours * 30 + oMin / 2) * Math.PI / 180;
+                var oMinValue = (-90 + oMin * 6) * Math.PI / 180;
+                var oSecValue = (-90 + oSec * 6) * Math.PI / 180;
+
+                //-----画秒点圆-------
+                oGc.beginPath();
+                for (var i = 0; i < 60; i++) {
+                    oGc.moveTo(x, y);
+                    oGc.arc(x, y, r, 6 * i * Math.PI / 180, 6 * (i + 1) * Math.PI / 180, false);
+                }
+                oGc.closePath();
+                oGc.stroke();
+                //------填充(画秒点)--------------
+                oGc.fillStyle = 'white';
+                oGc.beginPath();
+                oGc.moveTo(x, y);
+                oGc.arc(x, y, r * 19 / 20, 0, 360 * Math.PI / 180, false);
+                oGc.closePath();
+                oGc.fill();
+
+                //-------画时点圆-------------
+                oGc.lineWidth = 3;
+                oGc.beginPath();
+                for (var i = 0; i < 12; i++) {
+                    oGc.moveTo(x, y);
+                    oGc.arc(x, y, r, 30 * i * Math.PI / 180, 30 * (i + 1) * Math.PI / 180, false);
+                }
+                oGc.closePath();
+                oGc.stroke();
+                //---------填充(画时点)-----------
+                oGc.beginPath();
+                oGc.moveTo(x, y);
+                oGc.arc(x, y, r * 18 / 20, 0, 360 * Math.PI / 180, false)
+                oGc.closePath();
+                oGc.fill();
+                //---------hours-----------
+                oGc.lineWidth = 5;
+                oGc.beginPath();
+                oGc.moveTo(x, y);
+                oGc.arc(x, y, r * 10 / 20, oHoursValue, oHoursValue, false)
+                oGc.closePath();
+                oGc.stroke();
+                //----------min-----------
+                oGc.lineWidth = 4;
+                oGc.beginPath();
+                oGc.moveTo(x, y);
+                oGc.arc(x, y, r * 13 / 20, oMinValue, oMinValue, false)
+                oGc.closePath();
+                oGc.stroke();
+                //-----------Sec----------
+                oGc.lineWidth = 3;
+                oGc.beginPath();
+                oGc.moveTo(x, y);
+                oGc.arc(x, y, r * 16 / 20, oSecValue, oSecValue, false)
+                oGc.closePath();
+                oGc.stroke();
+            }
+            setInterval(toDraw, 1000);
+        }
+    </script>
+</head>
+<body>
+    <div class="center">
+        <canvas id="c1" width="400" height="400">
+            <span>不支持HTML5</span>
+        </canvas>
+    </div>
+</body>
+</html>

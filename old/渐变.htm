@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>渐变</title>
+     <style type="text/css">
+        body{ background-color:black;}
+        #c1{ background-color:White; }
+        .center{margin:200px auto; width:400px; height:400px;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGc = oC.getContext('2d');
+            oGc.font = '40px impact';
+            oGc.textBaseline = 'top'; //以左上角为基准
+
+            oGc.shadowOffsetX = 10; //X轴方向阴影宽度]
+            oGc.shadowOffsetY = 10;
+            oGc.shadowBlur = 2;//高斯模糊值
+            oGc.shadowColor = 'pink';
+
+            //文字居中(canvas)
+            var w = oGc.measureText('测试HTML5').width; //只能测宽
+            oGc.fillText('测试HTML5', (oC.width - w) / 2, (oC.height - 40) / 2); //填充文字(画布居中)
+            //oGc.strokeText('测试HTML5', 200, 0);
+
+            //线性渐变
+            var obj = oGc.createLinearGradient(150, 100, 250, 200); //起点-->终点 渐变坐标
+            obj.addColorStop(0, 'red'); //0表示起点
+            obj.addColorStop(0.5, 'pink'); //中间可以随意加多个
+            obj.addColorStop(1, 'blue'); //1表示终点
+            oGc.fillStyle = obj;
+            oGc.fillRect(150, 100, 100, 100);
+
+
+            //放射性渐变
+            var obj2 = oGc.createRadialGradient(400, 400, 30, 400, 400, 40); //(x1,y1,r1,x2,y2,r2)
+            obj2.addColorStop(0, 'red'); //0表示起点
+            obj2.addColorStop(0.5, 'pink'); //中间可以随意加多个
+            obj2.addColorStop(1, 'blue'); //1表示终点
+            oGc.fillStyle = obj2;
+            oGc.fillRect(350, 350, 100, 100);
+        }
+
+
+
+    </script>
+</head>
+<body>
+    <div class="">
+        <canvas id="c1" width="800" height="800">
+            <span>不支持HTML5</span>
+        </canvas>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>冒泡</title>
+    <style>
+        #div1{ width: 100px;height: 200px;border: 1px solid red;display: none;}
+    </style>
+    <script>
+        
+        /* 
+        阻止冒泡： 当前需要阻止冒泡的事件函数中调用 event.cancelBubble = true;
+        
+        */
+        window.onload= function() {
+            var oBtn = document.getElementById('btn');
+            var oDiv = document.getElementById('div1');
+
+            //事件会冒泡到document
+            oBtn.onclick = function (ev) {
+                var ev = ev || event;
+                ev.cancelBubble = true;//阻止(当前)对象(当前)事件冒泡
+                oDiv.style.display = 'block';
+            };
+            document.onclick = function () {
+                //setInterval(function() {
+                //    oDiv.style.display = 'none';
+                //},2000);
+                oDiv.style.display = 'none';
+            };
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="按钮" id="btn" />
+    <div id="div1"></div>
+</body>
+</html>

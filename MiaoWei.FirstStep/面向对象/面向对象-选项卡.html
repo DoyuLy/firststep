@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        #div1 div,#div2 div{ width: 200px;height: 200px;border: 1px #000 solid;display:none}
+        .active{ background: red;}
+    </style>
+    <script>
+        /* 原生写法
+        window.onload = function() {
+            var oParent = document.getElementById('div1');
+            var aInput = oParent.getElementsByTagName('input');
+            var aDiv = oParent.getElementsByTagName('div');
+
+            for (var i = 0; i < aInput.length; i++) {
+                aInput[i].index = i;
+                aInput[i].onclick = function() {
+                    for (var i = 0; i < aInput.length; i++) {
+                        this.className = '';
+                        aDiv[i].style.display = 'none';
+                    }
+                    this.className = 'active';
+                    aDiv[this.index].style.display = 'block';
+                };
+            }
+        };
+        */
+
+        /* 准备工作
+        var oParent = null;
+        var aInput = null;
+        var aDiv = null;
+        window.onload = function() {
+            oParent = document.getElementById('div1');
+            aInput = oParent.getElementsByTagName('input');
+            aDiv = oParent.getElementsByTagName('div');
+
+            init();
+        };
+
+        function init() {
+            for (var i = 0; i < aInput.length; i++) {
+                aInput[i].index = i;
+                aInput[i].onclick = change;
+            }
+        };
+
+        function change() {
+            for (var i = 0; i < aInput.length; i++) {
+                this.className = '';
+                aDiv[i].style.display = 'none';
+            }
+            this.className = 'active';
+            aDiv[this.index].style.display = 'block';
+        };
+        */
+
+        /*
+            面向对象:
+            1.this指向：定时器 / 事件 很容易改变this指向 (匿名函数里调用方法) 
+        */
+        //var oParent = null;
+        //var aInput = null;
+        //var aDiv = null;
+        window.onload = function () {
+            var tab1 = new Tab('div1');
+            //tab.init();
+            var tab2 = new Tab('div2');
+            tab2.autoPlay();
+        };
+
+        function Tab(id) {
+            this.oParent = document.getElementById(id);
+            this.aInput = this.oParent.getElementsByTagName('input');
+            this.aDiv = this.oParent.getElementsByTagName('div');
+            this.iNow = 0;
+            this.init();
+        }
+
+        Tab.prototype.init = function () {
+            var _this = this;//this指向Tab对象
+            for (var i = 0; i < this.aInput.length; i++) {
+                this.aInput[i].index = i;
+                this.aInput[i].onclick = function() {
+                    _this.change(this);//this指向aInput[i]
+                };
+            }
+        };
+        Tab.prototype.change = function (obj) {
+
+            //this指向 aInput[i]
+            for (var i = 0; i < this.aInput.length; i++) {
+                this.className = '';
+                this.aDiv[i].style.display = 'none';
+            }
+            obj.className = 'active';
+            this.aDiv[obj.index].style.display = 'block';
+        };
+
+        Tab.prototype.autoPlay = function() {
+            var _this = this;
+            setInterval(function () {
+                if (_this.iNow == _this.aInput.length - 1) {
+                    _this.iNow = 0;
+                } else {
+                    _this.iNow++;
+                }
+
+                for (var i = 0; i < _this.aInput.length; i++) {
+                    _this.aInput[i].className = '';
+                    _this.aDiv[i].style.display = 'none';
+                }
+                _this.aInput[_this.iNow].className = 'active';
+                _this.aDiv[_this.iNow].style.display = 'block';
+            }, 1000);
+        };
+    </script>
+</head>
+    <body>
+        <div id="div1">
+            <input class="active" type="button" value="1" />
+            <input type="button" value="2" />
+            <input type="button" value="3" />
+            <div style="display:block;">aaaa</div>
+            <div>bbbb</div>
+            <div>cccc</div>
+        </div>
+        <div id="div2">
+            <input class="active" type="button" value="1" />
+            <input type="button" value="2" />
+            <input type="button" value="3" />
+            <div style="display:block;">aaaa</div>
+            <div>bbbb</div>
+            <div>cccc</div>
+        </div>
+    </body>
+</html>

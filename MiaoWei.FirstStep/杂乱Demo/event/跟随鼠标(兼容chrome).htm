@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style type="text/css">
+        div{ width:10px; height:10px; background:red; position:absolute;}
+    </style>
+    <title>跟随鼠标</title>
+
+    <script type="text/javascript">
+        // var oEvent = ev || event;
+        // clientX,clientY 鼠标在可视区的位置
+        //position:absolute 定位是相对于父级定位,没父级就相对于body
+        //出现滚动条时,scrollTop 指可视区-->文档区顶部距离
+        //IE,Firefox : document.documentElement.scrollTop
+        //chrome : document.body.scrollTop
+        //var scrollTop=document.documentElement.scrollTop||document.body.scrollTop
+        //经验：所有clientX clientY 都加上滚动高度,否则暗藏bug
+
+
+        //onclick=onmousedown + onmouseup
+        //onpress=onkeydown + onkeyup
+
+        // offsetWight:width + border + padding
+        // offsetLeft: 空白区 + margin
+        window.onload = function () {
+
+            var oDiv = document.getElementsByTagName('div');
+            document.onmousemove = function (ev) {
+                var oEvent = ev || event;
+
+                for (var i = oDiv.length - 1; i > 0; i--) {
+                    oDiv[i].style.left = oDiv[i - 1].style.left;
+                    oDiv[i].style.top = oDiv[i - 1].style.top;
+                }
+
+                var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;//兼容chrome
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+                oDiv[0].style.left = oEvent.clientX + scrollLeft + 'px';
+                oDiv[0].style.top = oEvent.clientY + scrollTop + 'px';
+            }
+        }
+    </script>
+</head>
+<body style=' height:2000px;' >
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</body>
+</html>

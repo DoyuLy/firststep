@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>事件</title>
+    <script src="../js/underscore-min.js"></script>
+    <script src="../js/backbone-min.js"></script>
+    <script>
+        /*
+            1. on : 绑定
+                ①有对象级/属性级 监听
+                ②回调function(model,value) model：当前模型对象;value:修改后的属性值
+                ③model.previous(attr);(某个对象属性)上一次的值   (只属于change)
+                  model.previousAttributes():(整个对象)上一次的obj(只属于change)
+
+                ④绑定多个对象：
+                   空格绑定：obj.on(eventName1 eventName2,function) //注意使用【空格】 隔开  --->适合多个事件执行同一个函数
+                   json绑定：obj.on({eventName1:fn1,eventName2:fn2},function)                --->适合多个事件执行不同函数(当需要考虑执行顺序,多次重复执行时)
+                
+               off：解除绑定
+                ①obj.off(eventName1 eventName2,function,[Context]); //第二个参数function指移除事件执行函数
+                ②obj.off();//表示移除对象所有事件
+
+            2. trigger：事件执行(触发)
+                    ①obj.trigger(eventName);
+                    ②系统事件change/change:attr 满足一定条件后可以自动触发,而自定义事件必须trigger手动触发,trigger也可以触发系统事件
+
+            3. once ：执行一次
+                和on类似，回调function没有内置形参,适合绑定对象初始化事件
+
+            4. listenTo ：添加事件侦查对象
+            5. listenToOnce：添加只执行一次的侦查对象
+            6. stopListening: 移除已添加的事件侦查对象
+            7. all ： 触发对象任何事件,都会自动触发all事件
+
+            注意： view.listenTo(model,'change',view.render) 等价于 model.on('change',view.render,view)
+             
+
+        */
+
+        var Person = Backbone.Model.extend({
+            defaults:
+                {
+                    name: '',
+                    age: ''
+                }
+        });
+
+        var man = new Person();
+        man.on('change', function (model, value) {
+            var val = value;//这是对象级的
+            var oldName = model.previous('name');
+            var oldAge = model.previous('age');
+            alert(oldName);
+        });
+        man.on('change:name', function (model, value) {//model当前模型对象; value修改后属性的值
+            var oldVal = model.previousAttributes();
+            alert(value + ' 对象已经变化了！');
+        });
+        man.set({ name: 'leo', age: '23' });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

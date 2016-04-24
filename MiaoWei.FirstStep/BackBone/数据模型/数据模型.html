@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script src="../js/underscore.doc.js"></script>
+    <script src="../js/backbone-min.js"></script>
+    <script>
+        window.onload = function () {
+
+            //初始化数据  ：defaults:{}
+            //定义构造函数：initialize:function(){}
+            var stu = Backbone.Model.extend({
+                defaults: {
+                    code: '',
+                    name: '',
+                    score: ''
+                },
+                initialize: function() {
+                    this.on('change:name', function(model, value) {
+                        var oldName = model.previous('name');//this.previous('name');
+                        var newName = model.get('name');     //value/this.get('name');
+                        if (oldName != newName) {
+                            console.log('you have change "name" form ' + oldName + ' to ' + newName);
+                        }
+                    });
+
+                    this.on('validate', function (model,error) {
+                        console.log(error);
+
+                    });
+                    this.on('destroy', function() {
+                        console.log('正在使用destroy');
+                    });
+                },
+                url: 'xxx.ashx',
+                idAttribute: 'code',//查询删除等 需要id 若没有请使用idAttribute声明
+                validate: function (attrs) {
+                    if (!_.isString(attrs.name)) return 'name must be string!';
+                    if (!_.isNumber(attrs.score)) return 'score must be int!';
+                    return true;
+                },
+                PrintLog: function () {
+                    var _this = this;
+                    console.log('自定义方法');
+                }
+            });
+
+            var stuA = new stu();
+            //赋值
+            stuA.set(
+                {
+                    code: '200831104041',
+                    name: 'leo',
+                    score: '100',
+                    Class: '三年八班'
+                },
+                { 'validate': true }//验证开关
+                //{'silent:true'}   //不触发任何事件
+            );
+            stuA.PrintLog();//调用对象方法
+            console.log(stuA.get('Class'));//或者stuA.escape('Class')
+
+            /*手动验证,不通过则回滚*/
+            if (!_.isString(stuA.get('name')) || !_.isNumber(stuA.get('score'))) {
+                stuA.set({
+                    'name': stuA.previous('name'),
+                    'score': stuA.previous('score')
+                });
+            } else {
+                stuA.save(
+                {
+                    code: '222222',
+                    name: 'duyu',
+                    score: 100
+                },
+                {
+                    success: function(model, response) {
+                        console.log(response);
+                    },
+                    error: function(model, response) {
+
+                    },
+                    //发送前调用validate验证后才发送|返回数据需要验证才能更新本地模型：
+                    //①验证失败不会发送数据,并回滚至上一状态
+                    //②发送数据服务器报错,也会回滚至上一状态
+                    wait: true 
+                });
+            }
+            var stuE = new stu({code:'10102'});
+            stuA.destroy({
+                success: function(model, response) {},
+                error: function (error) { },
+                //true:触发destroy事件,同时触发success事件;若服务器失败,触发destroy事件和error事件
+                //false：只触发error事件
+                wait: true
+        });
+
+
+            /*--------------------读取|修改(重置)|验证|删除|同步数据到服务端------------------------------
+            
+                ①读取：get/escape
+                ②修改：set
+                ③验证：-- validate()方法
+                        -- 绑定对象validate事件(验证失败会触发回调,return错误信息)
+                        -- set 添加修改属性时,validate:true
+                ④删除：unset：删除指定属性(连属性一起删了)
+                        clear：删除所有属性
+                ⑤获取所有属性 stuA.attirbutes
+                ⑥保存:save(obj,{success,error})//obj可省略       新创建：POST; 否则: PUT
+                ⑦获取：fetch({success,error})  //重置是否成功            GET
+                ⑧销毁：destroy                                           DELETE
+            */
+
+
+            /*----------------------------------------集合--------------------------------------------------*/
+
+
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

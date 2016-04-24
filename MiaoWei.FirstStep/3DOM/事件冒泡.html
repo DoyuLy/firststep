@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>冒泡</title>
+    <style>
+        div{ padding: 40px;}
+         #div1{ background: red;}
+         #div2{ background: green;}
+         #div3{ background: blue;}
+    </style>
+    <script>
+        /*
+        事件冒泡：
+        */
+        window.onload= function() {
+            var oDiv1 = document.getElementById('div1');
+            var oDiv2 = document.getElementById('div2');
+            var oDiv3 = document.getElementById('div3');
+
+            //oDiv1.onclick = function() {
+            //    alert(this.id);
+            //};
+
+            function fn1() {
+                alert(this.id);
+            }
+
+            oDiv1.onclick = fn1;
+            //oDiv2.onclick = fn1; //不能阻止事件的接受，
+            oDiv3.onclick = fn1;
+
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <div id="div2">
+            <div id="div3">
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

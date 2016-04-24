@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Pager</title>
+    <style type="text/css">
+        a{ margin-right:5px;}
+        *{ margin:0; padding:0;}
+        li{ list-style:none;}
+        
+        #ul1{ width:600px; height:250px; /*margin:0 auto;*/}
+        #ul1 li{ width:100px; height:100px;  float:left; overflow:hidden; margin:10px;}
+        #ul1 img{ cursor:pointer;}
+        #pager{ /*margin:0 auto;*/ width:200px;}
+        
+    </style>
+    <link href="Styles/miaoV.css" rel="stylesheet" type="text/css" />
+    <script src="Scripts/core.js" type="text/javascript"></script>
+    <script src="Scripts/Pager.js" type="text/javascript"></script>
+    <script src="Scripts/js/myMove.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var val = 'images/public.jpg';
+            var json = {
+                /*
+                title: [
+                '效果1', '效果2', '效果3', '效果4', '效果5', '效果6', '效果7', '效果8', '效果9', '效果10',
+                '效果11', '效果12', '效果13', '效果14', '效果15', '效果16', '效果17', '效果18', '效果19', '效果20',
+                '效果21', '效果22', '效果23', '效果24', '效果25', '效果26', '效果27', '效果28', '效果29', '效果30',
+                '效果31', '效果32', '效果33', '效果34',
+
+                ]*/
+
+                title: [
+                    val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val,
+                    val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val, val,
+                    val, val, val, val
+                ]
+            };
+
+            var arrSite = [];
+            var iNow = 9; //最末li
+
+            page({
+                id: 'pager',
+                nowNum: 1,
+                allNum: Math.ceil(json.title.length / 10), //总页
+                CallBack: function (now, all) {
+                    var num = now * 10 < json.title.length ? 10 : ((json.title.length) - (now - 1) * 10); //当前页数量
+                    var oUl = document.getElementById('ul1');
+                    var aLi = oUl.getElementsByTagName('li');
+
+                    var oRL = document.getElementById('recycle').offsetLeft;
+                    var oRT = document.getElementById('recycle').offsetTop;
+                    var oFL = document.getElementById('file').offsetLeft;
+                    var oFT = document.getElementById('file').offsetTop;
+                    var oInfo = document.getElementById('title_info'); //信息提示及时浮动框(*)
+                    
+
+                    if (oUl.innerHTML == '') {
+                        for (var i = 0; i < num; i++) {
+                            var oLi = document.createElement('li');
+                            var oImg = document.createElement('img');
+                            oImg.src = json.title[(now - 1) * 10 + i];
+                            oLi.appendChild(oImg);
+                            oUl.appendChild(oLi);
+                            oLi.style.background = 'url(' + json.title[(now - 1) * 10 + i] + ') no-repeat'; //模拟后台获取数据
+                            //oUl.appendChild(oLi);
+                        }
+                        //保存坐标
+                        for (var i = 0; i < aLi.length; i++) {
+                            arrSite.push([aLi[i].offsetLeft, aLi[i].offsetTop]);
+                        }
+                        //绝对定位
+                        for (var i = 0; i < aLi.length; i++) {
+                            aLi[i].style.position = 'absolute';
+                            aLi[i].style.left = arrSite[i][0] + 'px';
+                            aLi[i].style.top = arrSite[i][1] + 'px';
+                            aLi[i].style.margin = 0;
+                        }
+                        bindEventToLi(aLi, oInfo);
+                    }
+                    else {
+                        var timer = setInterval(function () {
+                            startMove(aLi[iNow], { left: oRL, top: oRT, opacity: 0, width: 5, height: 5 }); //miaovStartMove
+
+                            if (iNow == 0) {
+                                clearInterval(timer);
+
+                                iNow = num - 1; //末页剩余li数量
+
+                                //末页跟换数据
+                                for (var i = 0; i < num; i++) {
+                                    //aLi[i].innerHTML = json.title[(now - 1) * 10 + i];
+                                    aLi[i].firstChild.src = json.title[(now - 1) * 10 + i];
+                                }
+
+                                var timer2 = setInterval(function () {
+                                    startMove(aLi[iNow], { left: arrSite[iNow][0], top: arrSite[iNow][1], opacity: 100, width: 100, height: 100 });
+
+                                    if (iNow == 0) {
+                                        clearInterval(timer2);
+                                        iNow = num - 1;
+                                    }
+                                    else {
+                                        iNow--;
+                                    }
+                                }, 100);
+                            }
+                            else {
+                                iNow--; //末位元素开始
+                            }
+                        }, 100);
+
+                        
+                        bindEventToLi(aLi,oInfo);
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+ <div id='content' >
+     <div style="width:600px; margin:20px auto; text-align:center;">
+        <!--<div id="new_module_list" style="height:460px;">-->
+            <ul id="ul1"></ul>
+        <!--</div>-->
+        
+     
+        <div id="pager" style="width:500px; margin:5px auto;">
+            <!--<a href="#1">首页</a>
+            <a href="#3">上一页</a>
+            <a href="#2">[2]</a>
+            <a href="#3">[3]</a>
+            <a href="#4">4</a>
+            <a href="#5">[5]</a>
+            <a href="#6">[6]</a>
+            <a href="#5">下一页</a>
+            <a href="#10">尾页</a>-->
+        
+        </div>
+        <div style=" margin:25px auto; width:400px; " >
+                <span style="margin-right:5px; border:1px solid gray;" id="recycle"><a>垃圾站</a></span>
+                <span style=" margin-right:5px;  border:1px solid gray; " id="file"><a>文件箱</a></span>
+        </div>
+   </div>
+</div>
+   <div id="title_info" style="display:none;">
+	<dl>
+		<dt> 标题：效果测试</dt>
+		<dd>
+			<strong>效果说明：</strong>
+		</dd>
+		<dd>
+			<strong class="grade">信息：</strong>
+			<div class="star_parent">
+				<div class="empty"></div>
+				<div class="full"></div>
+			</div>
+			<span class="rank_count">测试test</span>
+		</dd>
+		<dd>
+			<strong>测试</strong>
+		</dd>
+	</dl>
+	<div class="bg"></div>
+	<div class="adorn"></div>
+</div>
+</body>
+</html>

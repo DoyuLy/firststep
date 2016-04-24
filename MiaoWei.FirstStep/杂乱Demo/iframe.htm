@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>iframe</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oBtn = document.getElementById('btn1');
+            //var oIframe = document.getElementById('ifram1');
+
+            var oIframe = document.createElement('iframe');
+            oIframe.src = 'iframeDemo.htm';
+            document.body.appendChild(oIframe);
+
+
+            //除IE外
+            oIframe.onload = function () {
+                alert(123);
+            }
+
+            //IE方式
+            oIframe.attachEvent('onload', function () { alert(123); })
+
+
+
+            //chrome必须是在同服务器下(同域)
+            oBtn.onclick = function () {
+                //oIframe.contentWindow.document.getElementById('p1').style.color = 'red';
+
+                //ie6, ie7 不支持contentDocument文档对象
+                oIframe.contentDocument.getElementById('p1').style.color = 'red';
+            }
+
+
+            //防钓鱼
+            if (window != window.top) {
+                window.top.location.href = window.location.href;//别人拿自己网站时,会自动弹到自己的网页
+            }
+        }
+    </script>
+</head>
+<body>
+    <input id='btn1' type="button"  value="改变"/>
+    <!--<iframe id="ifram1" src="iframeDemo.htm"></iframe>-->
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>改进版</title>
+    <style type="text/css">
+        #div1{ width:100px; height:100px; background:red; border:1px solid black;}
+    </style>
+    <script type="text/javascript">
+        //offsiteWidth是指元素自身的宽度,但包括border
+        //obj.style.width 指的是内容区宽度,   ！！！！！且只能获取行间样式
+
+        setInterval(function () {
+            var oDiv = document.getElementById('div1');
+
+            //oDiv.style.width = oDiv.offsetWidth - 1 + 'px'; //由于obj.offsetWidth指的是(width+2*border) 所以会变宽
+            //oDiv.style.width = parseInt(oDiv.style.width) - 1 + 'px'; //obj.style.width 只能获取行间样式
+            oDiv.style.width = parseInt(getStyle(oDiv,'width')) - 1 + 'px';
+
+        }, 30);
+
+
+        function getStyle(obj, attr) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[attr];
+            }
+            else {
+                return getComputedStyle(obj, false)[attr];
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id='div1'></div>
+</body>
+</html>

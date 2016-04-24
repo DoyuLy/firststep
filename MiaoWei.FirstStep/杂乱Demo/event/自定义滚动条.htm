@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自定义滚动条</title>
+    <style type="text/css">
+        #parent{ width:20px; height:502px; background:gray; position:relative; top:0; left:281px;}    
+        #div1{ width:20px; height:20px; background:red; position:absolute; cursor:pointer;}
+        #div2{  width:300px; height:500px; border:1px solid black; position:absolute; left:0; top:0; overflow:hidden; /*filter:alpha(opacity:0);opacity:0;*/}
+    </style>
+    <script type="text/javascript">
+        //DOM事件只能通过事件绑定--火狐(DOMMouseScroll)
+
+        var oDiv = null;
+        var oDiv2 = null;
+        var oDiv3 = null;
+        var oDivParent = null;
+        var disX = 0;
+        var disY = 0;
+        window.onload = function () {
+            oDiv = document.getElementById('div1');
+            oDiv2 = document.getElementById('div2');
+            oDiv3 = document.getElementById('div3');
+            oDivParent = document.getElementById('parent');
+
+            myAddEvent(oDivParent, 'mousewheel', onMouseWheel);
+            myAddEvent(oDivParent, 'DOMMouseScroll', onMouseWheel); //兼容FF
+
+            oDiv.onmousedown = fnDown;
+        }
+
+        function onMouseWheel(ev) {
+            var oEvent = ev || event;
+            var bDown = true;
+            //wheelDelta IE独有
+            bDown = oEvent.wheelDelta ? oEvent.wheelDelta < 0 : oEvent.detail > 0;
+            if (bDown) {
+                //oDiv.style.top = oDiv.offsetTop + 10 + 'px';
+                setTop(oDiv.offsetTop + 10);
+            }
+            else {
+                setTop(oDiv.offsetTop - 10);
+            }
+
+            //阻止默认事件
+            if (oEvent.preventDefault) {//FF(绑定的事件必须如此做)
+                oEvent.preventDefault();
+            }
+            return false; //IE chrome
+        }
+
+        function fnDown(ev) {
+            var oEvent = ev || event;
+            //disX = oEvent.clientX - oDiv.offsetLeft;
+            disY = oEvent.clientY - oDiv.offsetTop;
+
+            if (oDiv.setCapture) {   //IE
+                oDiv.onmousemove = fnMove;
+                oDiv.onmouseup = fnUp;
+
+                oDiv.setCapture();
+            }
+            else {                   //FF, Chrome
+                document.onmousemove = fnMove;
+                document.onmouseup = fnUp;
+            }
+        }
+
+        function fnUp() {
+            this.onmousemove = null;
+            this.onmouseup = null;
+
+            if (this.setCapture) {
+                this.releaseCapture();
+            }
+        }
+
+        function fnMove(ev) {
+            var oEvent = ev || event;
+            //var left = oEvent.clientX - disX;
+            var top = oEvent.clientY - disY;
+            setTop(top);
+        }
+
+        function setTop(top) {
+            if (top < 0) { //不能超出父级div
+                top = 0;
+            }
+            if (top > (oDivParent.offsetHeight - oDiv.offsetHeight)) {
+                top = oDivParent.offsetHeight - oDiv.offsetHeight;
+            }
+
+            oDiv.style.top = top + 'px';
+            //oDiv.style.left = left + 'px';
+            var scale = top / (oDivParent.offsetHeight - oDiv.offsetHeight);
+            document.title = scale;
+            oDiv3.style.top = -(oDiv3.offsetHeight - oDiv2.offsetHeight) * scale + 'px';//-(文档高度-可视区高度)*百分比
+        }
+
+        function myAddEvent(obj, sEv, fn) {  //jQuery为事件队列
+            if (obj.attachEvent) {//IE,会将函数绑定至window  this=window
+                obj.attachEvent('on' + sEv, function () {  //js默认事件规范为on开头
+                    fn.call(obj); //or fn.apply(obj);
+                });
+            }
+            else {  //DOM
+                obj.addEventListener(sEv, fn, false); //一般不需捕获
+            }
+        }
+    </script>
+</head>
+<body>
+<div style=' width:800px; min-height:500px; margin:5px auto; position:relative;'>
+    <div id='div2'>
+        <div id='div3' style=' padding-right:20px; position:absolute;'>
+            CSS技巧:
+
+            2.!important 在IE中会被忽视
+	            margin-top: 3.5em !important; margin-top: 2em  (!important会提高优先级,此例表示:除IE之外的浏览器是3.5em，而IE是2em)
+            3.width=content :width=width+padding+boder 
+            IE5除外
+            4.absolute
+	            ①绝对定位(absolute)一般不用于网页居中,以为网页是随浏览器窗口大小自适应;
+	            ②绝对定位 是相对于最近的已设置了定位(position)的父级元素来定位,所以用absolute之前一般配合relative/fixed/static 使用
+	            ③如果没有父级元素使用了定位，则相对于body左上角定位
+	            注意：absolute移动后其他文件流会占据其空间(贡献空间)-->跳出文本流(类似float)
+	            场景：绝对定位的元素需要位于一个容器内，这个容器的将成为改元素定位的参考坐标系。这个容器就需要具有 position: relative; 
+              relative
+                ①相对定位(relative) 是相对于本身文件流位置进行相对偏移,可单独使用
+	            注意：relative移动后不会贡献空间,还是会占据空间(自私型)-->没有跳出文本流
+              fixed
+                ①固定定位是一直相对于浏览器定位，类似background-attachment:fixed;不管怎么滚动网页,都相对于浏览器不动
+            5.div自适应高度(min-height)
+	            _height:200px; /* css 注解： 仅IE6设别此属性，假定最低高度是200px ，设置高度200px，内容超出后IE6会自动撑高设定高度 */ 
+	            min-height:200px; /* css注释： css最小高度为200px支持所有浏览器，IE6浏览器除外 */ 
+            6.Jquery的技巧：
+            ①jQuery对象与dom对象的转换
+	            $(document.getElementById("msg"))则为jquery对象
+	            jquery对象本身是一个集合：$("#msg")[0]
+	            如何获取jQuery集合的某一项：$("div").eq(2).html();    //调用jquery对象的方法
+								            $("div").get(2).innerHTML; //调用dom的方法属性
+            ②扩展我们需要的功能：
+	            $.extend({min: function(a, b){return a < b?a:b; },
+	            max: function(a, b){return a > b?a:b; } });
+            ③几个有用的jQuery方法：
+	            $.browser.isie  检测是否ie
+	            $.each( obj, function(i, item){}) == $(obj).each(function(i,item){})//注意：each可以也可以处理json数据 $.each( { name: "John", lang: "JS" }, function(){})
+	            $.map(array, fn)：数组映射。把一个数组中的项目(处理转换后)保存到到另一个新数组中，并返回生成的新数组
+	            $.merge(obj1,obj2);合并2个数组,并去掉重复项
+            ④其他类库与jQuery的冲突：
+	            jQuery.noConflict();//让渡“$”变量给第一个实现它的库或方法
+	            jQuery("#xx");//然后使用jQuery代替 $
+
+            7.Logo:<a>标签后面放logo图片,并能点击 display:block;text-indent:-999px;
+	            原因：为何要让文本间距为-999px 因为若不显示锚文本,则SEO不会搜录
+            8.清除浮动：
+	            负面影响：
+		            当父级div内子元素有浮动时，会造成父元素不能撑开,解决办法：
+		            ①设置父级元素的高度和宽度--(缺点：不能自适应,高度是定死的)
+		            ②在父级块中添加一个clear：both的子元素
+		            ③父级元素添加 overflow：hidden(原因:overflow:hidden相当于是让父级紧贴内容)
+		            注意：推荐②③
+            9:网页编码charset:
+            10.尽量使用h1 h1代表标题,会影响SEO对网站内容主题的收录
+        </div>
+    </div>
+    <div id='parent'>
+        <div id='div1'></div>
+    </div>
+</div>
+</body>
+</html>

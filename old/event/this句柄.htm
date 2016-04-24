@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>this句柄</title>
+    <script type="text/javascript">
+        //四个地方不能用this：1.行间 2.套一层 3.定时器 4.绑定
+
+        /*
+        function show() {
+            alert(this);
+        }
+        show();
+        show.call();*/
+
+        function show(a, b) {
+            alert('this是:' + this + ',a是：' + a + ';b是：' + b);
+        }
+        show(12, 5);
+        show.call('aaa', 12, 5);
+        show.apply('aaa', [12, 5]);//call和apply一样,只不过传参方式不一致
+    </script>
+</head>
+<body>
+
+</body>
+</html>

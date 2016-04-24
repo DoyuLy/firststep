@@ -1,0 +1,21 @@
+﻿<!doctype html>
+<html ng-app>
+    <head>
+        <title></title>
+        <script src="http://code.angularjs.org/1.2.2/angular.min.js"></script>
+    </head>
+  <body>
+    <div ng-init="qty=1;cost=2">
+      <b>订单:</b>
+      <div>
+        数量: <input type="number" ng-model="qty" required >
+      </div>
+      <div>
+        单价: <input type="number" ng-model="cost" required >
+      </div>
+      <div>
+        <b>总价:</b> {{qty * cost | currency}}
+      </div>
+    </div>
+  </body>
+</html>

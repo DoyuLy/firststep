@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>画布事件 jCanvasScript</title>
+    <style type="text/css">
+        body{ background-color:black;}
+        #c1{ background-color:White; }
+        .center{margin:200px auto; width:400px; height:400px;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGc = oC.getContext('2d');
+
+            /*
+            oGc.beginPath();
+            oGc.arc(100, 100, 100, 0, 360 * Math.PI / 180, false);
+            oGc.closePath();
+            oGc.fill();
+
+            oGc.beginPath();
+            oGc.arc(300, 300, 100, 0, 360 * Math.PI / 180, false);
+            oGc.closePath();
+            oGc.fill();
+
+            oC.onmousedown = function (e) {
+            //window.pageXOffset 和 window.pageYOffset  在IE外使用都通用
+            var e = e || window.event;
+            var x = e.clientX - oC.offsetLeft;
+            var y = e.clientY - oC.offsetTop;
+
+            if (oGc.isPointInPath(x, y)) { //只能针对最后画的图像有效
+            alert(123);
+            }
+            }*/
+            //----------------------
+
+            var c1 = new Shape(100, 100, 50);
+            var c2 = new Shape(200, 200, 50);
+
+            oC.onmousedown = function (e) {
+                //window.pageXOffset 和 window.pageYOffset  在IE外使用都通用
+                var e = e || window.event;
+                var point = {
+                    x: e.clientX - oC.offsetLeft,
+                    y: e.clientY - oC.offsetTop
+                };
+                c1.reDraw(point);
+                c2.reDraw(point);
+            }
+
+            c1.click = function () {
+                alert(123);
+            }
+            c2.click = function () {
+                alert(456);
+            }
+
+            //画圆
+            function Shape(x, y, r) {
+                this.x = x;
+                this.y = y;
+                this.r = r;
+
+                oGc.beginPath();
+                oGc.arc(this.x, this.y, this.r, 0, 360 * Math.PI / 180, false);
+                oGc.closePath();
+                oGc.fill();
+            }
+
+            //重绘
+            Shape.prototype.reDraw = function (point) {
+                oGc.beginPath();
+                oGc.arc(this.x, this.y, this.r, 0, 360 * Math.PI / 180, false);
+                oGc.closePath();
+                oGc.fill();
+
+                if (oGc.isPointInPath(point.x, point.y)) { //只能针对最后画的图像有效
+                    this.click();
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="600" height="600">
+            <span>不支持HTML5</span>
+    </canvas>
+</body>
+</html>

@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>特效</title>
+    <style type="text/css">
+        body{ background-color:black; font-size:30px; color:White;}
+        #c1{ background-color:White; }
+        .center{margin:200px auto; width:400px; height:400px;}
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oC = document.getElementById('c1');
+            var oGc = oC.getContext('2d');
+
+            //需设置在外面
+            oGc.textBaseline = 'top'; //以左上角为基准
+
+
+            var aLi = document.getElementsByTagName('li');
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].onmouseover = function () {
+                    var str = this.innerHTML;
+                    var h = 100;
+                    var timer = null;
+                    clearInterval(timer);
+                    var iNow = 0;
+
+
+                    oGc.clearRect(0, 0, oC.width, oC.height); //点击时清除之前的画布
+                    oGc.font = h + 'px impact';
+
+                    oGc.fillStyle = 'red';
+                    //oGc.textBaseline = 'Top';
+                    var w = oGc.measureText(str).width;
+                    oGc.fillText(str, (oC.width - w) / 2, (oC.height - h) / 2);
+
+                    //只显示文字区域的10%像素(随机)
+                    var oImg = oGc.getImageData((oC.width - w) / 2, (oC.height - h) / 2, w, h); //截取文字区域的像素
+
+                    oGc.clearRect(0, 0, oC.width, oC.height); //清空画布
+
+                    var arr = randomArr(w * h, w * h / 10); //获取10%像素
+
+                    var newImg = oGc.createImageData(w, h); //新创建一个区域(同地方)
+
+                    timer = setInterval(function () {
+                        for (var i = 0; i < arr[iNow].length; i++) {
+                            newImg.data[4 * arr[iNow][i]] = oImg.data[4 * arr[i]];
+                            newImg.data[4 * arr[iNow][i] + 1] = oImg.data[4 * arr[iNow][i] + 1];
+                            newImg.data[4 * arr[iNow][i] + 2] = oImg.data[4 * arr[iNow][i] + 2];
+                            newImg.data[4 * arr[iNow][i] + 3] = oImg.data[4 * arr[iNow][i] + 3];
+                        }
+
+                        oGc.putImageData(newImg, (oC.width - w) / 2, (oC.height - h) / 2);
+
+                        if (iNow == 9) {
+                            iNow = 0;
+                            clearInterval(timer); 
+                        }
+                        else {
+                            iNow++;
+                        }
+
+                    }, 200);
+                };
+            }
+
+            function randomArr(iAll, iNow) {
+                var arr = [];//20000个像素点
+                var allArr = [];
+                for (var i = 0; i < iAll; i++) {
+                    arr.push(i);
+                }
+
+                //每次显示1/10 的符合数组
+                for (var j = 0; j < iAll / iNow; j++) {
+                    var newArr = [];
+                    for (var i = 0; i < iNow; i++) {
+                        //每次从总数随机取一个像素并存到新数组
+                        newArr.push(arr.splice(Math.floor(Math.random() * arr.length), 1));
+                    }
+                    allArr.push(newArr);
+                }
+
+                return allArr;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="">
+        
+        <canvas id="c1" width="400" height="400">
+            
+        </canvas>
+        <ul style=" float:left;">
+                <li>文稿</li>
+                <li>串联单</li>
+                <li>素材</li>
+                <li>音频</li>
+                <li>视频</li>
+            </ul>
+    </div>
+</body>
+</html>

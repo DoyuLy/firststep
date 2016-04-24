@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>完整运动</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oDiv = document.getElementById('div1');
+
+            oDiv.onmouseover = function () {
+                stratMove(this, 'width', 300, function () {
+                    stratMove(oDiv, 'height', 300, function () {
+                        stratMove(oDiv, 'opacity', 100);
+                    });
+                });
+            }
+
+            oDiv.onmouseout = function () {
+                alert(this); //oDiv
+                //函数嵌套会造成this句柄改变(4类)
+                //处理方式1，'相对的'全局_this变量
+                //处理方式2. 在回调处使用 fn.call(obj) or fn.apply(obj) IE会导致fn绑定到window
+                var _this = this;
+                stratMove(_this, 'opacity', 60, function () {
+                    alert(this); //window
+                    stratMove(_this, 'height', 100, function () {
+                        alert(this); //window
+                        stratMove(oDiv, 'width', 100);
+                    })
+                })
+            }
+        }
+
+        function stratMove(obj, attr, iTarget ,fn) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                //var iCur = parseInt(getStyle(obj, attr)); //用getStyle替换offsetWidth
+                //增加处理透明度
+                var bStop = true;
+                var iCur = 0;
+                if (attr == 'opacity') {
+                    iCur = parseInt(parseFloat(getStyle(obj, attr)) * 100); //避免计算机浮点精确问题(干掉16位浮点小数)
+                }
+                else {
+                    iCur = parseInt(getStyle(obj, attr));
+                }
+
+                var iSpeed = (iTarget - iCur) / 8; //obj.offsetWidth
+                iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+
+                //运动结束时,清掉定时器
+                if (iCur == iTarget) { //obj.offsetWidth=iCur
+                    clearInterval(obj.timer);
+                    if (fn) {
+                        //fn();
+                        fn.call(obj);//或 fn.applay(obj);
+                    }
+                }
+                else {//没结束则运动
+
+                    if (attr == 'opacity') {
+                        obj.style.filter = 'alpha(opacity:' + (iCur + iSpeed) + ')';
+                        obj.style.opacity = (iCur + iSpeed) / 100;
+                    }
+                    else {
+                        obj.style[attr] = iCur + iSpeed + 'px'; //obj.offsetWidth
+                    }
+                }
+            }, 10);
+        }
+
+        function getStyle(obj, attr) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[attr];
+            }
+            else {
+                return getComputedStyle(obj, false)[attr];
+            }
+        }
+
+        function setStyle(obj, json) {
+            for (attr in json) {
+                obj.style[attr] = json[attr];
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id='div1' style=' width:100px; height:100px; position:absolute; background:red; opacity:0.6;filter:alpha(opacity:60)'></div>
+</body>
+</html>

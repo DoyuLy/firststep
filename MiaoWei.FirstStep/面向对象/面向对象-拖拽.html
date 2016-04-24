@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        #div1{ width: 100px;height: 100px;background: red;position: absolute;top: 0;left: 0;}
+        #div2{ width: 100px;height: 100px;background: yellow;position: absolute;top: 0;left: 100px;}
+    </style>
+    <script>
+        window.onload= function() {
+            var oDiv1 = new Drag('div1');
+            oDiv1.init();
+
+            function Drag(id) {
+                this.obj = document.getElementById(id);
+                this.disX = 0;
+                this.disY = 0;
+                //this.init();
+            };
+
+            Drag.prototype = {
+
+                constructor: this, //修正构造函数指向(Object-->drag)
+
+                init: function () {
+                    var _this = this;
+                    this.obj.onmousedown = function(ev) {
+                        var ev = ev || window.event;
+                        _this.fnDown(ev);
+
+                        document.onmousemove = function(ev) {
+                            var ev = ev || window.event;;
+                            _this.fnMove(ev);
+                        };
+                        document.onmouseup = function() {
+                            _this.fnUp();
+                        };
+                        return false;
+                    };
+                },
+                fnDown: function(ev) {
+                    //setCapture 拦截其他元素的事件
+                    if (this.obj.setCapture)
+                        this.obj.setCapture();
+                    this.disX = ev.clientX - this.obj.offsetLeft;
+                    this.disY = ev.clientY - this.obj.offsetTop;
+                },
+                fnMove: function(ev) {
+                    this.obj.style.left = ev.clientX - this.disX + 'px';
+                    this.obj.style.top = ev.clientY - this.disY + 'px';
+                },
+                fnUp: function() {
+                    document.onmousemove = document.onmouseup = null;
+                    //释放全局拦截
+                    if (this.obj.releaseCapture)
+                        this.obj.releaseCapture();
+                }
+            };
+
+        }
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+</body>
+</html>

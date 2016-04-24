@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <script>
+        
+        /*
+            拷贝继承(通用)
+            1.属性继承：需要注意this指向
+            2.方法继承：需要注意对象引用
+
+
+        */
+        
+        //父类
+        function CreatePerson(name,sex) {
+            this.name = name;
+            this.sex = sex;
+        }
+
+        CreatePerson.prototype = {
+
+            constructor: this,//修正构造函数指向(Object-->CreatePerson)
+
+            showName: function() {
+                alert(this.name);
+            }
+        };
+
+        //子类继承父类
+        function CreateStar(name, sex, job) {
+            //this指向  window-->p2
+            CreatePerson.call(this, name, sex);
+            this.job = job;
+        }
+        //方法继承 
+        //CreateStar.prototype = CreatePerson.prototype;//对象引用会造成问题
+        extend(CreateStar.prototype, CreatePerson.prototype);
+        var p2 = CreateStar('黄晓明', '男', '演员');
+
+
+        //深度对象拷贝减缩版
+        function extend(obj1, obj2) {
+            for (var attr in obj2) {
+                obj1[attr] = obj2[attr];
+            }
+        };
+    </script>
+</body>
+</html>

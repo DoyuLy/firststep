@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>运动</title>
+    <style>
+        #div1{ width: 100px;height: 100px;background: red;position: absolute;left: 0;top: 30px;}
+    </style>
+    <script>
+        
+        /*
+        运动原理:
+                ①定时器(发动机)
+                ②如何形式的运动,运动范围
+        BUG处理：
+                ①每次点击 定时器需要清理,否则产生多个定时器
+                ②注意运动范围 
+                ③小数精度(可能需要四舍五入) -->采用整数
+                ④样式兼容传参  getStyle函数
+                ⑤多物体运动,封装-->提取运动属性（需要多个定时器,互不影响）
+                ⑥多物体多值运动参数变形 --> 
+                                    可以将定时器放入attr (多人做事)
+                                    JSON格式 (否则会清除掉obj的定时器)(一人做事)
+                                    问题：多值运动 可能某个值最先到达,则定时器关闭---> 所有值到达时才关闭定时器
+       
+                ④链式运动-->回调函数同步 call来改变this指向
+                ⑤非匀速运动
+                         css认识小数;js会进行四舍五入(注意速度的正负)
+
+                ⑥布局：先以浮动布局,再以js改为定位(如此减少了css代码的大量改动)
+
+       
+       */
+        window.onload = function() {
+            var oBtn = document.getElementById('btn');
+            var oDiv = document.getElementById('div1');
+            
+            oBtn.onclick = function() {
+                startMove(oDiv);
+            };
+        };
+
+        function startMove(obj) {
+            clearInterval(obj.iTimer);
+
+            obj.iTimer = setInterval(function () {
+                if (obj.offsetLeft == 500) {
+                    clearInterval(iTimer);
+                } else {
+                    obj.style.left = obj.offsetLeft + 10 + 'px';
+                }
+            }, 30);
+        }
+    </script>
+</head>
+<body>
+    <input type="button" id="btn" value="动起来"/>
+    <div id="div1"></div>
+</body>
+</html>
